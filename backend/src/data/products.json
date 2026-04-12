@@ -1,0 +1,194 @@
+[
+  {
+    "id": "inv-001",
+    "name": "SolarMax 5000TL",
+    "category": "pv-inverters",
+    "subcategory": "string-inverters",
+    "power": "5 kW",
+    "description": "High-efficiency string inverter for residential solar systems with advanced MPPT tracking technology.",
+    "features": [
+      "Max. efficiency 98.3%",
+      "Dual MPPT tracking",
+      "IP65 protection rating",
+      "Integrated DC disconnect",
+      "Wi-Fi monitoring built-in"
+    ],
+    "specs": {
+      "maxInputVoltage": "600V DC",
+      "mppVoltageRange": "80-550V",
+      "maxInputCurrent": "12.5A per MPPT",
+      "ratedOutputPower": "5000W",
+      "maxOutputCurrent": "22A",
+      "frequency": "50/60Hz",
+      "thd": "<3%",
+      "operatingTemp": "-25°C to +60°C",
+      "weight": "16.5 kg",
+      "dimensions": "505 x 398 x 172 mm",
+      "warranty": "10 years"
+    },
+    "image": "/images/products/solarmax-5000tl.jpg",
+    "price": null,
+    "isNew": true,
+    "isFeatured": true
+  },
+  {
+    "id": "inv-002",
+    "name": "SolarMax 10000TL",
+    "category": "pv-inverters",
+    "subcategory": "string-inverters",
+    "power": "10 kW",
+    "description": "Powerful string inverter designed for commercial rooftop installations with superior grid support features.",
+    "features": [
+      "Max. efficiency 98.6%",
+      "Triple MPPT tracking",
+      "IP66 protection rating",
+      "Reactive power control",
+      "4G/Wi-Fi/Ethernet monitoring"
+    ],
+    "specs": {
+      "maxInputVoltage": "1000V DC",
+      "mppVoltageRange": "160-950V",
+      "maxInputCurrent": "15A per MPPT",
+      "ratedOutputPower": "10000W",
+      "maxOutputCurrent": "16A",
+      "frequency": "50/60Hz",
+      "thd": "<2%",
+      "operatingTemp": "-25°C to +60°C",
+      "weight": "28 kg",
+      "dimensions": "585 x 520 x 215 mm",
+      "warranty": "10 years"
+    },
+    "image": "/images/products/solarmax-10000tl.jpg",
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "inv-003",
+    "name": "SolarMax 50KTL-HV",
+    "category": "pv-inverters",
+    "subcategory": "commercial-inverters",
+    "power": "50 kW",
+    "description": "Industrial-grade three-phase inverter for large-scale commercial and utility projects.",
+    "features": [
+      "Max. efficiency 99.0%",
+      "6 MPPT inputs",
+      "IP66 outdoor rating",
+      "Built-in PID recovery",
+      "Smart I-V curve diagnosis"
+    ],
+    "specs": {
+      "maxInputVoltage": "1100V DC",
+      "mppVoltageRange": "200-1000V",
+      "maxInputCurrent": "25A per MPPT",
+      "ratedOutputPower": "50000W",
+      "maxOutputCurrent": "80A",
+      "frequency": "50/60Hz",
+      "thd": "<1.5%",
+      "operatingTemp": "-30°C to +60°C",
+      "weight": "58 kg",
+      "dimensions": "715 x 605 x 285 mm",
+      "warranty": "15 years"
+    },
+    "image": "/images/products/solarmax-50ktl.jpg",
+    "price": null,
+    "isNew": true,
+    "isFeatured": false
+  },
+  {
+    "id": "bat-001",
+    "name": "PowerVault 10",
+    "category": "energy-storage",
+    "subcategory": "residential-battery",
+    "power": "10 kWh",
+    "description": "Compact residential battery storage system for maximizing solar self-consumption and backup power.",
+    "features": [
+      "10 kWh usable capacity",
+      "LFP battery chemistry",
+      "95% round-trip efficiency",
+      "Floor or wall mounted",
+      "10-year / 6000 cycle warranty"
+    ],
+    "specs": {
+      "capacity": "10.24 kWh",
+      "usableCapacity": "10 kWh",
+      "batteryType": "LiFePO4",
+      "ratedPower": "5 kW",
+      "peakPower": "7.5 kW (10s)",
+      "voltage": "51.2V",
+      "operatingTemp": "0°C to +50°C",
+      "weight": "102 kg",
+      "dimensions": "600 x 400 x 680 mm",
+      "certifications": "IEC 62619, UN 38.3",
+      "warranty": "10 years"
+    },
+    "image": "/images/products/powervault-10.jpg",
+    "price": null,
+    "isNew": true,
+    "isFeatured": true
+  },
+  {
+    "id": "bat-002",
+    "name": "PowerVault 20 Commercial",
+    "category": "energy-storage",
+    "subcategory": "commercial-battery",
+    "power": "20 kWh",
+    "description": "Scalable commercial battery system for peak shaving, demand response, and energy arbitrage applications.",
+    "features": [
+      "20 kWh per module, scalable to 200 kWh",
+      "Advanced BMS protection",
+      "96% round-trip efficiency",
+      "Rack-mounted design",
+      "Remote cloud monitoring"
+    ],
+    "specs": {
+      "capacity": "20.48 kWh",
+      "usableCapacity": "20 kWh",
+      "batteryType": "LiFePO4",
+      "ratedPower": "10 kW",
+      "peakPower": "15 kW (10s)",
+      "voltage": "614.4V",
+      "operatingTemp": "-10°C to +50°C",
+      "weight": "198 kg",
+      "dimensions": "600 x 600 x 1600 mm",
+      "certifications": "IEC 62619, UL 9540",
+      "warranty": "15 years"
+    },
+    "image": "/images/products/powervault-20.jpg",
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "hyb-001",
+    "name": "HybridMax 8000ES",
+    "category": "hybrid-inverters",
+    "subcategory": "residential-hybrid",
+    "power": "8 kW",
+    "description": "All-in-one hybrid inverter with integrated EMS for seamless solar, battery, and grid management.",
+    "features": [
+      "8 kW solar + 8 kW battery",
+      "Seamless backup switchover <10ms",
+      "Time-of-use optimization",
+      "Generator compatible",
+      "Touch LCD display"
+    ],
+    "specs": {
+      "maxInputVoltage": "800V DC",
+      "mppVoltageRange": "120-750V",
+      "maxInputCurrent": "16A per MPPT",
+      "ratedOutputPower": "8000W",
+      "batteryVoltageRange": "44-58V",
+      "maxChargeCurrent": "120A",
+      "frequency": "50/60Hz",
+      "operatingTemp": "-25°C to +55°C",
+      "weight": "32 kg",
+      "dimensions": "550 x 450 x 200 mm",
+      "warranty": "10 years"
+    },
+    "image": "/images/products/hybridmax-8000es.jpg",
+    "price": null,
+    "isNew": true,
+    "isFeatured": true
+  }
+]

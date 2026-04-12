@@ -1,0 +1,62 @@
+[
+  {
+    "id": "news-001",
+    "title": "SolarMax Launches Next-Generation 50kW Commercial Inverter",
+    "slug": "solarmax-launches-50kw-commercial-inverter",
+    "excerpt": "Our latest SolarMax 50KTL-HV sets new benchmarks with 99% efficiency and smart I-V curve diagnosis for large-scale installations.",
+    "content": "We are proud to announce the launch of our next-generation SolarMax 50KTL-HV commercial inverter, designed to deliver industry-leading performance for large-scale solar installations. Featuring an unprecedented 99% maximum efficiency rating and six independent MPPT inputs, this three-phase inverter sets a new standard for commercial and utility-scale projects. The built-in Smart I-V Curve Diagnosis technology enables real-time string-level monitoring and fault detection, significantly reducing maintenance costs and maximizing energy yield.",
+    "category": "product-launch",
+    "date": "2026-04-10",
+    "author": "Engineering Team",
+    "image": "/images/news/50kw-launch.jpg",
+    "isFeatured": true
+  },
+  {
+    "id": "news-002",
+    "title": "Achieving IEC 62619 Certification for PowerVault Battery Series",
+    "slug": "iec-62619-certification-powervault",
+    "excerpt": "Our PowerVault residential and commercial battery systems have received IEC 62619 certification for safety and reliability.",
+    "content": "We are delighted to announce that our entire PowerVault battery storage lineup has achieved IEC 62619 certification, the international safety standard for secondary lithium cells and batteries used in industrial applications. This certification underscores our commitment to delivering safe, reliable, and high-performance energy storage solutions. All PowerVault systems feature advanced Battery Management Systems (BMS) with multi-layer protection including over-voltage, over-current, short circuit, and thermal runaway protection.",
+    "category": "certification",
+    "date": "2026-03-25",
+    "author": "Quality Assurance",
+    "image": "/images/news/iec-certification.jpg",
+    "isFeatured": true
+  },
+  {
+    "id": "news-003",
+    "title": "Global Solar Market Trends: Q1 2026 Report",
+    "slug": "global-solar-market-trends-q1-2026",
+    "excerpt": "The global solar industry continues its rapid growth trajectory with installations exceeding 580 GW in Q1 2026.",
+    "content": "The global solar photovoltaic market continues to demonstrate robust growth, with total installations in Q1 2026 surpassing 580 GW. Key trends include the rapid adoption of distributed generation in Southeast Asian markets, increasing demand for hybrid inverter solutions with integrated energy storage, and the emergence of next-generation cell technologies driving module efficiency above 24%. Our company is well-positioned to capitalize on these trends with our comprehensive product portfolio spanning residential, commercial, and utility-scale applications.",
+    "category": "industry-news",
+    "date": "2026-03-15",
+    "author": "Market Research",
+    "image": "/images/news/solar-trends.jpg",
+    "isFeatured": false
+  },
+  {
+    "id": "news-004",
+    "title": "Partnership with Vietnam National Power Grid for Smart Inverter Integration",
+    "slug": "partnership-vietnam-power-grid-smart-inverter",
+    "excerpt": "Strategic partnership to deploy smart grid-interactive inverters across Vietnam's expanding solar infrastructure.",
+    "content": "We have signed a strategic partnership agreement with the Vietnam National Power Grid Corporation to integrate our advanced smart inverter technology into the country's expanding solar energy infrastructure. This collaboration will focus on deploying our grid-interactive inverters with advanced reactive power control and frequency regulation capabilities across key solar installations in central and southern Vietnam. The initiative supports Vietnam's ambitious target of reaching 20 GW of solar capacity by 2030.",
+    "category": "partnership",
+    "date": "2026-03-01",
+    "author": "Business Development",
+    "image": "/images/news/vietnam-partnership.jpg",
+    "isFeatured": true
+  },
+  {
+    "id": "news-005",
+    "title": "Technical Workshop: Optimizing PV System Design with String Inverters",
+    "slug": "technical-workshop-pv-system-design",
+    "excerpt": "Join our upcoming technical workshop covering best practices for residential and commercial PV system design.",
+    "content": "We invite solar professionals and system designers to our upcoming technical workshop on optimizing PV system design using our string inverter portfolio. Topics will include MPPT configuration strategies, DC/AC ratio optimization, shading analysis techniques, and monitoring system setup. The workshop will feature hands-on demonstrations with our SolarMax inverter series and practical case studies from installations across the Asia-Pacific region.",
+    "category": "events",
+    "date": "2026-02-20",
+    "author": "Training Department",
+    "image": "/images/news/workshop.jpg",
+    "isFeatured": false
+  }
+]
