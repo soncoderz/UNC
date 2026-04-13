@@ -1,34 +1,21 @@
 import HeroSection from "@/components/home/HeroSection";
-import CompanyIntro from "@/components/home/CompanyIntro";
-import FeaturedProducts from "@/components/home/FeaturedProducts";
+import SolutionSection from "@/components/home/SolutionSection";
+import RndSection from "@/components/home/RndSection";
+import NewsSection from "@/components/home/NewsSection";
 
 /**
- * Trang chủ - Homepage
- * Server component: Fetch dữ liệu ở server side
+ * Trang chủ - Homepage UNC Energy
+ * Bao gồm: Hero, Lösung, R&D, News
+ * Footer (Contact Us Now) đã nằm trong layout
  */
 
-async function getFeaturedProducts() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"}/api/products?featured=true`,
-      { next: { revalidate: 60 } }
-    );
-    if (!res.ok) return [];
-    const data = await res.json();
-    return data.data || [];
-  } catch {
-    return [];
-  }
-}
-
-export default async function HomePage() {
-  const featuredProducts = await getFeaturedProducts();
-
+export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <CompanyIntro />
-      <FeaturedProducts products={featuredProducts} />
+      <SolutionSection />
+      <RndSection />
+      <NewsSection />
     </>
   );
 }

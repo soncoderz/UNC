@@ -17,26 +17,27 @@ const outfit = Outfit({
 
 export const metadata = {
   title: {
-    default: "SolarTech Energy - Powering the Future with Clean Energy",
-    template: "%s | SolarTech Energy",
+    default: "UNC Energy - A New Driving Force for Green Energy",
+    template: "%s | UNC Energy",
   },
   description:
-    "Leading manufacturer of solar inverters and energy storage systems. High-efficiency PV inverters, battery storage, and hybrid solutions for residential, commercial, and utility-scale projects.",
+    "UNC Energy - Leading manufacturer of power electronic converters, solar inverters and energy storage systems. Diseño global for residential, commercial, and industrial energy solutions.",
   keywords: [
+    "UNC Energy",
+    "power electronic converters",
     "solar inverter",
-    "PV inverter",
     "energy storage",
-    "battery storage",
     "hybrid inverter",
     "renewable energy",
-    "solar panel",
+    "Lösung",
+    "photovoltaic",
   ],
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${inter.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">
