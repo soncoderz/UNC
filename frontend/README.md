@@ -2,6 +2,12 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Create `frontend/.env.local` so the frontend calls the backend API on port `3001`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
 First, run the development server:
 
 ```bash

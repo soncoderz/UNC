@@ -64,6 +64,29 @@ Project_Dev_Web/
 
 ## 🚀 Cách chạy
 
+> Dự án đã được chuyển sang TypeScript. Source frontend/backend dùng `.ts` và `.tsx`.
+
+### 0. MongoDB
+
+Backend dùng MongoDB khi có biến môi trường `MONGODB_URI`. Nếu chưa cấu hình MongoDB, API sẽ tự fallback về dữ liệu seed JSON trong `backend/src/data` để bạn vẫn chạy demo được.
+
+Tạo file `backend/.env.local`:
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017
+MONGODB_DB=solartech_energy
+FRONTEND_URL=http://localhost:3000
+AUTO_SEED_MONGODB=true
+```
+
+Khi MongoDB trống, backend sẽ tự seed `products`, `news`, và `company` vào database ở lần gọi API đầu tiên.
+
+Tạo file `frontend/.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
+```
+
 ### 1. Backend (API Server)
 
 ```bash
@@ -98,7 +121,7 @@ npm run dev
 
 ## 🛠 Tech Stack
 
-- **Backend**: Next.js 16 (API Routes)
-- **Frontend**: Next.js 16 + Tailwind CSS v4
+- **Backend**: Next.js 16 + TypeScript + MongoDB
+- **Frontend**: Next.js 16 + TypeScript + Tailwind CSS v4
 - **Fonts**: Inter, Outfit (Google Fonts)
 - **Đa ngôn ngữ**: EN / VI / ZH

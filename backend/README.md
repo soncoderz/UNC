@@ -2,6 +2,17 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+Create `backend/.env.local` to connect MongoDB:
+
+```env
+MONGODB_URI=mongodb://127.0.0.1:27017
+MONGODB_DB=solartech_energy
+FRONTEND_URL=http://localhost:3000
+AUTO_SEED_MONGODB=true
+```
+
+If `MONGODB_URI` is not set, API routes use the JSON seed files as a local fallback.
+
 First, run the development server:
 
 ```bash
