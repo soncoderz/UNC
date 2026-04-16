@@ -1,7 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Badge from "@/components/common/Badge";
-import { getCategoryLabel } from "@/utils/formatters";
 import type { Product } from "@/types/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProductCardProps {
   product: Product;
@@ -11,6 +13,13 @@ interface ProductCardProps {
  * ProductCard - Hiển thị thông tin sản phẩm dạng card
  */
 export default function ProductCard({ product }: ProductCardProps) {
+  const { t } = useLanguage();
+  const categoryLabels: Record<Product["category"], string> = {
+    "pv-inverters": t("products.pvInverters"),
+    "energy-storage": t("products.energyStorage"),
+    "hybrid-inverters": t("products.hybridInverters"),
+  };
+
   return (
     <div className="group bg-white rounded-2xl border border-gray-light/50 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       {/* Image */}
@@ -23,8 +32,8 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Badges */}
         <div className="absolute top-3 left-3 flex gap-2">
-          {product.isNew && <Badge variant="new">NEW</Badge>}
-          <Badge variant="primary">{getCategoryLabel(product.category)}</Badge>
+          {product.isNew && <Badge variant="new">{t("common.new")}</Badge>}
+          <Badge variant="primary">{categoryLabels[product.category]}</Badge>
         </div>
       </div>
 
@@ -60,7 +69,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           href={`/products/${product.id}`}
           className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark transition-colors group/link"
         >
-          View Details
+          {t("products.viewDetails")}
           <svg
             className="w-4 h-4 group-hover/link:translate-x-1 transition-transform"
             fill="none"

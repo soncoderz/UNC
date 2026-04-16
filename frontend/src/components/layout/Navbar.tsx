@@ -1,22 +1,146 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS, COMPANY_INFO } from "@/constants/navigation";
 import useScrollPosition from "@/hooks/useScrollPosition";
+import { useLanguage } from "@/context/LanguageContext";
+
+const languageLabels = {
+  zh: "中文",
+  en: "En",
+  vi: "VI",
+  de: "DE",
+  es: "ES",
+} as const;
+
+const navLabelKeys: Record<string, string> = {
+  "/": "nav.home",
+  "/company": "nav.aboutUs",
+  "/solutions": "nav.solutions",
+  "/products": "nav.productsCenter",
+  "/rnd": "nav.rnd",
+  "/support": "nav.technicalSupport",
+  "/contact": "nav.contact",
+};
+
+const childLabelKeys: Record<string, string> = {
+  "/solutions/household": "nav.solutionHousehold",
+  "/solutions/commercial": "nav.solutionCommercial",
+  "/solutions/photovoltaic": "nav.solutionPhotovoltaic",
+  "/products?category=pv-inverters": "products.pvInverters",
+  "/products?category=energy-storage": "products.energyStorage",
+  "/products?category=hybrid-inverters": "products.hybridInverters",
+  "/rnd#capacidades": "nav.rndCapabilities",
+  "/rnd#produccion": "nav.batchProduction",
+  "/rnd#calidad": "nav.qualityAssurance",
+  "/support#technical": "nav.technicalSupport",
+  "/support#postventa": "nav.postSale",
+  "/support#download": "nav.dataDownload",
+};
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const languageSelectorRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { isScrolled } = useScrollPosition();
+  const { locale, t, switchLanguage, availableLocales } = useLanguage();
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   };
+
+  useEffect(() => {
+    if (!isLanguageOpen) return;
+
+    function handlePointerDown(event: MouseEvent | TouchEvent) {
+      if (
+        languageSelectorRef.current &&
+        !languageSelectorRef.current.contains(event.target as Node)
+      ) {
+        setIsLanguageOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsLanguageOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isLanguageOpen]);
+
+  const languageSelector = (
+    <div className="relative" ref={languageSelectorRef}>
+      <button
+        type="button"
+        onClick={() => setIsLanguageOpen((open) => !open)}
+        className={`lang-selector ${isScrolled ? "scrolled" : ""}`}
+        aria-expanded={isLanguageOpen}
+        aria-label={t("common.selectLanguage")}
+      >
+        <svg
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+        </svg>
+        <span>{languageLabels[locale]}</span>
+        <svg
+          width="12"
+          height="12"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className={`transition-transform ${isLanguageOpen ? "rotate-180" : ""}`}
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+
+      {isLanguageOpen && (
+        <div className="absolute right-0 top-full mt-2 w-32 bg-white shadow-xl border border-gray-100 py-3 z-50">
+          {availableLocales.map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              onClick={() => {
+                switchLanguage(lang);
+                setIsLanguageOpen(false);
+              }}
+              className={`block w-full px-6 py-3 text-center text-sm transition-colors ${
+                locale === lang
+                  ? "font-semibold text-primary"
+                  : "font-normal text-dark hover:text-primary hover:bg-blue-50"
+              }`}
+            >
+              {languageLabels[lang]}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <header
@@ -61,7 +185,7 @@ export default function Navbar() {
                       : "text-white/90 hover:text-white"
                   }`}
                 >
-                  {item.label}
+                  {t(navLabelKeys[item.href] || item.label)}
                   {isActive(item.href) && (
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-secondary rounded-full" />
                   )}
@@ -76,7 +200,7 @@ export default function Navbar() {
                         href={child.href}
                         className="block px-4 py-2.5 text-sm text-dark-light hover:text-primary hover:bg-blue-50 transition-colors"
                       >
-                        {child.label}
+                        {t(childLabelKeys[child.href] || child.label)}
                       </Link>
                     ))}
                   </div>
@@ -88,16 +212,7 @@ export default function Navbar() {
           {/* Language Selector + Mobile Toggle */}
           <div className="flex items-center gap-3">
             {/* Language Selector */}
-            <div className={`lang-selector hidden lg:flex ${isScrolled ? 'scrolled' : ''}`}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-              <span>ES</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M6 9l6 6 6-6"/>
-              </svg>
-            </div>
+            <div className="hidden lg:block">{languageSelector}</div>
 
             {/* Mobile Menu Button */}
             <button
@@ -105,7 +220,7 @@ export default function Navbar() {
               className={`lg:hidden p-2 rounded-lg transition-colors ${
                 isScrolled ? "text-dark" : "text-white"
               }`}
-              aria-label="Toggle menu"
+              aria-label={t("common.toggleMenu")}
             >
               <svg
                 className="w-6 h-6"
@@ -138,6 +253,22 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
           <div className="px-4 py-4 space-y-1">
+            <div className="flex items-center gap-2 px-4 pb-3 mb-2 border-b border-gray-100">
+              {availableLocales.map((lang) => (
+                <button
+                  key={lang}
+                  type="button"
+                  onClick={() => switchLanguage(lang)}
+                  className={`px-3 py-1.5 rounded-md text-sm transition-colors ${
+                    locale === lang
+                      ? "bg-primary text-white"
+                      : "text-dark-light hover:text-primary hover:bg-blue-50"
+                  }`}
+                >
+                  {languageLabels[lang]}
+                </button>
+              ))}
+            </div>
             {NAV_ITEMS.map((item) => (
               <div key={item.href}>
                 <Link
@@ -149,7 +280,7 @@ export default function Navbar() {
                       : "text-dark-light hover:text-primary hover:bg-blue-50"
                   }`}
                 >
-                  {item.label}
+                  {t(navLabelKeys[item.href] || item.label)}
                 </Link>
                 {item.children && (
                   <div className="ml-4 mt-1 space-y-1">
@@ -160,7 +291,7 @@ export default function Navbar() {
                         onClick={() => setIsMobileMenuOpen(false)}
                         className="block px-4 py-2 text-sm text-gray hover:text-primary transition-colors"
                       >
-                        {child.label}
+                        {t(childLabelKeys[child.href] || child.label)}
                       </Link>
                     ))}
                   </div>

@@ -553,6 +553,9 @@ img {
   cursor: pointer;
   font-size: 0.875rem;
   color: white;
+  background: transparent;
+  border: 0;
+  padding: 0;
   transition: opacity 0.3s;
 }
 

@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { PRODUCT_CATEGORIES } from "@/constants/navigation";
 import { getProducts } from "@/services/api";
 import type { Product, ProductCategory } from "@/types/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 function isProductCategory(value: string | null): value is ProductCategory {
   return PRODUCT_CATEGORIES.some((category) => category.id === value);
@@ -17,6 +18,7 @@ function ProductsContent() {
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<ProductCategory | null>(null);
   const searchParams = useSearchParams();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const category = searchParams.get("category");
@@ -45,12 +47,10 @@ function ProductsContent() {
       <section className="pt-28 pb-12 bg-gradient-to-br from-dark via-dark-light to-primary-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-4">
-            Our Products
+            {t("products.title")}
           </h1>
           <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            Innovative solar inverters and energy storage solutions for every
-            application — from residential rooftops to utility-scale power
-            plants.
+            {t("products.subtitle")}
           </p>
         </div>
       </section>
@@ -70,7 +70,7 @@ function ProductsContent() {
           {loading ? (
             <div className="text-center py-20">
               <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-gray">Loading products...</p>
+              <p className="text-gray">{t("products.loading")}</p>
             </div>
           ) : products.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -81,7 +81,7 @@ function ProductsContent() {
           ) : (
             <div className="text-center py-20">
               <p className="text-gray text-lg">
-                No products found in this category.
+                {t("products.noProducts")}
               </p>
             </div>
           )}
@@ -92,13 +92,15 @@ function ProductsContent() {
 }
 
 export default function ProductsPage() {
+  const { t } = useLanguage();
+
   return (
     <Suspense
       fallback={
         <section className="pt-28 pb-20 bg-light min-h-screen flex items-center justify-center">
           <div className="text-center">
             <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-gray">Loading products...</p>
+            <p className="text-gray">{t("products.loading")}</p>
           </div>
         </section>
       }

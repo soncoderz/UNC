@@ -1,37 +1,40 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import type { Metadata } from "next";
 import Badge from "@/components/common/Badge";
 import { formatDate } from "@/utils/formatters";
-import type { ApiResponse, NewsArticle } from "@/types/api";
+import type { NewsArticle } from "@/types/api";
+import { getNews } from "@/services/api";
+import { useLanguage } from "@/context/LanguageContext";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+export default function NewsPage() {
+  const [news, setNews] = useState<NewsArticle[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { t } = useLanguage();
 
-export const metadata: Metadata = {
-  title: "News & Updates",
-  description:
-    "Latest news, product launches, and industry insights from SolarTech Energy.",
-};
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        setLoading(true);
+        const response = await getNews();
+        setNews(response.data || []);
+      } catch {
+        setNews([]);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-async function getNews(): Promise<NewsArticle[]> {
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/news`, { next: { revalidate: 60 } });
-    if (!res.ok) return [];
-    const data = (await res.json()) as ApiResponse<NewsArticle[]>;
-    return data.data || [];
-  } catch {
-    return [];
-  }
-}
-
-export default async function NewsPage() {
-  const news = await getNews();
+    void fetchNews();
+  }, []);
 
   const categoryLabels: Record<string, string> = {
-    "product-launch": "Product Launch",
-    certification: "Certification",
-    "industry-news": "Industry News",
-    partnership: "Partnership",
-    events: "Events",
+    "product-launch": t("news.productLaunch"),
+    certification: t("news.certification"),
+    "industry-news": t("news.industryNews"),
+    partnership: t("news.partnership"),
+    events: t("news.events"),
   };
 
   return (
@@ -40,11 +43,10 @@ export default async function NewsPage() {
       <section className="pt-28 pb-12 bg-gradient-to-br from-dark via-dark-light to-primary-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-4">
-            News & Updates
+            {t("news.title")}
           </h1>
           <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            Stay informed with the latest product launches, certifications, and
-            industry insights.
+            {t("news.subtitle")}
           </p>
         </div>
       </section>
@@ -52,7 +54,12 @@ export default async function NewsPage() {
       {/* News Grid */}
       <section className="py-16 bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {news.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-20">
+              <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
+              <p className="text-gray">{t("common.loading")}</p>
+            </div>
+          ) : news.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {news.map((article) => (
                 <article
@@ -84,7 +91,7 @@ export default async function NewsPage() {
                       href={`/news/${article.id}`}
                       className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
                     >
-                      Read More →
+                      {t("common.readMore")} →
                     </Link>
                   </div>
                 </article>
@@ -92,7 +99,7 @@ export default async function NewsPage() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <p className="text-gray text-lg">No news articles available.</p>
+              <p className="text-gray text-lg">{t("news.noArticles")}</p>
             </div>
           )}
         </div>

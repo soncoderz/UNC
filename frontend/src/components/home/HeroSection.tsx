@@ -2,12 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * HeroSection - Banner chính trang chủ giống UNC Energy
  * Background xanh dương gradient với 3D cube illustration
  */
 export default function HeroSection() {
+  const { t } = useLanguage();
+
   return (
     <section className="hero-section flex items-center" id="hero">
       {/* Light effects */}
@@ -22,13 +25,13 @@ export default function HeroSection() {
           {/* Left Content */}
           <div>
             <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-heading font-extrabold text-white leading-tight mb-6">
-              Diseño global
+              {t("home.globalDesign")}
             </h1>
             <p className="text-lg sm:text-xl text-white/90 leading-relaxed mb-8 max-w-md">
-              Conviértase en líder en convertidores electrónicos de potencia
+              {t("home.powerConverterLeader")}
             </p>
             <Link href="/products" className="btn-orange">
-              Más
+              {t("common.more")}
             </Link>
           </div>
 

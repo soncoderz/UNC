@@ -1,7 +1,39 @@
+"use client";
+
 import Link from "next/link";
 import { COMPANY_INFO, FOOTER_LINKS } from "@/constants/navigation";
+import { useLanguage } from "@/context/LanguageContext";
+
+const footerTitleKeys: Record<string, string> = {
+  aboutUs: "nav.aboutUs",
+  losung: "nav.solutions",
+  products: "nav.productsCenter",
+  rnd: "nav.rnd",
+  support: "nav.technicalSupport",
+};
+
+const footerLinkKeys: Record<string, string> = {
+  "/company#hitu": "nav.aboutUs",
+  "/company#honor": "company.certificationsTitle",
+  "/company#intro": "company.storyTitle",
+  "/news": "news.title",
+  "/solutions/household": "nav.solutionHousehold",
+  "/solutions/commercial": "nav.solutionCommercial",
+  "/solutions/photovoltaic": "nav.solutionPhotovoltaic",
+  "/products?category=pv-inverters": "products.pvInverters",
+  "/products?category=energy-storage": "products.energyStorage",
+  "/products?category=hybrid-inverters": "products.hybridInverters",
+  "/rnd#capacidades": "nav.rndCapabilities",
+  "/rnd#produccion": "nav.batchProduction",
+  "/rnd#calidad": "nav.qualityAssurance",
+  "/support#technical": "nav.technicalSupport",
+  "/support#postventa": "nav.postSale",
+  "/support#download": "nav.dataDownload",
+};
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer>
       {/* Contact Us Now Section */}
@@ -9,30 +41,32 @@ export default function Footer() {
         <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-2">Contact Us Now</h2>
+              <h2 className="text-3xl font-bold text-white mb-2">
+                {t("footer.contactNow")}
+              </h2>
               <p className="text-white/70 text-sm">{COMPANY_INFO.slogan}</p>
             </div>
             <div className="flex flex-col sm:flex-row items-stretch gap-0 bg-white rounded-lg overflow-hidden shadow-lg w-full lg:w-auto">
               <input
                 type="text"
-                placeholder="Name"
+                placeholder={t("footer.name")}
                 className="contact-form-input border-r-0 rounded-none"
                 id="contact-name"
               />
               <input
                 type="tel"
-                placeholder="Telephone"
+                placeholder={t("footer.telephone")}
                 className="contact-form-input border-r-0 rounded-none"
                 id="contact-phone"
               />
               <input
                 type="text"
-                placeholder="Counseling"
+                placeholder={t("footer.counseling")}
                 className="contact-form-input rounded-none"
                 id="contact-message"
               />
               <button className="contact-form-btn rounded-none lg:rounded-r-lg" id="contact-submit">
-                Sending
+                {t("footer.sending")}
               </button>
             </div>
           </div>
@@ -51,7 +85,7 @@ export default function Footer() {
                 </svg>
               </div>
               <div>
-                <div className="contact-info-label">Address</div>
+                <div className="contact-info-label">{t("contact.address")}</div>
                 <div className="contact-info-value">{COMPANY_INFO.address}</div>
               </div>
             </div>
@@ -64,7 +98,7 @@ export default function Footer() {
                 </svg>
               </div>
               <div>
-                <div className="contact-info-label">Hotline</div>
+                <div className="contact-info-label">{t("footer.hotline")}</div>
                 <div className="contact-info-value">{COMPANY_INFO.phone}</div>
               </div>
             </div>
@@ -77,7 +111,7 @@ export default function Footer() {
                 </svg>
               </div>
               <div>
-                <div className="contact-info-label">Email</div>
+                <div className="contact-info-label">{t("contact.email")}</div>
                 <div className="contact-info-value">{COMPANY_INFO.email}</div>
               </div>
             </div>
@@ -98,11 +132,11 @@ export default function Footer() {
           <div className="footer-grid">
             {/* About Us */}
             <div>
-              <h4 className="footer-col-title">{FOOTER_LINKS.aboutUs.title}</h4>
+              <h4 className="footer-col-title">{t(footerTitleKeys.aboutUs)}</h4>
               <ul className="footer-col-links">
                 {FOOTER_LINKS.aboutUs.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
+                    <Link href={link.href}>{t(footerLinkKeys[link.href] || link.label)}</Link>
                   </li>
                 ))}
               </ul>
@@ -110,11 +144,11 @@ export default function Footer() {
 
             {/* Lösung */}
             <div>
-              <h4 className="footer-col-title">{FOOTER_LINKS.losung.title}</h4>
+              <h4 className="footer-col-title">{t(footerTitleKeys.losung)}</h4>
               <ul className="footer-col-links">
                 {FOOTER_LINKS.losung.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
+                    <Link href={link.href}>{t(footerLinkKeys[link.href] || link.label)}</Link>
                   </li>
                 ))}
               </ul>
@@ -122,11 +156,11 @@ export default function Footer() {
 
             {/* Centro de productos */}
             <div>
-              <h4 className="footer-col-title">{FOOTER_LINKS.products.title}</h4>
+              <h4 className="footer-col-title">{t(footerTitleKeys.products)}</h4>
               <ul className="footer-col-links">
                 {FOOTER_LINKS.products.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
+                    <Link href={link.href}>{t(footerLinkKeys[link.href] || link.label)}</Link>
                   </li>
                 ))}
               </ul>
@@ -134,11 +168,11 @@ export default function Footer() {
 
             {/* R&D and Manufacturing */}
             <div>
-              <h4 className="footer-col-title">{FOOTER_LINKS.rnd.title}</h4>
+              <h4 className="footer-col-title">{t(footerTitleKeys.rnd)}</h4>
               <ul className="footer-col-links">
                 {FOOTER_LINKS.rnd.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
+                    <Link href={link.href}>{t(footerLinkKeys[link.href] || link.label)}</Link>
                   </li>
                 ))}
               </ul>
@@ -146,11 +180,11 @@ export default function Footer() {
 
             {/* Apoyo técnico */}
             <div>
-              <h4 className="footer-col-title">{FOOTER_LINKS.support.title}</h4>
+              <h4 className="footer-col-title">{t(footerTitleKeys.support)}</h4>
               <ul className="footer-col-links">
                 {FOOTER_LINKS.support.links.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href}>{link.label}</Link>
+                    <Link href={link.href}>{t(footerLinkKeys[link.href] || link.label)}</Link>
                   </li>
                 ))}
               </ul>
@@ -158,7 +192,7 @@ export default function Footer() {
 
             {/* Contact Us */}
             <div>
-              <h4 className="footer-col-title">Contact Us</h4>
+              <h4 className="footer-col-title">{t("nav.contact")}</h4>
             </div>
 
             {/* QR Code */}

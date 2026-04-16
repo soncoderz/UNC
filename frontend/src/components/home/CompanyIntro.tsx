@@ -1,9 +1,14 @@
+"use client";
+
 import Button from "@/components/common/Button";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * CompanyIntro - Giới thiệu công ty trên trang chủ
  */
 export default function CompanyIntro() {
+  const { t } = useLanguage();
+
   const values = [
     {
       icon: "💡",
@@ -36,10 +41,9 @@ export default function CompanyIntro() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="section-title">Why Choose SolarTech Energy</h2>
+          <h2 className="section-title">{t("company.title")}</h2>
           <p className="section-subtitle">
-            With 15+ years of innovation, we deliver world-class solar solutions
-            trusted by installers and project developers in over 30 countries.
+            {t("company.subtitle")}
           </p>
         </div>
 
@@ -66,7 +70,7 @@ export default function CompanyIntro() {
         {/* CTA */}
         <div className="text-center">
           <Button href="/company" variant="outline">
-            Learn More About Us
+            {t("common.learnMore")}
           </Button>
         </div>
       </div>

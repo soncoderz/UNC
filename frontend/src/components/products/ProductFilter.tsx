@@ -2,6 +2,7 @@
 
 import { PRODUCT_CATEGORIES } from "@/constants/navigation";
 import type { ProductCategory } from "@/types/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProductFilterProps {
   activeCategory: ProductCategory | null;
@@ -15,6 +16,13 @@ export default function ProductFilter({
   activeCategory,
   onCategoryChange,
 }: ProductFilterProps) {
+  const { t } = useLanguage();
+  const categoryLabels: Record<ProductCategory, string> = {
+    "pv-inverters": t("products.pvInverters"),
+    "energy-storage": t("products.energyStorage"),
+    "hybrid-inverters": t("products.hybridInverters"),
+  };
+
   return (
     <div className="flex flex-wrap items-center justify-center gap-3">
       <button
@@ -25,7 +33,7 @@ export default function ProductFilter({
             : "bg-white text-gray border border-gray-light hover:border-primary hover:text-primary"
         }`}
       >
-        All Products
+        {t("products.allProducts")}
       </button>
 
       {PRODUCT_CATEGORIES.map((category) => (
@@ -39,7 +47,7 @@ export default function ProductFilter({
           }`}
         >
           <span>{category.icon}</span>
-          {category.label}
+          {categoryLabels[category.id]}
         </button>
       ))}
     </div>

@@ -1,18 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * NewsSection - Noticias corporativas section giống UNC Energy
  * Hiển thị tin tức công ty
  */
 export default function NewsSection() {
+  const { t } = useLanguage();
+
   const news = [
     {
       id: 1,
       image: "/news-product.png",
       date: "2024-02-15",
       title: "uneng ...",
-      category: "Noticias corporativas",
+      category: t("home.corporateNews"),
       href: "/news/1",
     },
     {
@@ -20,7 +25,7 @@ export default function NewsSection() {
       image: "/news-exhibition.png",
       date: "2024-03-02",
       title: "New Upgrade, Deep Empowerment - Qingdao Youneng Chuang Debuts at the...",
-      category: "Noticias corporativas",
+      category: t("home.corporateNews"),
       href: "/news/2",
     },
     {
@@ -28,7 +33,7 @@ export default function NewsSection() {
       image: "/news-certification.png",
       date: "2025-04-25",
       title: "UNC's Residential hybrid inverter obtained the TÜV Rheinland cert...",
-      category: "Noticias corporativas",
+      category: t("home.corporateNews"),
       href: "/news/3",
     },
   ];
@@ -38,7 +43,7 @@ export default function NewsSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-dark">Noticias corporativas</h2>
+          <h2 className="text-3xl font-bold text-dark">{t("home.corporateNews")}</h2>
         </div>
 
         {/* News Grid */}
@@ -76,7 +81,7 @@ export default function NewsSection() {
         {/* CTA */}
         <div className="text-center">
           <Link href="/news" className="btn-blue">
-            Más
+            {t("common.more")}
           </Link>
         </div>
       </div>

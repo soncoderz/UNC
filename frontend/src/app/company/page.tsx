@@ -1,19 +1,17 @@
-import Button from "@/components/common/Button";
+"use client";
 
-export const metadata = {
-  title: "About Us",
-  description:
-    "Learn about SolarTech Energy - 15+ years of innovation in solar inverters and energy storage systems.",
-};
+import Button from "@/components/common/Button";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function CompanyPage() {
+  const { t } = useLanguage();
   const milestones = [
-    { year: "2011", event: "Company founded in Ho Chi Minh City" },
-    { year: "2014", event: "First 1 GW of inverters shipped globally" },
-    { year: "2017", event: "Launched energy storage product line" },
-    { year: "2019", event: "Achieved TÜV Rheinland certification" },
-    { year: "2022", event: "Expanded to 30+ countries worldwide" },
-    { year: "2025", event: "Surpassed 10 GW total global shipments" },
+    { year: "2011", event: t("company.milestone2011") },
+    { year: "2014", event: t("company.milestone2014") },
+    { year: "2017", event: t("company.milestone2017") },
+    { year: "2019", event: t("company.milestone2019") },
+    { year: "2022", event: t("company.milestone2022") },
+    { year: "2025", event: t("company.milestone2025") },
   ];
 
   const certifications = [
@@ -33,11 +31,10 @@ export default function CompanyPage() {
       <section className="pt-28 pb-16 bg-gradient-to-br from-dark via-dark-light to-primary-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-4">
-            About SolarTech Energy
+            {t("company.heroTitle")}
           </h1>
           <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            15+ years of innovation in renewable energy, delivering
-            world-class solar solutions trusted by partners worldwide.
+            {t("company.heroSubtitle")}
           </p>
         </div>
       </section>
@@ -48,22 +45,16 @@ export default function CompanyPage() {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-3xl font-heading font-bold text-dark mb-6">
-                Our Story
+                {t("company.storyTitle")}
               </h2>
               <p className="text-gray leading-relaxed mb-4">
-                Founded in 2011, SolarTech Energy has grown from a small R&D
-                team to a leading manufacturer of solar inverters and energy
-                storage systems. Our commitment to innovation, quality, and
-                sustainability has driven us to develop cutting-edge solutions
-                that power millions of homes and businesses worldwide.
+                {t("company.storyP1")}
               </p>
               <p className="text-gray leading-relaxed mb-6">
-                With over 500 employees, state-of-the-art manufacturing
-                facilities, and a global presence spanning 30+ countries, we
-                continue to push the boundaries of renewable energy technology.
+                {t("company.storyP2")}
               </p>
               <Button href="/contact" variant="primary">
-                Partner With Us
+                {t("company.partnerCta")}
               </Button>
             </div>
             <div className="bg-gradient-to-br from-primary/10 to-accent/10 rounded-2xl h-80 flex items-center justify-center">
@@ -76,7 +67,7 @@ export default function CompanyPage() {
       {/* Milestones */}
       <section className="py-20 bg-light">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="section-title mb-12">Our Journey</h2>
+          <h2 className="section-title mb-12">{t("company.journeyTitle")}</h2>
           <div className="space-y-6">
             {milestones.map((milestone) => (
               <div
@@ -101,10 +92,9 @@ export default function CompanyPage() {
       {/* Certifications */}
       <section id="certifications" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="section-title mb-4">Certifications & Standards</h2>
+          <h2 className="section-title mb-4">{t("company.certificationsTitle")}</h2>
           <p className="section-subtitle">
-            Our products meet the highest international safety and quality
-            standards.
+            {t("company.certificationsSubtitle")}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             {certifications.map((cert) => (

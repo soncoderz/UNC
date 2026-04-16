@@ -1,4 +1,7 @@
+"use client";
+
 import { formatSpecLabel } from "@/utils/formatters";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface ProductSpecsProps {
   specs?: Record<string, string>;
@@ -8,13 +11,15 @@ interface ProductSpecsProps {
  * ProductSpecs - Bảng thông số kỹ thuật sản phẩm
  */
 export default function ProductSpecs({ specs }: ProductSpecsProps) {
+  const { t } = useLanguage();
+
   if (!specs) return null;
 
   return (
     <div className="bg-white rounded-2xl border border-gray-light/50 overflow-hidden">
       <div className="px-6 py-4 bg-gradient-to-r from-primary to-primary-light">
         <h3 className="font-heading font-bold text-lg text-white">
-          Technical Specifications
+          {t("products.technicalSpecifications")}
         </h3>
       </div>
       <div className="divide-y divide-gray-light/50">

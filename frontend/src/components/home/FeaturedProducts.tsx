@@ -1,6 +1,9 @@
+"use client";
+
 import ProductCard from "@/components/products/ProductCard";
 import Button from "@/components/common/Button";
 import type { Product } from "@/types/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface FeaturedProductsProps {
   products?: Product[];
@@ -10,15 +13,16 @@ interface FeaturedProductsProps {
  * FeaturedProducts - Sản phẩm nổi bật trên trang chủ
  */
 export default function FeaturedProducts({ products = [] }: FeaturedProductsProps) {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20 lg:py-28 bg-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="section-title">Featured Products</h2>
+          <h2 className="section-title">{t("products.title")}</h2>
           <p className="section-subtitle">
-            Discover our latest innovations in solar inverters and energy storage
-            systems designed for maximum performance and reliability.
+            {t("products.subtitle")}
           </p>
         </div>
 
@@ -31,14 +35,14 @@ export default function FeaturedProducts({ products = [] }: FeaturedProductsProp
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray">Loading products...</p>
+            <p className="text-gray">{t("products.loading")}</p>
           </div>
         )}
 
         {/* CTA */}
         <div className="text-center">
           <Button href="/products" variant="primary" size="lg">
-            View All Products
+            {t("products.allProducts")}
             <svg
               className="w-5 h-5"
               fill="none"

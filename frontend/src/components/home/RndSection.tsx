@@ -1,11 +1,16 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * RndSection - R&D and Manufacturing section giống UNC Energy
  * Hiển thị chứng chỉ và thống kê
  */
 export default function RndSection() {
+  const { t } = useLanguage();
+
   const stats = [
     {
       icon: (
@@ -66,25 +71,27 @@ export default function RndSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
           {/* Left content */}
           <div>
-            <h2 className="text-3xl font-bold text-dark mb-3">R&D and Manufacturing</h2>
+            <h2 className="text-3xl font-bold text-dark mb-3">
+              {t("home.rndTitle")}
+            </h2>
             <p className="text-sm text-gray mb-8">
-              Research and innovation, forging the future of electricity
+              {t("home.rndSubtitle")}
             </p>
 
             <div className="space-y-4 mb-8">
               <p className="text-sm text-gray leading-relaxed">
-                Always regard quality as the core of survival and development.
+                {t("home.rndParagraph1")}
               </p>
               <p className="text-sm text-gray leading-relaxed">
-                Has passed the ISO900 international quality management system certification.
+                {t("home.rndParagraph2")}
               </p>
               <p className="text-sm text-gray leading-relaxed">
-                Multiple international certifications such as ISO 14001 environmental management system certification.
+                {t("home.rndParagraph3")}
               </p>
             </div>
 
             <Link href="/rnd" className="btn-orange">
-              Más
+              {t("common.more")}
             </Link>
           </div>
 

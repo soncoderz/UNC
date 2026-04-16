@@ -1,54 +1,46 @@
-import Button from "@/components/common/Button";
+"use client";
 
-export const metadata = {
-  title: "Technical Support",
-  description:
-    "Technical documentation, downloads, manuals, and support resources for SolarTech Energy products.",
-};
+import Button from "@/components/common/Button";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function SupportPage() {
+  const { t } = useLanguage();
   const resources = [
     {
       icon: "📄",
-      title: "Product Datasheets",
-      description:
-        "Download detailed technical specifications and datasheets for all our inverter and storage products.",
-      action: "Browse Datasheets",
+      title: t("support.datasheetsTitle"),
+      description: t("support.datasheetsDescription"),
+      action: t("support.datasheetsAction"),
     },
     {
       icon: "📘",
-      title: "Installation Manuals",
-      description:
-        "Step-by-step installation guides and wiring diagrams for safe and efficient product setup.",
-      action: "View Manuals",
+      title: t("support.manualsTitle"),
+      description: t("support.manualsDescription"),
+      action: t("support.manualsAction"),
     },
     {
       icon: "💻",
-      title: "Software & Firmware",
-      description:
-        "Download the latest monitoring software, firmware updates, and configuration tools.",
-      action: "Download Software",
+      title: t("support.softwareTitle"),
+      description: t("support.softwareDescription"),
+      action: t("support.softwareAction"),
     },
     {
       icon: "🎥",
-      title: "Video Tutorials",
-      description:
-        "Watch installation walkthroughs, troubleshooting guides, and product demonstration videos.",
-      action: "Watch Videos",
+      title: t("support.videosTitle"),
+      description: t("support.videosDescription"),
+      action: t("support.videosAction"),
     },
     {
       icon: "❓",
-      title: "FAQ",
-      description:
-        "Find answers to the most commonly asked questions about our products and services.",
-      action: "View FAQ",
+      title: t("support.faqTitle"),
+      description: t("support.faqDescription"),
+      action: t("support.faqAction"),
     },
     {
       icon: "🎓",
-      title: "Training Programs",
-      description:
-        "Register for online and in-person technical training sessions for installers and engineers.",
-      action: "Register Now",
+      title: t("support.trainingTitle"),
+      description: t("support.trainingDescription"),
+      action: t("support.trainingAction"),
     },
   ];
 
@@ -58,11 +50,10 @@ export default function SupportPage() {
       <section className="pt-28 pb-12 bg-gradient-to-br from-dark via-dark-light to-primary-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-4">
-            Technical Support
+            {t("support.title")}
           </h1>
           <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            Access product documentation, downloads, training resources, and
-            expert technical support.
+            {t("support.subtitle")}
           </p>
         </div>
       </section>
@@ -98,18 +89,17 @@ export default function SupportPage() {
       <section className="py-16 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-heading font-bold text-dark mb-4">
-            Need Direct Support?
+            {t("support.directTitle")}
           </h2>
           <p className="text-gray mb-8">
-            Our technical support team is available to help you with
-            installation, commissioning, and troubleshooting.
+            {t("support.directText")}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button href="/contact" variant="primary" size="lg">
-              Contact Support Team
+              {t("support.contactTeam")}
             </Button>
             <Button href="tel:+842812345678" variant="outline" size="lg">
-              📞 Call Hotline
+              📞 {t("support.callHotline")}
             </Button>
           </div>
         </div>

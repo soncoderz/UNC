@@ -1,55 +1,62 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import ProductSpecs from "@/components/products/ProductSpecs";
 import Badge from "@/components/common/Badge";
 import Button from "@/components/common/Button";
-import { getCategoryLabel } from "@/utils/formatters";
-import type { Metadata } from "next";
-import type { ApiResponse, Product } from "@/types/api";
+import { getProductById } from "@/services/api";
+import type { Product } from "@/types/api";
+import { useLanguage } from "@/context/LanguageContext";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+export default function ProductDetailPage() {
+  const params = useParams<{ id: string }>();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const { t } = useLanguage();
 
-type ProductDetailPageProps = {
-  params: Promise<{ id: string }>;
-};
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        setLoading(true);
+        const response = await getProductById(params.id);
+        setProduct(response.data || null);
+      } catch {
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-/**
- * Product Detail Page - Server Component
- */
+    void fetchProduct();
+  }, [params.id]);
 
-async function getProduct(id: string): Promise<Product | null> {
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/products/${id}`, { next: { revalidate: 60 } });
-    if (!res.ok) return null;
-    const data = (await res.json()) as ApiResponse<Product>;
-    return data.data || null;
-  } catch {
-    return null;
-  }
-}
-
-export async function generateMetadata({
-  params,
-}: ProductDetailPageProps): Promise<Metadata> {
-  const { id } = await params;
-  const product = await getProduct(id);
-  return {
-    title: product?.name || "Product Details",
-    description: product?.description || "Product details page",
+  const categoryLabels: Record<Product["category"], string> = {
+    "pv-inverters": t("products.pvInverters"),
+    "energy-storage": t("products.energyStorage"),
+    "hybrid-inverters": t("products.hybridInverters"),
   };
-}
 
-export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const { id } = await params;
-  const product = await getProduct(id);
+  if (loading) {
+    return (
+      <section className="pt-28 pb-20 bg-light min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray">{t("products.loading")}</p>
+        </div>
+      </section>
+    );
+  }
 
   if (!product) {
     return (
       <section className="pt-28 pb-20 bg-light min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-heading font-bold text-dark mb-4">
-            Product Not Found
+            {t("products.detailNotFound")}
           </h1>
           <Button href="/products" variant="primary">
-            Back to Products
+            {t("products.backToProducts")}
           </Button>
         </div>
       </section>
@@ -58,20 +65,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
   return (
     <>
-      {/* Header */}
       <section className="pt-28 pb-8 bg-gradient-to-br from-dark via-dark-light to-primary-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Button href="/products" variant="ghost" className="text-white/70 hover:text-white mb-4">
-            ← Back to Products
+            ← {t("products.backToProducts")}
           </Button>
         </div>
       </section>
 
-      {/* Product Content */}
       <section className="pb-20 bg-light">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12">
           <div className="grid lg:grid-cols-2 gap-10">
-            {/* Left - Image */}
             <div className="bg-white rounded-2xl border border-gray-light/50 p-8 flex items-center justify-center min-h-[400px]">
               <div className="text-center">
                 <div className="text-8xl mb-4 opacity-40">
@@ -79,17 +83,14 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                   {product.category === "energy-storage" && "🔋"}
                   {product.category === "hybrid-inverters" && "🔄"}
                 </div>
-                <p className="text-sm text-gray">Product Image</p>
+                <p className="text-sm text-gray">{t("products.productImage")}</p>
               </div>
             </div>
 
-            {/* Right - Info */}
             <div>
               <div className="flex flex-wrap gap-2 mb-4">
-                {product.isNew && <Badge variant="new">NEW</Badge>}
-                <Badge variant="primary">
-                  {getCategoryLabel(product.category)}
-                </Badge>
+                {product.isNew && <Badge variant="new">{t("common.new")}</Badge>}
+                <Badge variant="primary">{categoryLabels[product.category]}</Badge>
                 <Badge variant="default">{product.power}</Badge>
               </div>
 
@@ -101,10 +102,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 {product.description}
               </p>
 
-              {/* Features */}
               <div className="mb-8">
                 <h3 className="font-heading font-semibold text-lg text-dark mb-3">
-                  Key Features
+                  {t("products.keyFeatures")}
                 </h3>
                 <ul className="space-y-2">
                   {product.features.map((feature, index) => (
@@ -118,19 +118,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                 </ul>
               </div>
 
-              {/* Actions */}
               <div className="flex flex-wrap gap-4">
                 <Button href="/contact" variant="primary" size="lg">
-                  Request a Quote
+                  {t("products.requestQuote")}
                 </Button>
                 <Button href="/support" variant="outline" size="lg">
-                  Download Datasheet
+                  {t("products.downloadDatasheet")}
                 </Button>
               </div>
             </div>
           </div>
 
-          {/* Specs Table */}
           <div className="mt-12">
             <ProductSpecs specs={product.specs} />
           </div>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 /**
  * SolutionSection - Lösung section giống UNC Energy
@@ -10,6 +11,7 @@ import Link from "next/link";
  */
 export default function SolutionSection() {
   const [activeSolution, setActiveSolution] = useState(0);
+  const { t } = useLanguage();
 
   const solutions = [
     {
@@ -19,8 +21,8 @@ export default function SolutionSection() {
           <polyline points="9,22 9,12 15,12 15,22"/>
         </svg>
       ),
-      title: "Soluciones de almacenamiento de energía para el hogar",
-      description: "Wir bieten eine große Auswahl an Hybridwechselrichtern und Haushaltsbatterien mit hoher Leistungsdichte, hohem Umwandlungswirkungsgrad, hervorragenden Selbstschutzfunktionen, guter Zuverlässigkeit, Intelligenz und Stabilität an, die flexibel auf verschiedene Anwendungsszenarien im Haushalt angewendet werden können, wie etwa Energieeinsparung, Stromversorgung für Villen, Solarlösungen für Balkone, Energieeinsparung für Rechenzentren und abgelegene Inseln ohne Strom.",
+      title: t("home.householdSolutionTitle"),
+      description: t("home.householdSolutionDescription"),
       href: "/solutions/household",
     },
     {
@@ -32,7 +34,7 @@ export default function SolutionSection() {
           <line x1="9" y1="14" x2="15" y2="14"/>
         </svg>
       ),
-      title: "almacenamiento de energía comercial e industrial",
+      title: t("home.commercialSolutionTitle"),
       description: "",
       href: "/solutions/commercial",
     },
@@ -44,7 +46,7 @@ export default function SolutionSection() {
           <circle cx="15" cy="14" r="2"/>
         </svg>
       ),
-      title: "Soluciones de sistemas fotovoltaicos",
+      title: t("home.photovoltaicSolutionTitle"),
       description: "",
       href: "/solutions/photovoltaic",
     },
@@ -55,9 +57,9 @@ export default function SolutionSection() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12">
-          <h2 className="section-title">Lösung</h2>
+          <h2 className="section-title">{t("home.solutionsTitle")}</h2>
           <p className="section-subtitle">
-            Mehrere Arbeitsmodi ermöglichen flexibles Reagieren auf unterschiedliche Szenarien!
+            {t("home.solutionsSubtitle")}
           </p>
         </div>
 
@@ -83,7 +85,7 @@ export default function SolutionSection() {
                         {solution.description}
                       </p>
                       <Link href={solution.href} className="btn-orange mt-4 inline-block">
-                        Más
+                        {t("common.more")}
                       </Link>
                     </>
                   )}
