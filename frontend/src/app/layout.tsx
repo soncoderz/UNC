@@ -42,8 +42,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html
       lang="es"
       className={`${inter.variable} ${outfit.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         <LanguageProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
