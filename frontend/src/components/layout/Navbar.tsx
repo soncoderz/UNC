@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { COMPANY_INFO, NAV_ITEMS } from "@/constants/navigation";
+import { COMPANY_INFO, NAV_ITEMS, PRODUCT_CATEGORIES } from "@/constants/navigation";
+import { cloneProducts, productNav } from "@/data/uniconvtor";
+import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import { useLanguage } from "@/context/LanguageContext";
 import { useAuth } from "@/context/AuthContext";
@@ -85,6 +87,7 @@ const getNavIcon = (label: string) => {
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeProductCategory, setActiveProductCategory] = useState<string>("hybrid-inverters");
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const languageSelectorRef = useRef<HTMLDivElement>(null);
@@ -240,7 +243,7 @@ export default function Navbar() {
                   </Link>
 
                   {/* Standard dropdown for non-About Us items */}
-                  {item.children && activeDropdown === item.label && item.label !== "About Us" && (
+                  {item.children && activeDropdown === item.label && !["About Us", "Product Center"].includes(item.label) && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-72 bg-white shadow-lg border border-gray-100 py-2 z-50 rounded-b-lg">
                       {item.children.map((child) => (
                         <Link
@@ -382,6 +385,70 @@ export default function Navbar() {
           </div>
         </div>
       ) : null}
+
+      {/* ===== MEGA MENU FOR "Product Center" ===== */}
+      {activeDropdown === "Product Center" && (
+        <div
+          className="hidden lg:block absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl z-40 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
+          onMouseEnter={() => setActiveDropdown("Product Center")}
+        >
+          <div className="w-full flex" style={{ minHeight: '380px' }}>
+            {/* Left Rail */}
+            <div className="w-[300px] xl:w-[320px] bg-[#f8fafc] border-r border-[#eef2f6] relative flex flex-col py-6 shrink-0">
+               {/* Watermark */}
+               <div className="absolute left-0 top-1/2 -translate-y-1/2 overflow-hidden w-full h-[500px] flex items-center select-none pointer-events-none opacity-[0.03]">
+                 <div className="text-[360px] font-black text-black leading-none tracking-tighter" style={{ fontFamily: "var(--font-heading)" }}>N</div>
+               </div>
+               <div className="relative z-10 w-full">
+                  {PRODUCT_CATEGORIES.map((cat) => {
+                     const navItem = productNav.find(n => n.href.includes(cat.id));
+                     const iconUrl = navItem?.icon;
+                     const isActiveCat = activeProductCategory === cat.id;
+
+                     return (
+                        <button
+                           key={cat.id}
+                           onMouseEnter={() => setActiveProductCategory(cat.id)}
+                           onClick={() => { setActiveDropdown(null); window.location.href = `/products?category=${cat.id}`; }}
+                           className={`w-full text-left flex items-center gap-4 px-8 py-5 transition-all duration-300 relative ${isActiveCat ? 'bg-white shadow-[0_2px_15px_rgba(0,0,0,0.03)] text-[#1ea1f2]' : 'text-[#64748b] hover:text-[#1ea1f2]'}`}
+                        >
+                           {iconUrl && (
+                              <img src={iconUrl} alt={cat.label} className={`w-8 h-8 object-contain transition-transform duration-300 ${isActiveCat ? 'scale-110' : ''}`} style={{ filter: isActiveCat ? 'none' : 'grayscale(100%) opacity(60%)' }} />
+                           )}
+                           <span className="font-semibold text-[15px] leading-tight pr-4">{cat.label}</span>
+                           {isActiveCat && (
+                              <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-[#1ea1f2]"></div>
+                           )}
+                        </button>
+                     );
+                  })}
+               </div>
+            </div>
+            {/* Right Rail Details */}
+            <div className="flex-1 bg-white p-8 overflow-y-auto max-h-[500px]">
+               <div className="max-w-[1200px] mx-auto grid grid-cols-4 gap-6">
+                  {cloneProducts
+                     .filter(p => p.category === activeProductCategory)
+                     .map(v => (
+                        <Link 
+                           href={`/products/${v.id}`} 
+                           key={v.id} 
+                           onClick={() => setActiveDropdown(null)}
+                           className="flex flex-col items-center group p-4 rounded-xl hover:bg-[#f8fafc] transition-colors"
+                        >
+                           <div className="w-[140px] h-[140px] relative mb-4 bg-white flex items-center justify-center p-2 rounded-lg">
+                              <RemoteImage src={v.image} alt={v.name} fill sizes="140px" className="object-contain transform group-hover:scale-105 transition-transform duration-300" />
+                           </div>
+                           <h4 className="text-center text-[13px] text-[#475569] font-medium leading-[1.4] group-hover:text-[#1ea1f2] transition-colors line-clamp-3 px-2">
+                              {v.name}
+                           </h4>
+                        </Link>
+                     ))}
+               </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ===== MEGA MENU FOR "About Us" ===== */}
       {activeDropdown === "About Us" && (

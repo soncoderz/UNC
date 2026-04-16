@@ -99,7 +99,7 @@ export async function createProduct(product: Omit<Product, "id">): Promise<Produ
   if (isMongoConfigured()) {
     await ensureSeedData();
     const collection = await getProductsCollection();
-    await collection.insertOne(newProduct as Product & { _id?: unknown });
+    await collection.insertOne(newProduct as any);
   } else {
     const { readFileSync, writeFileSync } = await import("fs");
     const { join } = await import("path");
