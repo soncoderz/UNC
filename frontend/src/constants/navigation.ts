@@ -1,8 +1,3 @@
-/**
- * Navigation menu configuration
- * Định nghĩa cấu trúc menu cho website UNC Energy
- */
-
 import type { ProductCategory } from "@/types/api";
 
 interface NavItem {
@@ -33,40 +28,46 @@ export const NAV_ITEMS = [
   {
     label: "About Us",
     href: "/company",
-  },
-  {
-    label: "Lösung",
-    href: "/solutions",
     children: [
-      { label: "Soluciones de almacenamiento de energía para el hogar", href: "/solutions/household" },
-      { label: "almacenamiento de energía comercial e industrial", href: "/solutions/commercial" },
-      { label: "Soluciones de sistemas fotovoltaicos", href: "/solutions/photovoltaic" },
+      { label: "Milestone", href: "/company#milestone" },
+      { label: "Honor", href: "/company#honor" },
+      { label: "Company Introduction", href: "/company#intro" },
+      { label: "Corporate News", href: "/news" },
     ],
   },
   {
-    label: "Centro de productos",
+    label: "Solution",
+    href: "/solutions",
+    children: [
+      { label: "Household Energy Storage Solutions", href: "/solutions/household" },
+      { label: "Industrial and Commercial Energy Storage", href: "/solutions/commercial" },
+      { label: "Photovoltaic System Solutions", href: "/solutions/photovoltaic" },
+    ],
+  },
+  {
+    label: "Product Center",
     href: "/products",
     children: [
-      { label: "PV Inverters", href: "/products?category=pv-inverters" },
-      { label: "Energy Storage", href: "/products?category=energy-storage" },
-      { label: "Hybrid Inverters", href: "/products?category=hybrid-inverters" },
+      { label: "Household Energy Storage", href: "/products?category=hybrid-inverters" },
+      { label: "Industrial and Commercial Energy Storage", href: "/products?category=energy-storage" },
+      { label: "Photovoltaic System", href: "/products?category=pv-inverters" },
     ],
   },
   {
     label: "R&D and Manufacturing",
     href: "/rnd",
     children: [
-      { label: "R&D Capacidades", href: "/rnd#capacidades" },
-      { label: "Capacidades de producción por lotes", href: "/rnd#produccion" },
-      { label: "Seguro de calidad", href: "/rnd#calidad" },
+      { label: "R&D Capabilities", href: "/rnd#research" },
+      { label: "Batch Production Capabilities", href: "/rnd#produce" },
+      { label: "Quality Assurance", href: "/rnd#quality" },
     ],
   },
   {
-    label: "Apoyo técnico",
+    label: "Technical Support",
     href: "/support",
     children: [
-      { label: "Apoyo técnico", href: "/support#technical" },
-      { label: "Servicios post venta", href: "/support#postventa" },
+      { label: "Technical Support", href: "/support#technical" },
+      { label: "After sale services", href: "/support#afterSales" },
       { label: "Data Download", href: "/support#download" },
     ],
   },
@@ -77,17 +78,17 @@ export const NAV_ITEMS = [
 ] satisfies NavItem[];
 
 export const PRODUCT_CATEGORIES: ProductCategoryItem[] = [
-  { id: "pv-inverters", label: "PV Inverters", icon: "⚡" },
-  { id: "energy-storage", label: "Energy Storage", icon: "🔋" },
-  { id: "hybrid-inverters", label: "Hybrid Inverters", icon: "🔄" },
+  { id: "hybrid-inverters", label: "Household Energy Storage", icon: "HES" },
+  { id: "energy-storage", label: "Industrial and Commercial Energy Storage", icon: "C&I" },
+  { id: "pv-inverters", label: "Photovoltaic System", icon: "PV" },
 ];
 
 export const COMPANY_INFO = {
   name: "UNC",
-  fullName: "UNC Energy Co., Ltd.",
-  slogan: "UNC: a new driving force for green energy",
+  fullName: "Qingdao UNC Technology Co., Ltd",
+  slogan: "UNC a new driving force for green energy",
   phone: "0532-85612972",
-  email: "andy@unc-energy.com",
+  email: "unc-service@unc-energy.com",
   address: "No. 115, Jifu Road, Chengyang District, Qingdao City, Shandong Province",
 };
 
@@ -95,41 +96,41 @@ export const FOOTER_LINKS = {
   aboutUs: {
     title: "About Us",
     links: [
-      { label: "Hitu", href: "/company#hitu" },
+      { label: "Milestone", href: "/company#milestone" },
       { label: "Honor", href: "/company#honor" },
-      { label: "Introducción de la empresa", href: "/company#intro" },
-      { label: "Noticias corporativas", href: "/news" },
+      { label: "Company Introduction", href: "/company#intro" },
+      { label: "Corporate News", href: "/news" },
     ],
   },
   losung: {
-    title: "Lösung",
+    title: "Solution",
     links: [
-      { label: "Soluciones de almacenamiento de energía para el hogar", href: "/solutions/household" },
-      { label: "almacenamiento de energía comercial e industrial", href: "/solutions/commercial" },
-      { label: "Soluciones de sistemas fotovoltaicos", href: "/solutions/photovoltaic" },
+      { label: "Household Energy Storage Solutions", href: "/solutions/household" },
+      { label: "Industrial and Commercial Energy Storage", href: "/solutions/commercial" },
+      { label: "Photovoltaic System Solutions", href: "/solutions/photovoltaic" },
     ],
   },
   products: {
-    title: "Centro de productos",
+    title: "Product Center",
     links: [
-      { label: "PV Inverters", href: "/products?category=pv-inverters" },
-      { label: "Energy Storage", href: "/products?category=energy-storage" },
-      { label: "Hybrid Inverters", href: "/products?category=hybrid-inverters" },
+      { label: "Household Energy Storage", href: "/products?category=hybrid-inverters" },
+      { label: "Industrial and Commercial Energy Storage", href: "/products?category=energy-storage" },
+      { label: "Photovoltaic System", href: "/products?category=pv-inverters" },
     ],
   },
   rnd: {
     title: "R&D and Manufacturing",
     links: [
-      { label: "R&D Capacidades", href: "/rnd#capacidades" },
-      { label: "Capacidades de producción por lotes", href: "/rnd#produccion" },
-      { label: "Seguro de calidad", href: "/rnd#calidad" },
+      { label: "R&D Capabilities", href: "/rnd#research" },
+      { label: "Batch Production Capabilities", href: "/rnd#produce" },
+      { label: "Quality Assurance", href: "/rnd#quality" },
     ],
   },
   support: {
-    title: "Apoyo técnico",
+    title: "Technical Support",
     links: [
-      { label: "Apoyo técnico", href: "/support#technical" },
-      { label: "Servicios post venta", href: "/support#postventa" },
+      { label: "Technical Support", href: "/support#technical" },
+      { label: "After sale services", href: "/support#afterSales" },
       { label: "Data Download", href: "/support#download" },
     ],
   },

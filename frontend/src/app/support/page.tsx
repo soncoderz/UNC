@@ -1,106 +1,123 @@
-"use client";
-
-import Button from "@/components/common/Button";
-import { useLanguage } from "@/context/LanguageContext";
+import InnerHero from "@/components/uniconvtor/InnerHero";
+import InnerNav from "@/components/uniconvtor/InnerNav";
+import RemoteImage from "@/components/uniconvtor/RemoteImage";
+import SectionTitle from "@/components/uniconvtor/SectionTitle";
+import {
+  afterSaleImages,
+  asset,
+  downloads,
+  innerBanners,
+  serviceSystem,
+  supportNav,
+  supportServices,
+} from "@/data/uniconvtor";
 
 export default function SupportPage() {
-  const { t } = useLanguage();
-  const resources = [
-    {
-      icon: "📄",
-      title: t("support.datasheetsTitle"),
-      description: t("support.datasheetsDescription"),
-      action: t("support.datasheetsAction"),
-    },
-    {
-      icon: "📘",
-      title: t("support.manualsTitle"),
-      description: t("support.manualsDescription"),
-      action: t("support.manualsAction"),
-    },
-    {
-      icon: "💻",
-      title: t("support.softwareTitle"),
-      description: t("support.softwareDescription"),
-      action: t("support.softwareAction"),
-    },
-    {
-      icon: "🎥",
-      title: t("support.videosTitle"),
-      description: t("support.videosDescription"),
-      action: t("support.videosAction"),
-    },
-    {
-      icon: "❓",
-      title: t("support.faqTitle"),
-      description: t("support.faqDescription"),
-      action: t("support.faqAction"),
-    },
-    {
-      icon: "🎓",
-      title: t("support.trainingTitle"),
-      description: t("support.trainingDescription"),
-      action: t("support.trainingAction"),
-    },
-  ];
-
   return (
     <>
-      {/* Header */}
-      <section className="pt-28 pb-12 bg-gradient-to-br from-dark via-dark-light to-primary-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-4">
-            {t("support.title")}
-          </h1>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            {t("support.subtitle")}
-          </p>
+      <InnerHero
+        title="Technical Support"
+        subtitle="With multiple working modes, UNC Energy Storage can flexibly respond to various scenarios!"
+        image={innerBanners.support}
+      />
+      <InnerNav items={supportNav} activeHref="/support#technical" />
+
+      <section id="technical" className="clone-support-tech">
+        <SectionTitle title="Technical Support" />
+        <div className="clone-support-shape">
+          <RemoteImage
+            src="/template/default/esimg/img/service-shape-bgs.png"
+            alt="Technical support process"
+            width={980}
+            height={360}
+            sizes="90vw"
+          />
+        </div>
+        <p>
+          UNC&apos;s technical support process follows rapid response, professional
+          handling, and full tracking. When customers encounter technical
+          issues, UNC promptly organizes an expert team for analysis and
+          resolution.
+        </p>
+        <h3>Technical support services</h3>
+        <div className="clone-support-service-grid">
+          {supportServices.map((service) => (
+            <article key={service.title}>
+              <RemoteImage src={service.image} alt="" width={86} height={86} />
+              <h4>{service.title}</h4>
+              <p>{service.text}</p>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* Resources Grid */}
-      <section className="py-16 bg-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {resources.map((resource) => (
-              <div
-                key={resource.title}
-                className="group bg-white rounded-2xl border border-gray-light/50 p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-3xl mb-5 group-hover:bg-primary/20 transition-colors">
-                  {resource.icon}
-                </div>
-                <h3 className="font-heading font-bold text-xl text-dark mb-3">
-                  {resource.title}
-                </h3>
-                <p className="text-gray text-sm leading-relaxed mb-5">
-                  {resource.description}
-                </p>
-                <button className="text-sm font-semibold text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1">
-                  {resource.action} →
-                </button>
-              </div>
+      <section id="afterSales" className="clone-support-after">
+        <SectionTitle title="After sale services" />
+        <p>
+          The after-sales service team at UNC is composed of experienced
+          engineers who understand UNC products and respond swiftly to customer
+          needs.
+        </p>
+        <div className="clone-after-images">
+          {afterSaleImages.map((image) => (
+            <RemoteImage
+              key={image}
+              src={image}
+              alt="After sale service"
+              width={360}
+              height={230}
+              sizes="(max-width: 900px) 90vw, 360px"
+            />
+          ))}
+        </div>
+
+        <div className="clone-service-system">
+          <RemoteImage
+            src="/template/default/esimg/img/service-tixi-bg.png"
+            alt="After-sale service system"
+            width={820}
+            height={520}
+            sizes="(max-width: 900px) 90vw, 820px"
+          />
+          <div className="clone-service-system-list">
+            {serviceSystem.map((item) => (
+              <article key={item.title}>
+                <h4>{item.title}</h4>
+                <p>{item.text}</p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Support */}
-      <section className="py-16 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-heading font-bold text-dark mb-4">
-            {t("support.directTitle")}
-          </h2>
-          <p className="text-gray mb-8">
-            {t("support.directText")}
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/contact" variant="primary" size="lg">
-              {t("support.contactTeam")}
-            </Button>
-            <Button href="tel:+842812345678" variant="outline" size="lg">
-              📞 {t("support.callHotline")}
-            </Button>
+      <section id="download" className="clone-download">
+        <InnerHero
+          title="Data Download"
+          subtitle="With multiple working modes, UNC Energy Storage can flexibly respond to various scenarios!"
+          image={innerBanners.download}
+          current="Data Download"
+        />
+        <div className="clone-download-main">
+          <SectionTitle title="Data Download" />
+          <div className="clone-download-table">
+            <div className="clone-download-row clone-download-head">
+              <span>file name</span>
+              <span>file type</span>
+              <span>file size</span>
+              <span>Release time</span>
+              <span>Download</span>
+            </div>
+            {downloads.map((download) => (
+              <div key={download.name} className="clone-download-row">
+                <span>{download.name}</span>
+                <span>{download.type}</span>
+                <span>{download.size}</span>
+                <span>{download.date}</span>
+                <a href={asset(download.href)} target="_blank" rel="noreferrer">
+                  Download
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </section>

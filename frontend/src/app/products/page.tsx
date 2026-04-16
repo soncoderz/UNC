@@ -1,10 +1,12 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
-import ProductCard from "@/components/products/ProductCard";
-import ProductFilter from "@/components/products/ProductFilter";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import InnerHero from "@/components/uniconvtor/InnerHero";
+import InnerNav from "@/components/uniconvtor/InnerNav";
+import ProductCard from "@/components/products/ProductCard";
 import { PRODUCT_CATEGORIES } from "@/constants/navigation";
+import { cloneProducts, innerBanners, productNav } from "@/data/uniconvtor";
 import { getProducts } from "@/services/api";
 import type { Product, ProductCategory } from "@/types/api";
 import { useLanguage } from "@/context/LanguageContext";
@@ -13,12 +15,15 @@ function isProductCategory(value: string | null): value is ProductCategory {
   return PRODUCT_CATEGORIES.some((category) => category.id === value);
 }
 
+function hasCloneImages(products: Product[]) {
+  return products.every((product) => product.image.startsWith("/static/upload/"));
+}
+
 function ProductsContent() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Product[]>(cloneProducts);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<ProductCategory | null>(null);
   const searchParams = useSearchParams();
-  const { t } = useLanguage();
 
   useEffect(() => {
     const category = searchParams.get("category");
@@ -30,61 +35,50 @@ function ProductsContent() {
       try {
         setLoading(true);
         const response = await getProducts(activeCategory ? { category: activeCategory } : {});
-        setProducts(response.data || []);
+        const apiProducts = response.data || [];
+        setProducts(apiProducts.length > 0 && hasCloneImages(apiProducts) ? apiProducts : cloneProducts);
       } catch {
-        setProducts([]);
+        setProducts(cloneProducts);
       } finally {
         setLoading(false);
       }
     }
-    fetchProducts();
+
+    void fetchProducts();
   }, [activeCategory]);
+
+  const visibleProducts = useMemo(
+    () =>
+      activeCategory
+        ? products.filter((product) => product.category === activeCategory)
+        : products,
+    [activeCategory, products]
+  );
 
   return (
     <>
-      {/* Header */}
-      <section className="pt-28 pb-12 bg-gradient-to-br from-dark via-dark-light to-primary-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-4">
-            {t("products.title")}
-          </h1>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            {t("products.subtitle")}
-          </p>
-        </div>
-      </section>
+      <InnerHero
+        title="Product Center"
+        subtitle="Safe, reliable, efficient, one-stop energy solution"
+        image={innerBanners.products}
+      />
+      <InnerNav
+        items={productNav}
+        activeHref={
+          activeCategory ? `/products?category=${activeCategory}` : undefined
+        }
+      />
 
-      {/* Filter + Products */}
-      <section className="py-12 bg-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Filter */}
-          <div className="mb-10">
-            <ProductFilter
-              activeCategory={activeCategory}
-              onCategoryChange={setActiveCategory}
-            />
+      <section className="clone-product-list">
+        {loading ? (
+          <div className="clone-loading">Loading products...</div>
+        ) : (
+          <div className="clone-product-grid">
+            {visibleProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
           </div>
-
-          {/* Products Grid */}
-          {loading ? (
-            <div className="text-center py-20">
-              <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-gray">{t("products.loading")}</p>
-            </div>
-          ) : products.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {products.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-20">
-              <p className="text-gray text-lg">
-                {t("products.noProducts")}
-              </p>
-            </div>
-          )}
-        </div>
+        )}
       </section>
     </>
   );
@@ -97,10 +91,7 @@ export default function ProductsPage() {
     <Suspense
       fallback={
         <section className="pt-28 pb-20 bg-light min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <div className="w-10 h-10 border-4 border-primary/30 border-t-primary rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-gray">{t("products.loading")}</p>
-          </div>
+          <p className="text-gray">{t("products.loading")}</p>
         </section>
       }
     >

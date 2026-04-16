@@ -20,27 +20,26 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   title: {
-    default: "UNC Energy - A New Driving Force for Green Energy",
-    template: "%s | UNC Energy",
+    default: "PV Inverter | Solar Inverter | Off Grid Inverter | UNC Technology",
+    template: "%s | UNC Technology",
   },
   description:
-    "UNC Energy - Leading manufacturer of power electronic converters, solar inverters and energy storage systems. Diseño global for residential, commercial, and industrial energy solutions.",
+    "China UNC Technology products cover household PV inverter, solar inverter, off grid inverter, energy storage systems, and power conversion technology.",
   keywords: [
-    "UNC Energy",
-    "power electronic converters",
+    "UNC Technology",
+    "PV inverter",
     "solar inverter",
-    "energy storage",
-    "hybrid inverter",
-    "renewable energy",
-    "Lösung",
-    "photovoltaic",
+    "off grid inverter",
+    "energy storage systems",
+    "solar energy company",
+    "power electronic converters",
   ],
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
-      lang="es"
+      lang="en"
       className={`${inter.variable} ${outfit.variable} h-full antialiased`}
       suppressHydrationWarning
     >

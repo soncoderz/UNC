@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { NAV_ITEMS, COMPANY_INFO } from "@/constants/navigation";
+import { COMPANY_INFO, NAV_ITEMS } from "@/constants/navigation";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -27,17 +27,21 @@ const navLabelKeys: Record<string, string> = {
 };
 
 const childLabelKeys: Record<string, string> = {
+  "/company#milestone": "company.journeyTitle",
+  "/company#honor": "company.certificationsTitle",
+  "/company#intro": "company.storyTitle",
+  "/news": "home.corporateNews",
   "/solutions/household": "nav.solutionHousehold",
   "/solutions/commercial": "nav.solutionCommercial",
   "/solutions/photovoltaic": "nav.solutionPhotovoltaic",
-  "/products?category=pv-inverters": "products.pvInverters",
-  "/products?category=energy-storage": "products.energyStorage",
   "/products?category=hybrid-inverters": "products.hybridInverters",
-  "/rnd#capacidades": "nav.rndCapabilities",
-  "/rnd#produccion": "nav.batchProduction",
-  "/rnd#calidad": "nav.qualityAssurance",
+  "/products?category=energy-storage": "products.energyStorage",
+  "/products?category=pv-inverters": "products.pvInverters",
+  "/rnd#research": "nav.rndCapabilities",
+  "/rnd#produce": "nav.batchProduction",
+  "/rnd#quality": "nav.qualityAssurance",
   "/support#technical": "nav.technicalSupport",
-  "/support#postventa": "nav.postSale",
+  "/support#afterSales": "nav.postSale",
   "/support#download": "nav.dataDownload",
 };
 
@@ -48,11 +52,11 @@ export default function Navbar() {
   const languageSelectorRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { isScrolled } = useScrollPosition();
-  const { locale, t, switchLanguage, availableLocales } = useLanguage();
+  const { availableLocales, locale, switchLanguage, t } = useLanguage();
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
+    return pathname.startsWith(href.split("?")[0].split("#")[0]);
   };
 
   useEffect(() => {
@@ -118,7 +122,7 @@ export default function Navbar() {
         </svg>
       </button>
 
-      {isLanguageOpen && (
+      {isLanguageOpen ? (
         <div className="absolute right-0 top-full mt-2 w-32 bg-white shadow-xl border border-gray-100 py-3 z-50">
           {availableLocales.map((lang) => (
             <button
@@ -138,22 +142,19 @@ export default function Navbar() {
             </button>
           ))}
         </div>
-      )}
+      ) : null}
     </div>
   );
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md"
-          : "bg-transparent"
+        isScrolled ? "bg-white/95 backdrop-blur-md shadow-md" : "bg-transparent"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2">
             <Image
               src="/unc-logo.png"
               alt={COMPANY_INFO.name}
@@ -164,7 +165,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-0.5">
             {NAV_ITEMS.map((item) => (
               <div
@@ -186,35 +186,30 @@ export default function Navbar() {
                   }`}
                 >
                   {t(navLabelKeys[item.href] || item.label)}
-                  {isActive(item.href) && (
+                  {isActive(item.href) ? (
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-secondary rounded-full" />
-                  )}
+                  ) : null}
                 </Link>
 
-                {/* Dropdown Menu */}
-                {item.children && activeDropdown === item.label && (
-                  <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-50">
+                {item.children && activeDropdown === item.label ? (
+                  <div className="absolute top-full left-0 mt-1 w-80 bg-white shadow-xl border border-gray-100 py-2 z-50">
                     {item.children.map((child) => (
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="block px-4 py-2.5 text-sm text-dark-light hover:text-primary hover:bg-blue-50 transition-colors"
+                        className="block px-4 py-3 text-sm text-dark-light hover:text-primary hover:bg-blue-50 transition-colors"
                       >
                         {t(childLabelKeys[child.href] || child.label)}
                       </Link>
                     ))}
                   </div>
-                )}
+                ) : null}
               </div>
             ))}
           </nav>
 
-          {/* Language Selector + Mobile Toggle */}
           <div className="flex items-center gap-3">
-            {/* Language Selector */}
             <div className="hidden lg:block">{languageSelector}</div>
-
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`lg:hidden p-2 rounded-lg transition-colors ${
@@ -222,12 +217,7 @@ export default function Navbar() {
               }`}
               aria-label={t("common.toggleMenu")}
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMobileMenuOpen ? (
                   <path
                     strokeLinecap="round"
@@ -249,11 +239,10 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
+      {isMobileMenuOpen ? (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
           <div className="px-4 py-4 space-y-1">
-            <div className="flex items-center gap-2 px-4 pb-3 mb-2 border-b border-gray-100">
+            <div className="flex flex-wrap items-center gap-2 px-4 pb-3 mb-2 border-b border-gray-100">
               {availableLocales.map((lang) => (
                 <button
                   key={lang}
@@ -282,7 +271,7 @@ export default function Navbar() {
                 >
                   {t(navLabelKeys[item.href] || item.label)}
                 </Link>
-                {item.children && (
+                {item.children ? (
                   <div className="ml-4 mt-1 space-y-1">
                     {item.children.map((child) => (
                       <Link
@@ -295,12 +284,12 @@ export default function Navbar() {
                       </Link>
                     ))}
                   </div>
-                )}
+                ) : null}
               </div>
             ))}
           </div>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }

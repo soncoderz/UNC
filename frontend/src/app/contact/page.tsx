@@ -1,201 +1,238 @@
 "use client";
 
-import { useState, type ChangeEvent, type FormEvent } from "react";
-import Input from "@/components/common/Input";
-import Button from "@/components/common/Button";
+import { useState, type FormEvent } from "react";
+import InnerHero from "@/components/uniconvtor/InnerHero";
+import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { COMPANY_INFO } from "@/constants/navigation";
+import { innerBanners } from "@/data/uniconvtor";
 import { submitContact } from "@/services/api";
-import type { ContactFormData } from "@/types/api";
-import { useLanguage } from "@/context/LanguageContext";
 
-type FormStatus = "loading" | "success" | "error" | null;
+type FormState = {
+  product: string;
+  company: string;
+  phone: string;
+  address: string;
+  name: string;
+  email: string;
+  content: string;
+};
+
+const initialFormState: FormState = {
+  product: "",
+  company: "",
+  phone: "",
+  address: "",
+  name: "",
+  email: "",
+  content: "",
+};
 
 export default function ContactPage() {
-  const { t } = useLanguage();
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-  const [status, setStatus] = useState<FormStatus>(null);
+  const [formData, setFormData] = useState<FormState>(initialFormState);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  function updateField(field: keyof FormState, value: string) {
+    setFormData((current) => ({ ...current, [field]: value }));
+  }
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus("loading");
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus("sending");
 
     try {
-      await submitContact(formData);
+      await submitContact({
+        name: formData.name || formData.company || "Website visitor",
+        email: formData.email,
+        phone: formData.phone,
+        subject: formData.product || "Contact inquiry",
+        message: [
+          formData.content,
+          formData.company ? `Company: ${formData.company}` : "",
+          formData.address ? `Address: ${formData.address}` : "",
+        ]
+          .filter(Boolean)
+          .join("\n"),
+      });
       setStatus("success");
-      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      setFormData(initialFormState);
     } catch {
       setStatus("error");
     }
-  };
+  }
 
   return (
     <>
-      {/* Header */}
-      <section className="pt-28 pb-12 bg-gradient-to-br from-dark via-dark-light to-primary-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl sm:text-5xl font-heading font-extrabold text-white mb-4">
-            {t("contact.title")}
-          </h1>
-          <p className="text-lg text-white/70 max-w-2xl mx-auto">
-            {t("contact.heroSubtitle")}
-          </p>
-        </div>
-      </section>
+      <InnerHero
+        title="Contact Us"
+        subtitle="UNC a new driving force for green energy"
+        image={innerBanners.contact}
+      />
 
-      {/* Contact Content */}
-      <section className="py-16 bg-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-10">
-            {/* Contact Info */}
-            <div className="lg:col-span-1 space-y-6">
-              <div className="bg-white rounded-2xl border border-gray-light/50 p-6">
-                <h3 className="font-heading font-bold text-lg text-dark mb-4">
-                  {t("contact.information")}
-                </h3>
-                <ul className="space-y-4 text-sm">
-                  <li className="flex items-start gap-3">
-                    <span className="text-lg mt-0.5">📍</span>
-                    <div>
-                      <p className="font-medium text-dark">{t("contact.address")}</p>
-                      <p className="text-gray">{COMPANY_INFO.address}</p>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-lg mt-0.5">📞</span>
-                    <div>
-                      <p className="font-medium text-dark">{t("contact.phone")}</p>
-                      <a
-                        href={`tel:${COMPANY_INFO.phone}`}
-                        className="text-primary hover:text-primary-dark"
-                      >
-                        {COMPANY_INFO.phone}
-                      </a>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-lg mt-0.5">✉️</span>
-                    <div>
-                      <p className="font-medium text-dark">{t("contact.email")}</p>
-                      <a
-                        href={`mailto:${COMPANY_INFO.email}`}
-                        className="text-primary hover:text-primary-dark"
-                      >
-                        {COMPANY_INFO.email}
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Business Hours */}
-              <div className="bg-white rounded-2xl border border-gray-light/50 p-6">
-                <h3 className="font-heading font-bold text-lg text-dark mb-4">
-                  {t("contact.businessHours")}
-                </h3>
-                <ul className="space-y-2 text-sm">
-                  <li className="flex justify-between">
-                    <span className="text-gray">{t("contact.mondayFriday")}</span>
-                    <span className="font-medium text-dark">8:00 AM - 6:00 PM</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="text-gray">{t("contact.saturday")}</span>
-                    <span className="font-medium text-dark">8:00 AM - 12:00 PM</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="text-gray">{t("contact.sunday")}</span>
-                    <span className="font-medium text-danger">{t("contact.closed")}</span>
-                  </li>
-                </ul>
-              </div>
+      <section className="clone-contact-main">
+        <div className="clone-contact-info">
+          <h2>Qingdao UNC Technology Co., Ltd</h2>
+          <div className="clone-contact-list">
+            <div>
+              <RemoteImage
+                src="/template/default/esimg/icon/contatct_icon_add.png"
+                alt=""
+                width={38}
+                height={38}
+              />
+              <span>
+                <strong>Address</strong>
+                <em>{COMPANY_INFO.address}</em>
+              </span>
             </div>
+            <div>
+              <RemoteImage
+                src="/template/default/esimg/icon/contatct_icon_phone.png"
+                alt=""
+                width={38}
+                height={38}
+              />
+              <span>
+                <strong>Hotline</strong>
+                <em>{COMPANY_INFO.phone}</em>
+              </span>
+            </div>
+            <div>
+              <RemoteImage
+                src="/template/default/esimg/icon/contatct_icon_email.png"
+                alt=""
+                width={38}
+                height={38}
+              />
+              <span>
+                <strong>Email</strong>
+                <em>{COMPANY_INFO.email}</em>
+              </span>
+            </div>
+            <div>
+              <RemoteImage
+                src="/template/default/esimg/icon/contatct_icon_www.png"
+                alt=""
+                width={38}
+                height={38}
+              />
+              <span>
+                <strong>Website</strong>
+                <em>www.uniconvtor.com</em>
+              </span>
+            </div>
+          </div>
 
-            {/* Contact Form */}
-            <div className="lg:col-span-2">
-              <div className="bg-white rounded-2xl border border-gray-light/50 p-8">
-                <h3 className="font-heading font-bold text-xl text-dark mb-6">
-                  {t("contact.sendUsMessage")}
-                </h3>
-
-                {status === "success" && (
-                  <div className="mb-6 p-4 bg-success/10 rounded-xl text-success text-sm font-medium">
-                    {t("contact.success")}
-                  </div>
-                )}
-
-                {status === "error" && (
-                  <div className="mb-6 p-4 bg-danger/10 rounded-xl text-danger text-sm font-medium">
-                    {t("contact.error")}
-                  </div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <Input
-                      label={`${t("contact.name")} *`}
-                      name="name"
-                      placeholder={t("contact.namePlaceholder")}
-                      value={formData.name}
-                      onChange={handleChange}
-                      required
-                    />
-                    <Input
-                      label={`${t("contact.email")} *`}
-                      name="email"
-                      type="email"
-                      placeholder={t("contact.emailPlaceholder")}
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="grid sm:grid-cols-2 gap-5">
-                    <Input
-                      label={t("contact.phone")}
-                      name="phone"
-                      placeholder="+84 912 345 678"
-                      value={formData.phone}
-                      onChange={handleChange}
-                    />
-                    <Input
-                      label={t("contact.subject")}
-                      name="subject"
-                      placeholder={t("contact.subjectPlaceholder")}
-                      value={formData.subject}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <Input
-                    label={`${t("contact.message")} *`}
-                    name="message"
-                    type="textarea"
-                    placeholder={t("contact.messagePlaceholder")}
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                  />
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="lg"
-                    disabled={status === "loading"}
-                  >
-                    {status === "loading" ? t("contact.sending") : t("contact.send")}
-                  </Button>
-                </form>
-              </div>
+          <div className="clone-contact-qrs">
+            <div>
+              <RemoteImage
+                src="/static/upload/image/20240718/1721291069896348.png"
+                alt="WeChat QR code"
+                width={120}
+                height={120}
+              />
+              <span>WeChat</span>
+            </div>
+            <div>
+              <RemoteImage
+                src="/static/upload/image/20240827/1724725433746661.jpg"
+                alt="WeChat Official Account QR code"
+                width={120}
+                height={120}
+              />
+              <span>WeChat Official Account</span>
             </div>
           </div>
         </div>
+
+        <div className="clone-contact-map">
+          <RemoteImage
+            src="/template/default/esimg/img/ditu.png"
+            alt="UNC map"
+            width={640}
+            height={430}
+            sizes="(max-width: 900px) 90vw, 640px"
+          />
+        </div>
+      </section>
+
+      <section className="clone-big-message">
+        <div className="clone-title clone-title-left">
+          <h2>Contact Us Now</h2>
+          <p>UNC a new driving force for green energy</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="clone-big-form">
+          {status === "success" ? (
+            <div className="clone-form-status is-success">
+              Message submitted successfully.
+            </div>
+          ) : null}
+          {status === "error" ? (
+            <div className="clone-form-status is-error">
+              Could not send the message. Please make sure the backend is running.
+            </div>
+          ) : null}
+
+          <label>
+            <span>Interesting</span>
+            <input
+              value={formData.product}
+              onChange={(event) => updateField("product", event.target.value)}
+            />
+          </label>
+          <label>
+            <span>Company</span>
+            <input
+              value={formData.company}
+              onChange={(event) => updateField("company", event.target.value)}
+            />
+          </label>
+          <label>
+            <span>*Phone</span>
+            <input
+              value={formData.phone}
+              onChange={(event) => updateField("phone", event.target.value)}
+              required
+            />
+          </label>
+          <label>
+            <span>Address</span>
+            <input
+              value={formData.address}
+              onChange={(event) => updateField("address", event.target.value)}
+            />
+          </label>
+          <label>
+            <span>Name</span>
+            <input
+              value={formData.name}
+              onChange={(event) => updateField("name", event.target.value)}
+            />
+          </label>
+          <label>
+            <span>*Email</span>
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(event) => updateField("email", event.target.value)}
+              required
+            />
+          </label>
+          <label className="clone-message-field">
+            <span>*Description</span>
+            <textarea
+              value={formData.content}
+              onChange={(event) => updateField("content", event.target.value)}
+              required
+            />
+          </label>
+          <div className="clone-verify-row">
+            <span>Click to verify</span>
+            <button type="submit" disabled={status === "sending"}>
+              {status === "sending" ? "Sending..." : "Submit"}
+            </button>
+          </div>
+        </form>
       </section>
     </>
   );

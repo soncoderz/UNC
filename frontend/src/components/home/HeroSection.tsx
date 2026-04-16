@@ -1,59 +1,55 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { useLanguage } from "@/context/LanguageContext";
+import { homeHeroSlides } from "@/data/uniconvtor";
 
 /**
  * HeroSection - Banner chính trang chủ giống UNC Energy
  * Background xanh dương gradient với 3D cube illustration
  */
 export default function HeroSection() {
+  const [activeSlide, setActiveSlide] = useState(0);
   const { t } = useLanguage();
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveSlide((slide) => (slide + 1) % homeHeroSlides.length);
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
-    <section className="hero-section flex items-center" id="hero">
-      {/* Light effects */}
-      <div className="light-flare light-flare-1" />
-      <div className="light-flare light-flare-2" />
-      <div className="light-flare light-flare-3" />
-      <div className="light-streak light-streak-1" />
-      <div className="light-streak light-streak-2" />
-
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-32 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-          {/* Left Content */}
-          <div>
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-heading font-extrabold text-white leading-tight mb-6">
-              {t("home.globalDesign")}
-            </h1>
-            <p className="text-lg sm:text-xl text-white/90 leading-relaxed mb-8 max-w-md">
-              {t("home.powerConverterLeader")}
-            </p>
-            <Link href="/products" className="btn-orange">
-              {t("common.more")}
-            </Link>
-          </div>
-
-          {/* Right - 3D Cube Image */}
-          <div className="flex justify-center lg:justify-end">
-            <Image
-              src="/hero-banner.png"
-              alt="UNC Energy - Global Design"
-              width={600}
-              height={450}
-              className="object-contain drop-shadow-2xl"
-              priority
-            />
-          </div>
+    <section className="clone-home-hero" id="hero">
+      <Link href="/solutions" className="clone-home-hero-slide" aria-label={t("home.solutionsTitle")}>
+        <RemoteImage
+          src={homeHeroSlides[activeSlide]}
+          alt="UNC energy storage and inverter banner"
+          fill
+          priority
+          sizes="100vw"
+          className="clone-home-hero-image"
+        />
+        <div className="clone-home-hero-copy">
+          <span>{t("home.globalDesign")}</span>
+          <strong>{t("home.powerConverterLeader")}</strong>
+          <em>{t("common.more")}</em>
         </div>
-      </div>
+      </Link>
 
-      {/* Slider dots */}
-      <div className="hero-dots">
-        <div className="hero-dot" />
-        <div className="hero-dot active" />
-        <div className="hero-dot" />
+      <div className="hero-dots clone-hero-dots">
+        {homeHeroSlides.map((slide, index) => (
+          <button
+            key={slide}
+            type="button"
+            aria-label={`Go to banner ${index + 1}`}
+            onClick={() => setActiveSlide(index)}
+            className={`hero-dot ${activeSlide === index ? "active" : ""}`}
+          />
+        ))}
       </div>
     </section>
   );
