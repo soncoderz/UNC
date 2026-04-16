@@ -46,7 +46,15 @@ async function fetcher<T>(
     ...options,
   };
 
-  const response = await fetch(url, config);
+  let response: Response;
+
+  try {
+    response = await fetch(url, config);
+  } catch {
+    throw new Error(
+      `Cannot connect to API server at ${API_BASE_URL}. Make sure the backend is running on port 3001.`
+    );
+  }
 
   if (!response.ok) {
     const error = (await response.json().catch(() => ({}))) as Partial<ApiResponse<null>>;

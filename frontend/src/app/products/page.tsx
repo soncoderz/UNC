@@ -31,8 +31,7 @@ function ProductsContent() {
         setLoading(true);
         const response = await getProducts(activeCategory ? { category: activeCategory } : {});
         setProducts(response.data || []);
-      } catch (error) {
-        console.error("Error fetching products:", error);
+      } catch {
         setProducts([]);
       } finally {
         setLoading(false);
