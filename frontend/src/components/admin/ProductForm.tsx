@@ -5,7 +5,7 @@ import type { Product } from "@/types/api";
 
 interface ProductFormProps {
   initialData?: Product;
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: Partial<Product>) => Promise<void>;
   onCancel: () => void;
 }
 
@@ -38,8 +38,8 @@ export default function ProductForm({ initialData, onSubmit, onCancel }: Product
     setIsLoading(true);
     try {
       await onSubmit(formData);
-    } catch (err: any) {
-      setError(err.message || "Failed to save product");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to save product");
     } finally {
       setIsLoading(false);
     }

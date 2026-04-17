@@ -554,7 +554,7 @@ img {
   gap: 6px;
   cursor: pointer;
   font-size: 0.875rem;
-  color: white;
+  color: #2f343b;
   background: transparent;
   border: 0;
   padding: 0;
@@ -567,6 +567,180 @@ img {
 
 .lang-selector.scrolled {
   color: var(--color-dark);
+}
+
+/* ============================================
+   UNICONVTOR HEADER
+   ============================================ */
+
+.unc-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #d9dee6;
+}
+
+.unc-site-header.is-scrolled {
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.unc-header-inner {
+  width: min(calc(100% - 160px), 1700px);
+  height: 106px;
+  margin: 0 auto;
+}
+
+.unc-logo {
+  width: 220px;
+  height: 106px;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  color: #1c7ec8;
+}
+
+.unc-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-heading), "Arial Black", Arial, sans-serif;
+  font-size: 54px;
+  font-weight: 900;
+  line-height: 1;
+  font-style: italic;
+  letter-spacing: -0.12em;
+  transform: skewX(-8deg);
+}
+
+.unc-wordmark span:first-child,
+.unc-wordmark span:last-child {
+  color: #1d82ca;
+}
+
+.unc-wordmark span:nth-child(2) {
+  color: #ff7a1a;
+}
+
+.unc-wordmark-mobile {
+  font-size: 32px;
+}
+
+.unc-desktop-nav {
+  height: 106px;
+  display: flex;
+  align-items: stretch;
+  gap: 62px;
+}
+
+.unc-nav-item {
+  position: relative;
+  height: 106px;
+  display: flex;
+  align-items: stretch;
+}
+
+.unc-nav-link {
+  position: relative;
+  height: 106px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #34383f;
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+}
+
+.unc-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -1px;
+  width: 76px;
+  height: 2px;
+  background: #ff6b2c;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
+.unc-nav-link:hover,
+.unc-nav-link.is-active {
+  color: #ff6b2c;
+}
+
+.unc-nav-link.is-active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.unc-solution-strip {
+  height: 140px;
+  background: #fff;
+  border-bottom: 1px solid #e7ebf1;
+}
+
+.unc-solution-strip-inner {
+  width: min(calc(100% - 560px), 1320px);
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  gap: 90px;
+}
+
+.unc-solution-strip-item {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #3d424a;
+  font-size: 16px;
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.unc-solution-strip-item:hover {
+  color: #ff6b2c;
+}
+
+.unc-solution-strip-item span {
+  max-width: 250px;
+}
+
+.unc-solution-strip-icon {
+  width: 45px;
+  height: 34px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 8px 8px rgba(29, 130, 202, 0.22));
+}
+
+@media (max-width: 1500px) {
+  .unc-header-inner {
+    width: min(calc(100% - 64px), 1400px);
+  }
+
+  .unc-logo {
+    width: 170px;
+  }
+
+  .unc-desktop-nav {
+    gap: 28px;
+  }
+
+  .unc-nav-link {
+    font-size: 16px;
+  }
+
+  .unc-solution-strip-inner {
+    width: min(calc(100% - 220px), 1100px);
+    gap: 52px;
+  }
 }
 
 /* ============================================
@@ -661,8 +835,8 @@ img {
 
 .clone-home-hero {
   position: relative;
-  height: min(760px, 100vh);
-  min-height: 560px;
+  height: calc(100vh - 247px);
+  min-height: 650px;
   overflow: hidden;
   background: #0b5fc9;
 }
@@ -675,6 +849,7 @@ img {
 
 .clone-home-hero-image {
   object-fit: cover;
+  object-position: center bottom;
 }
 
 .clone-home-hero-copy {
@@ -2077,6 +2252,15 @@ img {
 }
 
 @media (max-width: 1100px) {
+  .unc-header-inner {
+    width: min(calc(100% - 32px), 100%);
+    height: 64px;
+  }
+
+  .unc-solution-strip {
+    display: none;
+  }
+
   .clone-programme-main,
   .clone-recommend-body,
   .clone-manufacture-main,
@@ -2135,6 +2319,7 @@ img {
 
 @media (max-width: 700px) {
   .clone-home-hero {
+    height: calc(100vh - 64px);
     min-height: 520px;
   }
 

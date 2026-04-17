@@ -4,6 +4,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useState,
   type ReactNode,
 } from "react";
@@ -20,18 +21,18 @@ const translations = {
       company: "Company",
       news: "News",
       support: "Support",
-      contact: "Contact",
+      contact: "Contact Us",
       aboutUs: "About Us",
-      solutions: "Solutions",
+      solutions: "Solution",
       productsCenter: "Product Center",
       rnd: "R&D and Manufacturing",
-      solutionHousehold: "Household energy storage solutions",
-      solutionCommercial: "Commercial and industrial energy storage",
-      solutionPhotovoltaic: "Photovoltaic system solutions",
+      solutionHousehold: "Household Energy Storage Solutions",
+      solutionCommercial: "Industrial and Commercial Energy Storage",
+      solutionPhotovoltaic: "Photovoltaic System Solutions",
       rndCapabilities: "R&D Capabilities",
       batchProduction: "Batch production capabilities",
       qualityAssurance: "Quality assurance",
-      technicalSupport: "Technical support",
+      technicalSupport: "Technical Support",
       postSale: "After-sales service",
       dataDownload: "Data download",
     },
@@ -864,6 +865,7 @@ const translations = {
 } as const;
 
 type Locale = keyof typeof translations;
+const DEFAULT_LOCALE: Locale = "en";
 
 interface LanguageContextValue {
   locale: Locale;
@@ -889,18 +891,18 @@ function getNestedTranslation(source: unknown, keys: string[]): string | undefin
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState<Locale>(() => {
-    if (typeof window === "undefined") {
-      return "en";
-    }
+  const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE);
 
+  useEffect(() => {
     const savedLocale = window.localStorage.getItem("site-locale");
     if (savedLocale && savedLocale in translations) {
-      return savedLocale as Locale;
-    }
+      const timer = window.setTimeout(() => {
+        setLocale(savedLocale as Locale);
+      }, 0);
 
-    return "en";
-  });
+      return () => window.clearTimeout(timer);
+    }
+  }, []);
 
   const t = useCallback(
     (key: string) => {
