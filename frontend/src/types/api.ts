@@ -72,3 +72,29 @@ export interface ApiResponse<T> {
   data: T;
   timestamp: string;
 }
+
+export type UserRole = "admin" | "user";
+
+export interface SafeUser {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  createdAt: string;
+}
+
+export interface AuthResponse {
+  user: SafeUser;
+  token: string;
+}
+
+export interface LoginInput {
+  email: string;
+  password: string;
+}
+
+export interface RegisterInput {
+  email: string;
+  password: string;
+  name: string;
+}

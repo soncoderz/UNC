@@ -1,10 +1,12 @@
 import type {
   ApiResponse,
+  AuthResponse,
   CompanyInfo,
   ContactFormData,
   ContactSubmission,
   NewsArticle,
   Product,
+  SafeUser,
 } from "@/types/api";
 
 /**
@@ -99,6 +101,56 @@ export async function submitContact(data: ContactFormData) {
   });
 }
 
+// ========== Auth API ==========
+export async function loginUser(email: string, password: string) {
+  return fetcher<AuthResponse>("/api/auth/login", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
+}
+
+export async function registerUser(email: string, password: string, name: string) {
+  return fetcher<AuthResponse>("/api/auth/register", {
+    method: "POST",
+    body: JSON.stringify({ email, password, name }),
+  });
+}
+
+export async function getCurrentUser(token: string) {
+  return fetcher<SafeUser>("/api/auth/me", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+// ========== Admin Product CRUD ==========
+function authHeaders(token: string) {
+  return { Authorization: `Bearer ${token}` };
+}
+
+export async function createProductAdmin(token: string, product: Record<string, unknown>) {
+  return fetcher<Product>("/api/products", {
+    method: "POST",
+    body: JSON.stringify(product),
+    headers: authHeaders(token),
+  });
+}
+
+export async function updateProductAdmin(token: string, id: string, updates: Record<string, unknown>) {
+  return fetcher<Product>("/api/products", {
+    method: "PUT",
+    body: JSON.stringify({ id, ...updates }),
+    headers: authHeaders(token),
+  });
+}
+
+export async function deleteProductAdmin(token: string, id: string) {
+  return fetcher<null>("/api/products", {
+    method: "DELETE",
+    body: JSON.stringify({ id }),
+    headers: authHeaders(token),
+  });
+}
+
 const api = {
   getProducts,
   getProductById,
@@ -107,6 +159,12 @@ const api = {
   getNewsById,
   getCompanyInfo,
   submitContact,
+  loginUser,
+  registerUser,
+  getCurrentUser,
+  createProductAdmin,
+  updateProductAdmin,
+  deleteProductAdmin,
 };
 
 export default api;

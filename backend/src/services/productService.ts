@@ -88,3 +88,70 @@ export async function searchProducts(query: string): Promise<Product[]> {
     )
   );
 }
+
+// Tạo sản phẩm mới
+export async function createProduct(product: Omit<Product, "id">): Promise<Product> {
+  const newProduct: Product = {
+    ...product,
+    id: `prod-${Date.now()}`,
+  };
+
+  if (isMongoConfigured()) {
+    await ensureSeedData();
+    const collection = await getProductsCollection();
+    await collection.insertOne(newProduct as any);
+  } else {
+    const { readFileSync, writeFileSync } = await import("fs");
+    const { join } = await import("path");
+    const filePath = join(process.cwd(), "src", "data", "products.json");
+    const products = JSON.parse(readFileSync(filePath, "utf-8")) as Product[];
+    products.push(newProduct);
+    writeFileSync(filePath, JSON.stringify(products, null, 2), "utf-8");
+  }
+
+  return newProduct;
+}
+
+// Cập nhật sản phẩm
+export async function updateProduct(id: string, updates: Partial<Product>): Promise<Product | null> {
+  if (isMongoConfigured()) {
+    await ensureSeedData();
+    const collection = await getProductsCollection();
+    const result = await collection.findOneAndUpdate(
+      { id },
+      { $set: updates },
+      { returnDocument: "after" }
+    );
+    return result ? (stripMongoId(result) as Product) : null;
+  } else {
+    const { readFileSync, writeFileSync } = await import("fs");
+    const { join } = await import("path");
+    const filePath = join(process.cwd(), "src", "data", "products.json");
+    const products = JSON.parse(readFileSync(filePath, "utf-8")) as Product[];
+    const index = products.findIndex((p) => p.id === id);
+    if (index === -1) return null;
+    products[index] = { ...products[index], ...updates, id };
+    writeFileSync(filePath, JSON.stringify(products, null, 2), "utf-8");
+    return products[index];
+  }
+}
+
+// Xóa sản phẩm
+export async function deleteProduct(id: string): Promise<boolean> {
+  if (isMongoConfigured()) {
+    await ensureSeedData();
+    const collection = await getProductsCollection();
+    const result = await collection.deleteOne({ id });
+    return result.deletedCount > 0;
+  } else {
+    const { readFileSync, writeFileSync } = await import("fs");
+    const { join } = await import("path");
+    const filePath = join(process.cwd(), "src", "data", "products.json");
+    const products = JSON.parse(readFileSync(filePath, "utf-8")) as Product[];
+    const filtered = products.filter((p) => p.id !== id);
+    if (filtered.length === products.length) return false;
+    writeFileSync(filePath, JSON.stringify(filtered, null, 2), "utf-8");
+    return true;
+  }
+}
+
