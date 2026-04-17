@@ -96,7 +96,8 @@ export default function Navbar() {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   
   const isScrolled = isScrolledFromHook || pathname?.startsWith("/admin");
-  const displayedDropdown = activeDropdown ?? (pathname === "/" ? "Solution" : null);
+  const displayedDropdown = activeDropdown;
+  const highlightHomeSolution = pathname === "/" && !isScrolled && !activeDropdown;
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -196,7 +197,7 @@ export default function Navbar() {
     >
       <div className="unc-header-inner">
         <div className="hidden lg:flex items-center justify-between w-full h-full">
-          <div className="flex items-center gap-10 xl:gap-14 h-full">
+          <div className="unc-header-left">
             <Link href="/" className="unc-logo" aria-label="UNC home">
               <span className="unc-wordmark" aria-hidden="true">
                 <span>U</span>
@@ -215,7 +216,11 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className={`unc-nav-link ${
-                      isActive(item.href) || displayedDropdown === item.label ? "is-active" : ""
+                      isActive(item.href) ||
+                      displayedDropdown === item.label ||
+                      (item.label === "Solution" && highlightHomeSolution)
+                        ? "is-active"
+                        : ""
                     }`}
                   >
                     <span>{t(navLabelKeys[item.href] || item.label)}</span>
@@ -242,7 +247,7 @@ export default function Navbar() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-5 justify-end shrink-0">
+          <div className="unc-header-actions">
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 <span className="text-sm text-dark">

@@ -587,13 +587,32 @@ img {
 }
 
 .unc-header-inner {
-  width: min(calc(100% - 160px), 1700px);
+  width: min(calc(100% - 72px), 1780px);
   height: 106px;
   margin: 0 auto;
 }
 
+.unc-header-left {
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 2.3vw, 56px);
+  flex: 1 1 auto;
+}
+
+.unc-header-actions {
+  min-width: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  flex: 0 0 auto;
+  padding-left: clamp(18px, 2vw, 38px);
+}
+
 .unc-logo {
-  width: 220px;
+  width: clamp(150px, 10vw, 220px);
   height: 106px;
   display: flex;
   align-items: center;
@@ -605,7 +624,7 @@ img {
   display: inline-flex;
   align-items: baseline;
   font-family: var(--font-heading), "Arial Black", Arial, sans-serif;
-  font-size: 54px;
+  font-size: clamp(44px, 3vw, 54px);
   font-weight: 900;
   line-height: 1;
   font-style: italic;
@@ -630,7 +649,10 @@ img {
   height: 106px;
   display: flex;
   align-items: stretch;
-  gap: 62px;
+  justify-content: space-between;
+  gap: clamp(18px, 2vw, 52px);
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .unc-nav-item {
@@ -647,7 +669,7 @@ img {
   align-items: center;
   justify-content: center;
   color: #34383f;
-  font-size: 18px;
+  font-size: clamp(14px, 0.95vw, 18px);
   font-weight: 700;
   white-space: nowrap;
   letter-spacing: 0.01em;
@@ -677,26 +699,32 @@ img {
 }
 
 .unc-solution-strip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 45;
   height: 140px;
   background: #fff;
   border-bottom: 1px solid #e7ebf1;
+  box-shadow: 0 18px 32px rgba(15, 23, 42, 0.08);
 }
 
 .unc-solution-strip-inner {
-  width: min(calc(100% - 560px), 1320px);
+  width: min(calc(100% - 360px), 1320px);
   height: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  gap: 90px;
+  gap: clamp(34px, 5vw, 90px);
 }
 
 .unc-solution-strip-item {
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: clamp(14px, 1.2vw, 20px);
   color: #3d424a;
   font-size: 16px;
   line-height: 1.15;
@@ -709,7 +737,7 @@ img {
 }
 
 .unc-solution-strip-item span {
-  max-width: 250px;
+  max-width: 310px;
 }
 
 .unc-solution-strip-icon {
@@ -722,24 +750,24 @@ img {
 
 @media (max-width: 1500px) {
   .unc-header-inner {
-    width: min(calc(100% - 64px), 1400px);
+    width: min(calc(100% - 48px), 1450px);
   }
 
   .unc-logo {
-    width: 170px;
+    width: 140px;
   }
 
   .unc-desktop-nav {
-    gap: 28px;
+    gap: 18px;
   }
 
   .unc-nav-link {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .unc-solution-strip-inner {
-    width: min(calc(100% - 220px), 1100px);
-    gap: 52px;
+    width: min(calc(100% - 96px), 1160px);
+    gap: 36px;
   }
 }
 
@@ -835,7 +863,7 @@ img {
 
 .clone-home-hero {
   position: relative;
-  height: calc(100vh - 247px);
+  height: calc(100vh - 106px);
   min-height: 650px;
   overflow: hidden;
   background: #0b5fc9;
