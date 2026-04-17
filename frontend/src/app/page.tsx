@@ -53,12 +53,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   }
 
   return (
-    <>
+    <div className="unc-home">
       <HeroSection />
       <SolutionSection />
       <RecommendedProducts />
       <RndSection />
       <NewsSection />
-    </>
+    </div>
   );
 }

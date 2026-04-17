@@ -95,7 +95,9 @@ export default function Navbar() {
   const { availableLocales, locale, switchLanguage, t } = useLanguage();
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   
+  const isInnerPage = !pathname?.startsWith("/admin") && !pathname?.startsWith("/login");
   const isScrolled = isScrolledFromHook || pathname?.startsWith("/admin");
+  const useLightHeader = isScrolled || !isInnerPage;
   const displayedDropdown = activeDropdown;
   const highlightHomeSolution = pathname === "/" && !isScrolled && !activeDropdown;
 
@@ -138,7 +140,7 @@ export default function Navbar() {
       <button
         type="button"
         onClick={() => setIsLanguageOpen((open) => !open)}
-        className={`lang-selector ${isScrolled ? "scrolled" : ""}`}
+        className={`lang-selector ${useLightHeader ? "scrolled" : ""}`}
         aria-expanded={isLanguageOpen}
         aria-label={t("common.selectLanguage")}
       >
@@ -193,16 +195,31 @@ export default function Navbar() {
   return (
     <header
       onMouseLeave={() => setActiveDropdown(null)}
-      className={`unc-site-header ${isScrolled ? "is-scrolled" : ""}`}
+      className={`unc-site-header ${isInnerPage ? "is-inner-page" : ""} ${
+        isScrolled ? "is-scrolled" : ""
+      }`}
     >
       <div className="unc-header-inner">
         <div className="hidden lg:flex items-center justify-between w-full h-full">
           <div className="unc-header-left">
             <Link href="/" className="unc-logo" aria-label="UNC home">
-              <span className="unc-wordmark" aria-hidden="true">
-                <span>U</span>
-                <span>N</span>
-                <span>C</span>
+              <span className="unc-logo-stack" aria-hidden="true">
+                <RemoteImage
+                  src="/template/default/esimg/img/logo1.png"
+                  alt=""
+                  width={156}
+                  height={95}
+                  className="unc-logo-img unc-logo-img-light"
+                  priority
+                />
+                <RemoteImage
+                  src="/template/default/esimg/img/logo2.png"
+                  alt=""
+                  width={156}
+                  height={95}
+                  className="unc-logo-img unc-logo-img-color"
+                  priority
+                />
               </span>
             </Link>
 
@@ -276,15 +293,20 @@ export default function Navbar() {
 
         <div className="flex lg:hidden items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <span className="unc-wordmark unc-wordmark-mobile" aria-hidden="true">
-              <span>U</span>
-              <span>N</span>
-              <span>C</span>
+            <span className="unc-mobile-logo" aria-hidden="true">
+              <RemoteImage
+                src="/template/default/esimg/img/logo2.png"
+                alt=""
+                width={156}
+                height={95}
+                className="unc-mobile-logo-img"
+                priority
+              />
             </span>
           </Link>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-2 rounded-lg text-dark transition-colors"
+            className="unc-mobile-menu-button p-2 rounded-lg text-dark transition-colors"
             aria-label={t("common.toggleMenu")}
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

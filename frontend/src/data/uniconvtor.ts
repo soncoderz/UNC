@@ -13,6 +13,11 @@ export const homeHeroSlides = [
   "/static/upload/image/20240712/1720767484276473.jpg",
 ];
 
+export const homeHeroMobileSlides = [
+  "/static/upload/image/20240712/1720767499927564.jpg",
+  "/static/upload/image/20240712/1720767511219332.jpg",
+];
+
 export const innerBanners = {
   about: "/static/upload/image/20240718/1721281513711263.jpg",
   solutions: "/static/upload/image/20240716/1721096159468693.png",
@@ -68,7 +73,7 @@ export const solutions = [
     poster: "/static/upload/image/20240715/1721010314542105.jpg",
     video: "/static/upload/other/20240715/1721009048961098.mp4",
     description:
-      "We offer hybrid inverters and household batteries with high power density, high conversion efficiency, excellent protection, reliability, intelligence, and stability for villas, balcony solar, data centers, remote islands, and daily energy saving.",
+      "We offer a wide type of the hybrid inverters and household batteries, featuring high power density, high conversion efficiency, excellent self-protection functions, good reliability, intelligence, and stability, which can be flexibly applied to different application scenarios for household, such as energy saving, power supply for villas, balcony solar solution, energy saving for data centers, and remote islands without electricity.",
     systemTitle: "Scheme System Diagram",
     features: [
       "Hybrid inverter and household battery portfolio",
@@ -87,7 +92,7 @@ export const solutions = [
     poster: "/static/upload/image/20240715/1721020164496498.jpg",
     video: "/static/upload/other/20240715/1721020237971021.mp4",
     description:
-      "We provide modular energy storage converters, C&I energy storage converters, EMS, and integrated solutions for auxiliary service, peak shaving, demand response, and dynamic capacity expansion.",
+      "We provide modular energy storage converters with various of the power specifications, C&I energy storage converter and system , EMS and other key equipments and integrated solutions, to meet the needs of auxiliary service , peak-load shifting, demand side response, dynamic capacity expansion, etc.",
     systemTitle: "Scheme System Diagram",
     features: [
       "Modular energy storage converter architecture",
@@ -106,7 +111,7 @@ export const solutions = [
     poster: "/static/upload/image/20240715/1721021147498170.jpg",
     video: "/static/upload/other/20240715/1721021152615661.mp4",
     description:
-      "We offer PV inverters from 10 to 110 kW with high efficiency, intelligent stability, and reliable safety for residential, distributed, and large-scale photovoltaic power plants.",
+      "We offer PV inverters ranging from 10 to 110 kW, featuring high efficiency, intelligent stability, and reliable safety. These inverters are suitable for various scenarios, including residential, distributed, and large-scale photovoltaic power plants.",
     systemTitle: "Scheme System Diagram",
     features: [
       "PV inverter range from 10 kW to 110 kW",
@@ -329,6 +334,31 @@ export const cloneProducts: Product[] = [
     isFeatured: true,
   },
   {
+    id: "single-phase-hybrid-low-voltage-4-8-6-6kw",
+    name: "Single-phase Hybrid Inverter Low Voltage / Forced Air Cooling 4.8-6.6kW",
+    category: "hybrid-inverters",
+    subcategory: "Household Energy Storage | Hybrid Inverter",
+    power: "4.8-6.6kW",
+    description:
+      "IP66 high protection level, 60V low voltage startup, 2x rated overload capacity, 10ms off-grid switching, supports up to 12 units in parallel, and can start without battery.",
+    features: [
+      "IP66 high protection",
+      "60V low voltage startup",
+      "2x rated overload capacity",
+      "Supports up to 12 units in parallel",
+    ],
+    specs: {
+      Power: "4.8-6.6kW",
+      Startup: "60V low voltage",
+      Switching: "10ms off-grid",
+      Parallel: "Up to 12 units",
+    },
+    image: "/static/upload/image/20260401/1775023282222564.png",
+    price: null,
+    isNew: true,
+    isFeatured: true,
+  },
+  {
     id: "pv-battery-all-in-one",
     name: "PV and Battery All-In-One",
     category: "energy-storage",
@@ -510,7 +540,7 @@ export const recommendedProductGroups = [
     title: "Household Energy Storage",
     icon: "/static/upload/image/20240716/1721118217135945.png",
     activeIcon: "/static/upload/image/20240716/1721118202320162.png",
-    products: cloneProducts.filter((product) => product.category === "hybrid-inverters").slice(0, 4),
+    products: cloneProducts.filter((product) => product.category === "hybrid-inverters"),
   },
   {
     title: "Industrial and Commercial Energy Storage",
@@ -697,6 +727,48 @@ export const cloneNews: NewsArticle[] = [
     date: "2026-02-13",
     author: "UNC Technology",
     image: "/static/upload/image/20260213/1770946881431450.png",
+    isFeatured: false,
+  },
+  {
+    id: "solar-storage-companies-70",
+    title: "Business Model and Technology Direction of Solar Storage Companies",
+    slug: "business-model-technology-direction-solar-storage-companies",
+    excerpt:
+      "Solar storage companies combine energy storage products with system-level service capabilities.",
+    content:
+      "Solar storage companies continue to expand integrated products, intelligent monitoring, and service-oriented energy solutions for residential and commercial applications.",
+    category: "Corporate News",
+    date: "2026-02-06",
+    author: "UNC Technology",
+    image: "/static/upload/image/20260206/1770358573360352.png",
+    isFeatured: false,
+  },
+  {
+    id: "solar-charge-inverter-69",
+    title: "What are the Different Types of Solar Charge Inverters?",
+    slug: "different-types-solar-charge-inverters",
+    excerpt:
+      "Solar charge inverters vary by topology, power range, and grid interaction modes.",
+    content:
+      "Solar charge inverters can support off-grid, hybrid, and grid-connected scenarios, helping users adapt photovoltaic generation to different energy usage needs.",
+    category: "Corporate News",
+    date: "2026-01-30",
+    author: "UNC Technology",
+    image: "/static/upload/image/20260130/1769755794396762.png",
+    isFeatured: false,
+  },
+  {
+    id: "pv-panel-inverter-68",
+    title: "Types and Characteristics of PV Panel Inverters",
+    slug: "types-characteristics-pv-panel-inverters",
+    excerpt:
+      "PV panel inverters provide efficient conversion and monitoring for photovoltaic power generation.",
+    content:
+      "PV panel inverter selection depends on application size, MPPT range, protection level, and site operation requirements.",
+    category: "Corporate News",
+    date: "2026-01-23",
+    author: "UNC Technology",
+    image: "/static/upload/image/20260123/1769148756893581.png",
     isFeatured: false,
   },
 ];
