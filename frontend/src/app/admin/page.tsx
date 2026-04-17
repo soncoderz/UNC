@@ -67,7 +67,7 @@ export default function AdminDashboard() {
     try {
       await api.deleteProductAdmin(token, id);
       setProducts((prev) => prev.filter((p) => p.id !== id));
-    } catch (err) {
+    } catch {
       alert("Failed to delete product");
     }
   };

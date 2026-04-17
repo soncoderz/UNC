@@ -3,30 +3,32 @@
 import Link from "next/link";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { companyStats } from "@/data/uniconvtor";
-import { useLanguage } from "@/context/LanguageContext";
 
 export default function RndSection() {
-  const { t } = useLanguage();
-
   return (
-    <section className="clone-manufacture" id="rnd">
-      <div className="clone-manufacture-main">
-        <div className="clone-manufacture-copy">
-          <div className="clone-title clone-title-left">
-            <h2>{t("home.rndTitle")}</h2>
-            <p>{t("home.rndSubtitle")}</p>
+    <section className="main ind-manufacture" id="rnd">
+      <div className="ind-manuContent">
+        <div className="ind-manuTitle">
+          <div className="title1">
+            <h3 className="text-4xl">R&amp;D and Manufacturing</h3>
+            <h6 className="text-base">
+              Research and innovation, forging the future of electricity
+            </h6>
           </div>
-          <div className="clone-manufacture-text">
-            <p>{t("home.rndParagraph1")}</p>
-            <p>{t("home.rndParagraph2")}</p>
-            <p>{t("home.rndParagraph3")}</p>
+          <div className="ind-manuText text-base">
+            Always regard quality as the core of survival and development.
+            <br />
+            Has passed the ISO900 international quality management system certification.
+            <br />
+            Multiple international certifications such as ISO 14001 environmental
+            management system certification.
           </div>
-          <Link href="/rnd" className="btn-orange">
-            {t("common.more")}
+          <Link href="/rnd" className="btn1 text-base">
+            MORE
           </Link>
         </div>
 
-        <div className="clone-manufacture-image">
+        <div className="ind-manuImg">
           <RemoteImage
             src="/static/upload/image/20240715/1721025415175397.png"
             alt="R&D and manufacturing certificates"
@@ -37,16 +39,13 @@ export default function RndSection() {
         </div>
       </div>
 
-      <div className="clone-stat-grid">
+      <div className="ind-manuUl">
         {companyStats.map((stat) => (
-          <div key={stat.label} className="clone-stat-card">
-            <RemoteImage src={stat.icon} alt="" width={54} height={54} />
+          <div key={stat.label} className="ind-manuLi">
+            <RemoteImage src={stat.icon} alt="" width={100} height={100} />
             <div>
-              <strong>
-                {stat.value}
-                <sup>{stat.suffix}</sup>
-              </strong>
-              <p>{stat.label}</p>
+              <span>{stat.value}</span>
+              <i className="text-sm">{stat.label}</i>
             </div>
           </div>
         ))}

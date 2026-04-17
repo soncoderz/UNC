@@ -1,4 +1,5 @@
 import { Inter, Outfit } from "next/font/google";
+import Script from "next/script";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
@@ -37,6 +38,49 @@ export const metadata: Metadata = {
   ],
 };
 
+const browserExtensionAttributeCleanup = `
+(() => {
+  const attributes = ["bis_skin_checked"];
+
+  const cleanNode = (node) => {
+    if (!(node instanceof Element)) {
+      return;
+    }
+
+    for (const attribute of attributes) {
+      node.removeAttribute(attribute);
+    }
+
+    for (const attribute of attributes) {
+      node.querySelectorAll("[" + attribute + "]").forEach((child) => {
+        child.removeAttribute(attribute);
+      });
+    }
+  };
+
+  cleanNode(document.documentElement);
+
+  new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (
+        mutation.type === "attributes" &&
+        mutation.attributeName &&
+        attributes.includes(mutation.attributeName)
+      ) {
+        mutation.target.removeAttribute(mutation.attributeName);
+      }
+
+      mutation.addedNodes.forEach(cleanNode);
+    }
+  }).observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: attributes,
+    childList: true,
+    subtree: true,
+  });
+})();
+`;
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -45,6 +89,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
+        <Script
+          id="browser-extension-attribute-cleanup"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: browserExtensionAttributeCleanup }}
+        />
         <AuthProvider>
           <LanguageProvider>
             <Navbar />

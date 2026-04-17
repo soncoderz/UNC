@@ -4,8 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+<<<<<<< HEAD
 import { COMPANY_INFO, NAV_ITEMS, PRODUCT_CATEGORIES } from "@/constants/navigation";
 import { asset, cloneProducts, productNav, supportNav } from "@/data/uniconvtor";
+=======
+import { NAV_ITEMS, PRODUCT_CATEGORIES } from "@/constants/navigation";
+import { asset, cloneProducts, productNav, solutions } from "@/data/uniconvtor";
+>>>>>>> fearute/sonclone
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import { useLanguage } from "@/context/LanguageContext";
@@ -89,18 +94,17 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeProductCategory, setActiveProductCategory] = useState<string>("hybrid-inverters");
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
   const languageSelectorRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { isScrolled: isScrolledFromHook } = useScrollPosition();
   const { availableLocales, locale, switchLanguage, t } = useLanguage();
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   
-  // Force solid navbar on admin routes because they don't have a dark hero section
+  const isInnerPage = !pathname?.startsWith("/admin") && !pathname?.startsWith("/login");
   const isScrolled = isScrolledFromHook || pathname?.startsWith("/admin");
-
-  useEffect(() => { setMounted(true); }, []);
-
+  const useLightHeader = isScrolled || !isInnerPage;
+  const displayedDropdown = activeDropdown;
+  const highlightHomeSolution = pathname === "/" && !isScrolled && !activeDropdown;
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -141,7 +145,7 @@ export default function Navbar() {
       <button
         type="button"
         onClick={() => setIsLanguageOpen((open) => !open)}
-        className={`lang-selector ${isScrolled ? "scrolled" : ""}`}
+        className={`lang-selector ${useLightHeader ? "scrolled" : ""}`}
         aria-expanded={isLanguageOpen}
         aria-label={t("common.selectLanguage")}
       >
@@ -193,57 +197,65 @@ export default function Navbar() {
     </div>
   );
 
-  if (!mounted) {
-    return <header className="fixed top-0 left-0 right-0 z-50 h-[72px] bg-transparent" />;
-  }
-
   return (
     <header
       onMouseLeave={() => setActiveDropdown(null)}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-        ? "bg-white shadow-md"
-        : "bg-transparent"
+      className={`unc-site-header ${isInnerPage ? "is-inner-page" : ""} ${
+        isScrolled ? "is-scrolled" : ""
       }`}
     >
-      <div className="max-w-[1400px] mx-auto px-4 lg:px-6">
-        <div className="hidden lg:flex items-center justify-between h-[72px] w-full">
-          {/* Left: Logo + Nav grouped */}
-          <div className="flex items-center gap-8 xl:gap-12">
-            <Link href="/" className="flex items-center shrink-0">
-              <span
-                className="font-extrabold text-[36px] xl:text-[40px] tracking-tight leading-none italic select-none transition-colors duration-300"
-                style={{ fontFamily: "var(--font-heading), 'Arial Black', sans-serif" }}
-              >
-                <span className={isScrolled ? "text-[#1a6fef]" : "text-white"}>U</span>
-                <span className="text-[#f97316]" style={{ letterSpacing: "-2px" }}>N</span>
-                <span className={isScrolled ? "text-[#1a6fef]" : "text-white"}>C</span>
+      <div className="unc-header-inner">
+        <div className="hidden lg:flex items-center justify-between w-full h-full">
+          <div className="unc-header-left">
+            <Link href="/" className="unc-logo" aria-label="UNC home">
+              <span className="unc-logo-stack" aria-hidden="true">
+                <RemoteImage
+                  src="/template/default/esimg/img/logo1.png"
+                  alt=""
+                  width={156}
+                  height={95}
+                  className="unc-logo-img unc-logo-img-light"
+                  priority
+                />
+                <RemoteImage
+                  src="/template/default/esimg/img/logo2.png"
+                  alt=""
+                  width={156}
+                  height={95}
+                  className="unc-logo-img unc-logo-img-color"
+                  priority
+                />
               </span>
             </Link>
 
-            <nav className="flex items-center gap-1 xl:gap-2">
+            <nav className="unc-desktop-nav">
               {NAV_ITEMS.map((item) => (
                 <div
                   key={item.href}
-                  className="relative group h-[72px] flex items-center"
+                  className="unc-nav-item"
                   onMouseEnter={() => setActiveDropdown(item.label)}
                 >
                   <Link
                     href={item.href}
-                    className={`px-3 xl:px-4 py-2 text-[14px] xl:text-[15px] font-medium transition-colors duration-200 relative whitespace-nowrap flex items-center h-[72px] ${isActive(item.href)
-                      ? "text-[#f97316] font-semibold"
-                      : isScrolled
-                        ? "text-[#333] hover:text-[#f97316]"
-                        : "text-white/90 hover:text-white"
+                    className={`unc-nav-link ${
+                      isActive(item.href) ||
+                      displayedDropdown === item.label ||
+                      (item.label === "Solution" && highlightHomeSolution)
+                        ? "is-active"
+                        : ""
                     }`}
                   >
-                    {t(navLabelKeys[item.href] || item.label)}
-                    {isActive(item.href) && (
-                      <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-10 h-[3px] bg-[#f97316] rounded-t-sm" />
-                    )}
+                    <span>{t(navLabelKeys[item.href] || item.label)}</span>
                   </Link>
 
+<<<<<<< HEAD
                   {/* Standard dropdown for non-About Us items */}
                   {item.children && activeDropdown === item.label && !["About Us", "Product Center", "Technical Support"].includes(item.label) && (
+=======
+                  {item.children &&
+                    displayedDropdown === item.label &&
+                    !["About Us", "Product Center", "Solution"].includes(item.label) && (
+>>>>>>> fearute/sonclone
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-72 bg-white shadow-lg border border-gray-100 py-2 z-50 rounded-b-lg">
                       {item.children.map((child) => (
                         <Link
@@ -262,57 +274,49 @@ export default function Navbar() {
             </nav>
           </div>
 
-          {/* Right: Auth & Language Selector */}
-          <div className="flex items-center gap-4 xl:gap-6 justify-end shrink-0">
-            {/* Auth section */}
+          <div className="unc-header-actions">
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
-                <span className={`text-sm ${isScrolled ? "text-dark" : "text-white"}`}>
+                <span className="text-sm text-dark">
                   Hi, {user?.name.split(" ")[0]}
                 </span>
                 {isAdmin && (
                   <Link
                     href="/admin"
-                    className={`text-sm font-medium transition-colors ${
-                      isScrolled ? "text-primary hover:text-dark" : "text-[#f97316] hover:text-white"
-                    }`}
+                    className="text-sm font-medium text-primary transition-colors hover:text-dark"
                   >
                     Admin
                   </Link>
                 )}
                 <button
                   onClick={logout}
-                  className={`text-sm font-medium transition-colors ${
-                    isScrolled ? "text-red-600 hover:text-red-700" : "text-white/80 hover:text-white"
-                  }`}
+                  className="text-sm font-medium text-red-600 transition-colors hover:text-red-700"
                 >
                   Logout
                 </button>
               </div>
             ) : null}
 
-            {/* Separator */}
-            <div className={`h-4 w-px ${isScrolled ? "bg-gray-200" : "bg-white/20"}`} />
-
             {languageSelector}
           </div>
         </div>
 
-        {/* Mobile: flex layout */}
         <div className="flex lg:hidden items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2">
-            <span
-              className="font-extrabold text-[28px] tracking-tight leading-none italic select-none transition-colors duration-300"
-              style={{ fontFamily: "var(--font-heading), 'Arial Black', sans-serif" }}
-            >
-              <span className={isScrolled ? "text-[#1a6fef]" : "text-white"}>U</span>
-              <span className="text-[#f97316]" style={{ letterSpacing: "-2px" }}>N</span>
-              <span className={isScrolled ? "text-[#1a6fef]" : "text-white"}>C</span>
+            <span className="unc-mobile-logo" aria-hidden="true">
+              <RemoteImage
+                src="/template/default/esimg/img/logo2.png"
+                alt=""
+                width={156}
+                height={95}
+                className="unc-mobile-logo-img"
+                priority
+              />
             </span>
           </Link>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`p-2 rounded-lg transition-colors ${isScrolled ? "text-dark" : "text-white"}`}
+            className="unc-mobile-menu-button p-2 rounded-lg text-dark transition-colors"
             aria-label={t("common.toggleMenu")}
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -335,6 +339,37 @@ export default function Navbar() {
           </button>
         </div>
       </div>
+
+      {displayedDropdown === "Solution" ? (
+        <div
+          className="unc-solution-strip"
+          onMouseEnter={() => setActiveDropdown("Solution")}
+        >
+          <div className="unc-solution-strip-inner">
+            {solutions.map((solution) => {
+              const href = `/solutions/${solution.slug}`;
+
+              return (
+                <Link
+                  key={solution.slug}
+                  href={href}
+                  className="unc-solution-strip-item"
+                  onClick={() => setActiveDropdown(null)}
+                >
+                  <RemoteImage
+                    src={solution.iconHover}
+                    alt=""
+                    width={45}
+                    height={34}
+                    className="unc-solution-strip-icon"
+                  />
+                  <span>{t(childLabelKeys[href] || solution.title)}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
 
       {isMobileMenuOpen ? (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
@@ -387,7 +422,7 @@ export default function Navbar() {
       ) : null}
 
       {/* ===== MEGA MENU FOR "Product Center" ===== */}
-      {activeDropdown === "Product Center" && (
+      {displayedDropdown === "Product Center" && (
         <div
           className="hidden lg:block absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl z-40 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
           onMouseEnter={() => setActiveDropdown("Product Center")}
@@ -413,7 +448,14 @@ export default function Navbar() {
                            className={`w-full text-left flex items-center gap-4 px-8 py-5 transition-all duration-300 relative ${isActiveCat ? 'bg-white shadow-[0_2px_15px_rgba(0,0,0,0.03)] text-[#1ea1f2]' : 'text-[#64748b] hover:text-[#1ea1f2]'}`}
                         >
                            {iconUrl && (
-                              <img src={asset(iconUrl)} alt={cat.label} className={`w-8 h-8 object-contain transition-transform duration-300 ${isActiveCat ? 'scale-110' : ''}`} style={{ filter: isActiveCat ? 'none' : 'grayscale(100%) opacity(60%)' }} />
+                              <Image
+                                src={asset(iconUrl)}
+                                alt={cat.label}
+                                width={32}
+                                height={32}
+                                className={`w-8 h-8 object-contain transition-transform duration-300 ${isActiveCat ? 'scale-110' : ''}`}
+                                style={{ filter: isActiveCat ? 'none' : 'grayscale(100%) opacity(60%)' }}
+                              />
                            )}
                            <span className="font-semibold text-[15px] leading-tight pr-4">{cat.label}</span>
                            {isActiveCat && (
@@ -451,7 +493,7 @@ export default function Navbar() {
       )}
 
       {/* ===== MEGA MENU FOR "About Us" ===== */}
-      {activeDropdown === "About Us" && (
+      {displayedDropdown === "About Us" && (
         <div
           className="hidden lg:block absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl z-40 animate-in fade-in slide-in-from-top-2 duration-200"
           onMouseEnter={() => setActiveDropdown("About Us")}

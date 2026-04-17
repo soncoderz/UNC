@@ -227,10 +227,13 @@ export default function ContactPage() {
             />
           </label>
           <div className="clone-verify-row">
-            <span>Click to verify</span>
-            <button type="submit" disabled={status === "sending"}>
-              {status === "sending" ? "Sending..." : "Submit"}
-            </button>
+            <span className="clone-verify-name">*verify</span>
+            <div className="clone-verify-box">
+              <span>Click to verify</span>
+              <button type="submit" disabled={status === "sending"}>
+                {status === "sending" ? "Sending..." : "Submit"}
+              </button>
+            </div>
           </div>
         </form>
       </section>

@@ -1,20 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import useHasMounted from "@/hooks/useHasMounted";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { user, isAuthenticated, isAdmin, isLoading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useHasMounted();
 
   useEffect(() => {
     if (!isLoading && mounted) {
@@ -28,7 +25,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (!mounted || isLoading || !isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 pt-[72px]">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     );
@@ -43,9 +40,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex pt-[72px]">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 hidden md:block fixed h-[calc(100vh-72px)] overflow-y-auto z-40">
+      <aside className="w-64 bg-white border-r border-gray-200 hidden md:block sticky top-[106px] h-[calc(100vh-106px)] overflow-y-auto z-40">
         <div className="p-6 border-b border-gray-100">
           <h2 className="text-xl font-bold text-dark">Admin Panel</h2>
           <p className="text-sm text-gray mt-1">Welcome, {user?.name}</p>
@@ -72,7 +69,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 md:ml-64 p-6 lg:p-8">
+      <main className="flex-1 p-6 lg:p-8">
         {children}
       </main>
     </div>

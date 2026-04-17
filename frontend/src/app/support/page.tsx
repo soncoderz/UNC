@@ -4,20 +4,26 @@ import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import SectionTitle from "@/components/uniconvtor/SectionTitle";
 import {
   afterSaleImages,
-  asset,
-  downloads,
   innerBanners,
   serviceSystem,
   supportNav,
   supportServices,
 } from "@/data/uniconvtor";
 
+const serviceSystemPositions = [
+  "left1",
+  "left2",
+  "right1",
+  "right2",
+  "bottom",
+] as const;
+
 export default function SupportPage() {
   return (
     <>
       <InnerHero
         title="Technical Support"
-        subtitle="With multiple working modes, UNC Energy Storage can flexibly respond to various scenarios!"
+        subtitle="With multiple working modes, Younengchuang Energy Storage can fiexibly respond to various sceoariosl"
         image={innerBanners.support}
       />
       <InnerNav items={supportNav} activeHref="/support#technical" />
@@ -34,10 +40,15 @@ export default function SupportPage() {
           />
         </div>
         <p>
-          UNC&apos;s technical support process follows rapid response, professional
-          handling, and full tracking. When customers encounter technical
-          issues, UNC promptly organizes an expert team for analysis and
+          UNC&apos;s technical support process follows the principles of
+          &quot;rapid response, professional handling, and full tracking.&quot;
+          When customers encounter technical issues, we promptly initiate the
+          support process, quickly organizing an expert team for analysis and
           resolution.
+          <br />
+          With our deep industry background, extensive technical experience, and
+          professional team, UNC is committed to offering efficient and precise
+          technical support services to our customers.
         </p>
         <h3>Technical support services</h3>
         <div className="clone-support-service-grid">
@@ -54,9 +65,11 @@ export default function SupportPage() {
       <section id="afterSales" className="clone-support-after">
         <SectionTitle title="After sale services" />
         <p>
-          The after-sales service team at UNC is composed of experienced
-          engineers who understand UNC products and respond swiftly to customer
-          needs.
+          The after-sales service team at UNC is composed of a group of
+          experienced and highly skilled engineers who are very professional in
+          the features and functionalities of UNC&apos;s products. They can respond
+          swiftly to customer needs, providing timely and effective after-sales
+          support guarantee.
         </p>
         <div className="clone-after-images">
           {afterSaleImages.map((image) => (
@@ -78,47 +91,19 @@ export default function SupportPage() {
             width={820}
             height={520}
             sizes="(max-width: 900px) 90vw, 820px"
+            className="clone-service-system-bg"
           />
-          <div className="clone-service-system-list">
-            {serviceSystem.map((item) => (
-              <article key={item.title}>
+          {serviceSystem.map((item, index) => (
+            <article
+              key={item.title}
+              className={`clone-service-system-card is-${serviceSystemPositions[index]}`}
+            >
+              <div>
                 <h4>{item.title}</h4>
                 <p>{item.text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="download" className="clone-download">
-        <InnerHero
-          title="Data Download"
-          subtitle="With multiple working modes, UNC Energy Storage can flexibly respond to various scenarios!"
-          image={innerBanners.download}
-          current="Data Download"
-        />
-        <div className="clone-download-main">
-          <SectionTitle title="Data Download" />
-          <div className="clone-download-table">
-            <div className="clone-download-row clone-download-head">
-              <span>file name</span>
-              <span>file type</span>
-              <span>file size</span>
-              <span>Release time</span>
-              <span>Download</span>
-            </div>
-            {downloads.map((download) => (
-              <div key={download.name} className="clone-download-row">
-                <span>{download.name}</span>
-                <span>{download.type}</span>
-                <span>{download.size}</span>
-                <span>{download.date}</span>
-                <a href={asset(download.href)} target="_blank" rel="noreferrer">
-                  Download
-                </a>
               </div>
-            ))}
-          </div>
+            </article>
+          ))}
         </div>
       </section>
     </>

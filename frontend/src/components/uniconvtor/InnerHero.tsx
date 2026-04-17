@@ -29,10 +29,16 @@ export default function InnerHero({
         <p>{subtitle}</p>
       </div>
       <div className="clone-breadcrumb">
+        <RemoteImage
+          src="/template/default/esimg/icon/weizhi.png"
+          alt=""
+          width={17}
+          height={18}
+        />
         <span>Position:</span>
         <Link href="/">FrontPage</Link>
         <span>&gt;</span>
-        <span>{current}</span>
+        <Link href="#">{current}</Link>
       </div>
     </section>
   );

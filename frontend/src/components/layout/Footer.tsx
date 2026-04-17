@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { COMPANY_INFO, FOOTER_LINKS } from "@/constants/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -34,41 +35,45 @@ const footerLinkKeys: Record<string, string> = {
 
 export default function Footer() {
   const { t } = useLanguage();
+  const pathname = usePathname();
+  const showContactPanel = pathname !== "/contact";
 
   return (
     <footer className="clone-footer">
-      <section className="contact-section py-16">
-        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div>
-              <h2 className="text-3xl font-bold text-white mb-2">
-                {t("footer.contactNow")}
-              </h2>
-              <p className="text-white/70 text-sm">{COMPANY_INFO.slogan}</p>
+      {showContactPanel ? (
+        <section className="contact-section py-16">
+          <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+              <div>
+                <h2 className="text-3xl font-bold text-white mb-2">
+                  {t("footer.contactNow")}
+                </h2>
+                <p className="text-white/70 text-sm">{COMPANY_INFO.slogan}</p>
+              </div>
+              <form className="flex flex-col sm:flex-row items-stretch gap-0 bg-white overflow-hidden shadow-lg w-full lg:w-auto">
+                <input
+                  type="text"
+                  placeholder={t("footer.name")}
+                  className="contact-form-input border-r-0 rounded-none"
+                />
+                <input
+                  type="tel"
+                  placeholder={t("footer.telephone")}
+                  className="contact-form-input border-r-0 rounded-none"
+                />
+                <input
+                  type="text"
+                  placeholder={t("footer.counseling")}
+                  className="contact-form-input rounded-none"
+                />
+                <button className="contact-form-btn rounded-none" type="button">
+                  {t("footer.sending")}
+                </button>
+              </form>
             </div>
-            <form className="flex flex-col sm:flex-row items-stretch gap-0 bg-white overflow-hidden shadow-lg w-full lg:w-auto">
-              <input
-                type="text"
-                placeholder={t("footer.name")}
-                className="contact-form-input border-r-0 rounded-none"
-              />
-              <input
-                type="tel"
-                placeholder={t("footer.telephone")}
-                className="contact-form-input border-r-0 rounded-none"
-              />
-              <input
-                type="text"
-                placeholder={t("footer.counseling")}
-                className="contact-form-input rounded-none"
-              />
-              <button className="contact-form-btn rounded-none" type="button">
-                {t("footer.sending")}
-              </button>
-            </form>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
 
       <div className="clone-footer-top">
         <div>
