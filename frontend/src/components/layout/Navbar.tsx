@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { COMPANY_INFO, NAV_ITEMS, PRODUCT_CATEGORIES } from "@/constants/navigation";
-import { cloneProducts, productNav } from "@/data/uniconvtor";
+import { asset, cloneProducts, productNav } from "@/data/uniconvtor";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import { useLanguage } from "@/context/LanguageContext";
@@ -413,7 +413,7 @@ export default function Navbar() {
                            className={`w-full text-left flex items-center gap-4 px-8 py-5 transition-all duration-300 relative ${isActiveCat ? 'bg-white shadow-[0_2px_15px_rgba(0,0,0,0.03)] text-[#1ea1f2]' : 'text-[#64748b] hover:text-[#1ea1f2]'}`}
                         >
                            {iconUrl && (
-                              <img src={iconUrl} alt={cat.label} className={`w-8 h-8 object-contain transition-transform duration-300 ${isActiveCat ? 'scale-110' : ''}`} style={{ filter: isActiveCat ? 'none' : 'grayscale(100%) opacity(60%)' }} />
+                              <img src={asset(iconUrl)} alt={cat.label} className={`w-8 h-8 object-contain transition-transform duration-300 ${isActiveCat ? 'scale-110' : ''}`} style={{ filter: isActiveCat ? 'none' : 'grayscale(100%) opacity(60%)' }} />
                            )}
                            <span className="font-semibold text-[15px] leading-tight pr-4">{cat.label}</span>
                            {isActiveCat && (
