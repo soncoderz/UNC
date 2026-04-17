@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { COMPANY_INFO, NAV_ITEMS, PRODUCT_CATEGORIES } from "@/constants/navigation";
-import { asset, cloneProducts, productNav } from "@/data/uniconvtor";
+import { asset, cloneProducts, productNav, supportNav } from "@/data/uniconvtor";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import { useLanguage } from "@/context/LanguageContext";
@@ -243,7 +243,7 @@ export default function Navbar() {
                   </Link>
 
                   {/* Standard dropdown for non-About Us items */}
-                  {item.children && activeDropdown === item.label && !["About Us", "Product Center"].includes(item.label) && (
+                  {item.children && activeDropdown === item.label && !["About Us", "Product Center", "Technical Support"].includes(item.label) && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-72 bg-white shadow-lg border border-gray-100 py-2 z-50 rounded-b-lg">
                       {item.children.map((child) => (
                         <Link
@@ -475,6 +475,34 @@ export default function Navbar() {
                   </div>
                   <span className="text-[#4b5563] font-medium text-[15px] group-hover:text-[#f97316] transition-colors whitespace-nowrap">
                     {t(childLabelKeys[child.href] || child.label)}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ===== MEGA MENU FOR "Technical Support" ===== */}
+      {activeDropdown === "Technical Support" && (
+        <div
+          className="hidden lg:block absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl z-40 animate-in fade-in slide-in-from-top-2 duration-200"
+          onMouseEnter={() => setActiveDropdown("Technical Support")}
+        >
+          <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="flex items-center justify-center gap-16 xl:gap-32 px-10">
+              {supportNav.map((child) => (
+                <Link
+                  key={child.href}
+                  href={child.href}
+                  className="flex items-center gap-4 group"
+                  onClick={() => setActiveDropdown(null)}
+                >
+                  <div className="relative flex items-center justify-center w-12 h-12 transition-transform duration-300 group-hover:-translate-y-1">
+                    <img src={asset(child.icon)} alt={child.title} className="w-10 h-10 object-contain drop-shadow-sm" />
+                  </div>
+                  <span className="text-[#4b5563] font-medium text-[15px] group-hover:text-[#f97316] transition-colors whitespace-nowrap">
+                    {t(childLabelKeys[child.href] || child.title)}
                   </span>
                 </Link>
               ))}
