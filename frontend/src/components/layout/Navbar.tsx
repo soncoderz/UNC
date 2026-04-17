@@ -4,13 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-<<<<<<< HEAD
-import { COMPANY_INFO, NAV_ITEMS, PRODUCT_CATEGORIES } from "@/constants/navigation";
-import { asset, cloneProducts, productNav, supportNav } from "@/data/uniconvtor";
-=======
 import { NAV_ITEMS, PRODUCT_CATEGORIES } from "@/constants/navigation";
-import { asset, cloneProducts, productNav, solutions } from "@/data/uniconvtor";
->>>>>>> fearute/sonclone
+import { asset, cloneProducts, productNav, supportNav, solutions } from "@/data/uniconvtor";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import { useLanguage } from "@/context/LanguageContext";
@@ -248,25 +243,28 @@ export default function Navbar() {
                     <span>{t(navLabelKeys[item.href] || item.label)}</span>
                   </Link>
 
-<<<<<<< HEAD
-                  {/* Standard dropdown for non-About Us items */}
-                  {item.children && activeDropdown === item.label && !["About Us", "Product Center", "Technical Support"].includes(item.label) && (
-=======
+                  {/* Standard dropdown for non-mega menu items */}
                   {item.children &&
-                    displayedDropdown === item.label &&
-                    !["About Us", "Product Center", "Solution"].includes(item.label) && (
->>>>>>> fearute/sonclone
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-72 bg-white shadow-lg border border-gray-100 py-2 z-50 rounded-b-lg">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block px-5 py-3 text-sm text-[#333] hover:text-[#f97316] hover:bg-orange-50/60 transition-colors"
-                          onClick={() => setActiveDropdown(null)}
-                        >
-                          {t(childLabelKeys[child.href] || child.label)}
-                        </Link>
-                      ))}
+                    !["About Us", "Product Center", "Solution", "Technical Support"].includes(item.label) && (
+                    <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-0 w-72 bg-white shadow-lg border-gray-100 z-50 rounded-b-lg transition-[grid-template-rows,opacity] duration-500 ease-in-out grid ${
+                      displayedDropdown === item.label
+                        ? "grid-rows-[1fr] opacity-100 border-x border-b"
+                        : "grid-rows-[0fr] opacity-0 border-none pointer-events-none"
+                    }`}>
+                      <div className="overflow-hidden w-full">
+                        <div className="flex flex-col py-2">
+                          {item.children.map((child) => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="block px-5 py-3 text-sm text-[#333] hover:text-[#f97316] hover:bg-orange-50/60 transition-colors"
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              {t(childLabelKeys[child.href] || child.label)}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -340,11 +338,16 @@ export default function Navbar() {
         </div>
       </div>
 
-      {displayedDropdown === "Solution" ? (
-        <div
-          className="unc-solution-strip"
-          onMouseEnter={() => setActiveDropdown("Solution")}
-        >
+      {/* ===== MEGA MENU FOR "Solution" ===== */}
+      <div
+        className={`unc-solution-strip transition-[grid-template-rows,opacity] duration-500 ease-in-out grid ${
+          displayedDropdown === "Solution"
+            ? "grid-rows-[1fr] opacity-100"
+            : "grid-rows-[0fr] opacity-0 pointer-events-none"
+        }`}
+        onMouseEnter={() => setActiveDropdown("Solution")}
+      >
+        <div className="overflow-hidden w-full">
           <div className="unc-solution-strip-inner">
             {solutions.map((solution) => {
               const href = `/solutions/${solution.slug}`;
@@ -369,7 +372,7 @@ export default function Navbar() {
             })}
           </div>
         </div>
-      ) : null}
+      </div>
 
       {isMobileMenuOpen ? (
         <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
@@ -422,11 +425,15 @@ export default function Navbar() {
       ) : null}
 
       {/* ===== MEGA MENU FOR "Product Center" ===== */}
-      {displayedDropdown === "Product Center" && (
-        <div
-          className="hidden lg:block absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl z-40 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.05)]"
-          onMouseEnter={() => setActiveDropdown("Product Center")}
-        >
+      <div
+        className={`hidden lg:grid absolute top-full left-0 w-full bg-white border-gray-100 shadow-xl z-40 shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
+          displayedDropdown === "Product Center"
+            ? "grid-rows-[1fr] opacity-100 border-t"
+            : "grid-rows-[0fr] opacity-0 border-t-0 pointer-events-none"
+        }`}
+        onMouseEnter={() => setActiveDropdown("Product Center")}
+      >
+        <div className="overflow-hidden w-full">
           <div className="w-full flex" style={{ minHeight: '380px' }}>
             {/* Left Rail */}
             <div className="w-[300px] xl:w-[320px] bg-[#f8fafc] border-r border-[#eef2f6] relative flex flex-col py-6 shrink-0">
@@ -490,14 +497,18 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* ===== MEGA MENU FOR "About Us" ===== */}
-      {displayedDropdown === "About Us" && (
-        <div
-          className="hidden lg:block absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl z-40 animate-in fade-in slide-in-from-top-2 duration-200"
-          onMouseEnter={() => setActiveDropdown("About Us")}
-        >
+      <div
+        className={`hidden lg:grid absolute top-full left-0 w-full bg-white border-gray-100 shadow-xl z-40 transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
+          displayedDropdown === "About Us"
+            ? "grid-rows-[1fr] opacity-100 border-t"
+            : "grid-rows-[0fr] opacity-0 border-t-0 pointer-events-none"
+        }`}
+        onMouseEnter={() => setActiveDropdown("About Us")}
+      >
+        <div className="overflow-hidden w-full">
           <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex items-center justify-start gap-8 xl:gap-24 px-10">
               {NAV_ITEMS.find((i) => i.label === "About Us")?.children?.map((child) => (
@@ -523,14 +534,18 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* ===== MEGA MENU FOR "Technical Support" ===== */}
-      {activeDropdown === "Technical Support" && (
-        <div
-          className="hidden lg:block absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-xl z-40 animate-in fade-in slide-in-from-top-2 duration-200"
-          onMouseEnter={() => setActiveDropdown("Technical Support")}
-        >
+      <div
+        className={`hidden lg:grid absolute top-full left-0 w-full bg-white border-gray-100 shadow-xl z-40 transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
+          activeDropdown === "Technical Support"
+            ? "grid-rows-[1fr] opacity-100 border-t"
+            : "grid-rows-[0fr] opacity-0 border-t-0 pointer-events-none"
+        }`}
+        onMouseEnter={() => setActiveDropdown("Technical Support")}
+      >
+        <div className="overflow-hidden w-full">
           <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex items-center justify-center gap-16 xl:gap-32 px-10">
               {supportNav.map((child) => (
@@ -551,7 +566,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 }

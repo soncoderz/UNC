@@ -1,5 +1,6 @@
 import Link from "next/link";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
+import SlideIn from "@/components/animations/SlideIn";
 
 interface InnerHeroProps {
   title: string;
@@ -24,11 +25,11 @@ export default function InnerHero({
         sizes="100vw"
         className="clone-inner-hero-image"
       />
-      <div className="clone-inner-hero-text">
+      <SlideIn direction="down" distance={20} className="clone-inner-hero-text">
         <h1>{title}</h1>
         <p>{subtitle}</p>
-      </div>
-      <div className="clone-breadcrumb">
+      </SlideIn>
+      <SlideIn direction="up" distance={20} delay={0.2} className="clone-breadcrumb">
         <RemoteImage
           src="/template/default/esimg/icon/weizhi.png"
           alt=""
@@ -39,7 +40,7 @@ export default function InnerHero({
         <Link href="/">FrontPage</Link>
         <span>&gt;</span>
         <Link href="#">{current}</Link>
-      </div>
+      </SlideIn>
     </section>
   );
 }

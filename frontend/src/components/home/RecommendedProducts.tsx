@@ -4,6 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { recommendedProductGroups } from "@/data/uniconvtor";
+import SlideIn from "@/components/animations/SlideIn";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
+import FadeIn from "@/components/animations/FadeIn";
 
 export default function RecommendedProducts() {
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
@@ -24,14 +27,14 @@ export default function RecommendedProducts() {
   return (
     <section className="ind-recommen">
       <div className="ind-recommenTitle main">
-        <div className="title1">
+        <SlideIn direction="left" distance={40} className="title1">
           <h3 className="text-4xl">Recommended Products</h3>
           <h6 className="text-base">
             Safe, reliable, efficient, one-stop energy solution
           </h6>
-        </div>
+        </SlideIn>
 
-        <ul className="ind-recommenTitleUl">
+        <StaggerContainer staggerChildren={0.1} className="ind-recommenTitleUl">
           {recommendedProductGroups.map((group, index) => (
             <li
               key={group.title}
@@ -52,10 +55,10 @@ export default function RecommendedProducts() {
               <p className="text-base nameCleanup">{group.title}</p>
             </li>
           ))}
-        </ul>
+        </StaggerContainer>
       </div>
 
-      <div className="ind-reContent">
+      <FadeIn delay={0.2} duration={0.6} className="ind-reContent">
         <div className="ind-reContentLi ind-reContentLiActive">
           <div className="swiper-recommen">
             <div className="swiper-wrapper">
@@ -96,7 +99,7 @@ export default function RecommendedProducts() {
             </div>
           </div>
         </div>
-      </div>
+      </FadeIn>
     </section>
   );
 }

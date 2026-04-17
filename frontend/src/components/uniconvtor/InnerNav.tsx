@@ -1,5 +1,6 @@
 import Link from "next/link";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
+import SlideIn from "@/components/animations/SlideIn";
 
 interface InnerNavItem {
   href: string;
@@ -14,7 +15,8 @@ interface InnerNavProps {
 
 export default function InnerNav({ items, activeHref }: InnerNavProps) {
   return (
-    <nav className="clone-inner-nav" aria-label="Section navigation">
+    <SlideIn direction="up" distance={30}>
+      <nav className="clone-inner-nav" aria-label="Section navigation">
       {items.map((item) => (
         <Link
           key={item.href}
@@ -29,6 +31,7 @@ export default function InnerNav({ items, activeHref }: InnerNavProps) {
           <span>{item.title}</span>
         </Link>
       ))}
-    </nav>
+      </nav>
+    </SlideIn>
   );
 }

@@ -5,6 +5,9 @@ import { usePathname } from "next/navigation";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { COMPANY_INFO, FOOTER_LINKS } from "@/constants/navigation";
 import { useLanguage } from "@/context/LanguageContext";
+import FadeIn from "@/components/animations/FadeIn";
+import SlideIn from "@/components/animations/SlideIn";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
 
 const footerTitleKeys: Record<string, string> = {
   aboutUs: "nav.aboutUs",
@@ -39,9 +42,9 @@ export default function Footer() {
   const showContactPanel = pathname !== "/contact";
 
   return (
-    <footer className="clone-footer">
+    <footer className="clone-footer overflow-hidden">
       {showContactPanel ? (
-        <section className="contact-section py-16">
+        <SlideIn direction="up" distance={40} className="contact-section py-16" once={false}>
           <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
               <div>
@@ -72,10 +75,10 @@ export default function Footer() {
               </form>
             </div>
           </div>
-        </section>
+        </SlideIn>
       ) : null}
 
-      <div className="clone-footer-top">
+      <StaggerContainer staggerChildren={0.15} className="clone-footer-top" once={false}>
         <div>
           <RemoteImage src="/template/default/esimg/icon/foot1.png" alt="" width={42} height={42} />
           <span>
@@ -100,9 +103,9 @@ export default function Footer() {
         <Link href="/" className="clone-footer-arrow" aria-label="Back to home">
           <RemoteImage src="/template/default/esimg/icon/foot4.png" alt="" width={38} height={38} />
         </Link>
-      </div>
+      </StaggerContainer>
 
-      <div className="clone-footer-main">
+      <SlideIn direction="up" distance={30} className="clone-footer-main" once={false}>
         <div className="clone-footer-links">
           {Object.entries(FOOTER_LINKS).map(([key, group]) => (
             <div key={key}>
@@ -134,12 +137,12 @@ export default function Footer() {
             height={116}
           />
         </div>
-      </div>
+      </SlideIn>
 
-      <div className="clone-footer-bottom">
+      <FadeIn delay={0.2} duration={0.8} className="clone-footer-bottom" once={false}>
         <span>PV Inverter | Solar Inverter | Off Grid Inverter | Solar Energy Company</span>
         <span>Developers: Eshine</span>
-      </div>
+      </FadeIn>
     </footer>
   );
 }

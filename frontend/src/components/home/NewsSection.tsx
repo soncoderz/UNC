@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { cloneNews } from "@/data/uniconvtor";
+import SlideIn from "@/components/animations/SlideIn";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
 
 export default function NewsSection() {
   const [activePage, setActivePage] = useState(0);
@@ -13,15 +15,15 @@ export default function NewsSection() {
   const activeNews = newsPages[activePage] || newsPages[0] || [];
 
   return (
-    <section className="main ind-new" id="news">
-      <div className="title1 title2">
+    <section className="main ind-new overflow-hidden" id="news">
+      <SlideIn direction="up" distance={30} className="title1 title2">
         <h3 className="text-4xl">Corporate News</h3>
         <h6 className="text-base" />
-      </div>
+      </SlideIn>
 
       <div className="swiper-new">
         <div className="swiper-wrapper">
-          <div className="swiper-slide">
+          <StaggerContainer staggerChildren={0.15} className="swiper-slide">
             {activeNews.map((item) => (
               <article key={item.id} className="ind-newlist">
                 <Link className="ind-newImg" href={`/news/${item.id}`}>
@@ -48,7 +50,7 @@ export default function NewsSection() {
                 <span className="text-base ind-newLabel">{item.category}</span>
               </article>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
 
         <div className="swiper-pagination pagination-home">

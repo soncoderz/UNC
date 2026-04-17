@@ -1459,6 +1459,11 @@ img {
   z-index: 5;
 }
 
+.unc-home .pagination-home-home {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .unc-home .swiper-pagination-bullet {
   position: relative;
   width: clamp(38px, 2.604vw, 50px);
@@ -3664,6 +3669,11 @@ img {
   .unc-home .pagination-home {
     left: 20px;
     bottom: 24px;
+  }
+
+  .unc-home .pagination-home-home {
+    left: 50%;
+    transform: translateX(-50%);
   }
 
   .unc-home .swiper-pagination-bullet {

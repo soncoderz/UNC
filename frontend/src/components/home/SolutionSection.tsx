@@ -4,20 +4,22 @@ import { useState } from "react";
 import Link from "next/link";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { asset, solutions } from "@/data/uniconvtor";
+import SlideIn from "@/components/animations/SlideIn";
+import { StaggerContainer } from "@/components/animations/StaggerContainer";
 
 export default function SolutionSection() {
   const [activeSolution, setActiveSolution] = useState(0);
 
   return (
     <section className="ind-programme" id="solutions">
-      <div className="title1">
+      <SlideIn direction="up" distance={40} className="title1">
         <h3 className="text-4xl">Solution</h3>
         <h6 className="text-base">
           Multiple working modes, can flexibly respond to various scenarios!
         </h6>
-      </div>
+      </SlideIn>
 
-      <div className="ind-programmeUl">
+      <StaggerContainer className="ind-programmeUl" staggerChildren={0.15}>
         {solutions.map((solution, index) => (
           <article
             key={solution.slug}
@@ -57,7 +59,7 @@ export default function SolutionSection() {
             </div>
           </article>
         ))}
-      </div>
+      </StaggerContainer>
     </section>
   );
 }
