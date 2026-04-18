@@ -1867,31 +1867,46 @@ img {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+  gap: 6%;
 }
 
-.unc-home .swiper-new .pagination-home {
+.unc-home .swiper-new .ind-new-pager {
   width: auto;
   display: inline-flex;
+  gap: 8px;
+  align-items: center;
   position: absolute;
   left: auto;
   right: 0;
   bottom: 0;
 }
 
-.unc-home .swiper-new .pagination-home .swiper-pagination-bullet {
+.unc-home .ind-new-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
   background: #d5dee4;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.unc-home .ind-new-dot:hover {
+  background: #a0b0be;
+}
+
+.unc-home .ind-new-dot-active {
+  background: #0674fc;
+  transform: scale(1.25);
 }
 
 .unc-home .ind-newlist {
-  width: 29%;
-  margin-right: 6%;
+  flex: 1;
+  min-width: 0;
   padding-bottom: clamp(30px, 2.083vw, 40px);
   position: relative;
   transition: all 0.4s ease;
-}
-
-.unc-home .ind-newlist:nth-child(3n) {
-  margin-right: 0;
 }
 
 .unc-home .ind-newlist::after {
@@ -3586,9 +3601,10 @@ img {
   }
 
   .unc-home .ind-newlist {
-    width: calc(50% - 14px);
-    margin-right: 0;
+    flex: 1 1 calc(50% - 14px);
+    max-width: calc(50% - 14px);
   }
+
 
   .contact-section > .relative {
     width: min(calc(100% - 32px), 760px) !important;
@@ -3768,9 +3784,13 @@ img {
     height: 100%;
   }
 
-  .unc-home .ind-manuLi,
-  .unc-home .ind-newlist {
+  .unc-home .ind-manuLi {
     width: 100%;
+  }
+
+  .unc-home .ind-newlist {
+    flex: 1 1 100%;
+    max-width: 100%;
   }
 
   .unc-home .ind-manuUl {
@@ -3781,7 +3801,7 @@ img {
     height: 220px;
   }
 
-  .unc-home .swiper-new .pagination-home {
+  .unc-home .swiper-new .ind-new-pager {
     right: auto;
     left: 0;
   }

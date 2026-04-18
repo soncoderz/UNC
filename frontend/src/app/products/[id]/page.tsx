@@ -92,18 +92,18 @@ export default function ProductDetailPage() {
 
             <div className="flex flex-wrap gap-4 mb-20">
                <button className="bg-[#1ea1f2] hover:bg-[#1a8cd2] text-white rounded-full px-8 py-2.5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                  Parameter
+                  {t("products.parameter")}
                   <svg width="14" height="15" viewBox="0 0 14 15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 11V3M7 11L3.5 7.5M7 11L10.5 7.5"/><path d="M2.33331 13.5H11.6666"/></svg>
                </button>
                <button className="border border-white/40 hover:border-white/80 text-white/90 hover:text-white rounded-[24px] px-8 py-2.5 text-sm font-medium flex items-center justify-center gap-2 transition-colors">
-                  Manual
+                  {t("products.manual")}
                   <svg width="14" height="15" viewBox="0 0 14 15" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 11V3M7 11L3.5 7.5M7 11L10.5 7.5"/><path d="M2.33331 13.5H11.6666"/></svg>
                </button>
             </div>
 
             <div className="text-[12px] text-gray-400 flex items-center gap-2 absolute bottom-0">
                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-               <span>Position: FrontPage &gt; Product Center &gt; {product.subcategory.replace(' | ', ' > ')}</span>
+               <span>{t("products.positionPrefix")}{product.subcategory.replace(' | ', ' > ')}</span>
             </div>
           </div>
 
@@ -133,7 +133,7 @@ export default function ProductDetailPage() {
       {/* 2. Product Advantages */}
       {product.features && product.features.length > 0 && (
       <section className="py-24 max-w-[1200px] mx-auto px-4">
-        <h2 className="text-[32px] font-bold text-center text-[#2d3748] mb-20 font-heading">Product Advantages</h2>
+        <h2 className="text-[32px] font-bold text-center text-[#2d3748] mb-20 font-heading">{t("products.productAdvantages")}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
            {product.features.map((feature, i) => {
              let title = feature;
@@ -167,16 +167,16 @@ export default function ProductDetailPage() {
       {/* 3. Technical Specifications */}
       {product.specs && Object.keys(product.specs).length > 0 && (
       <section className="py-16 max-w-[1200px] mx-auto px-4">
-        <h2 className="text-[32px] font-bold text-center text-[#2d3748] mb-12 font-heading">Technical Specifications</h2>
+        <h2 className="text-[32px] font-bold text-center text-[#2d3748] mb-12 font-heading">{t("products.technicalSpecifications")}</h2>
         
         <div className="w-full text-[14px]">
            <div className="grid grid-cols-2 bg-[#f1f5f9] py-4 px-6 font-medium mb-[1px]">
-              <div className="text-[#64748b]">Product model</div>
+              <div className="text-[#64748b]">{t("products.productModel")}</div>
               <div className="text-center text-[#334155]">{product.power}</div>
            </div>
            
            <div className="bg-white py-4 px-6 font-medium text-[#2563eb] mb-[1px]">
-              Specifications Data
+              {t("products.specificationsData")}
            </div>
            
            {Object.entries(product.specs).map(([key, value], i) => (
@@ -192,7 +192,7 @@ export default function ProductDetailPage() {
       {/* 4. Recommended Products */}
       <section className="py-24 bg-[#f8fafc]">
          <div className="max-w-[1400px] w-[min(calc(100%-40px),1400px)] mx-auto">
-            <h2 className="text-[32px] font-bold text-center text-[#2d3748] mb-16 font-heading">Recommended Products</h2>
+            <h2 className="text-[32px] font-bold text-center text-[#2d3748] mb-16 font-heading">{t("products.recommendedProducts")}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                {cloneProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3).map(p => (
                   <div key={p.id} className="bg-white rounded-[20px] overflow-hidden shadow-sm hover:shadow-xl transition-shadow flex flex-col h-full border border-gray-100 group px-6 py-8">
@@ -206,7 +206,7 @@ export default function ProductDetailPage() {
                         <p className="text-[#94a3b8] text-[12px] leading-relaxed line-clamp-3 mt-auto mb-8">{p.description}</p>
                         
                         <Link href={`/products/${p.id}`} className="inline-flex items-center justify-center bg-[#60a5fa] hover:bg-[#3b82f6] text-white text-[12px] font-bold tracking-wider rounded-full px-8 py-3 transition-colors max-w-max shadow-md shadow-blue-500/20">
-                           MORE
+                           {t("products.more")}
                         </Link>
                      </div>
                   </div>

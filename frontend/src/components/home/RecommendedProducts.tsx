@@ -7,8 +7,10 @@ import { recommendedProductGroups } from "@/data/uniconvtor";
 import SlideIn from "@/components/animations/SlideIn";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function RecommendedProducts() {
+  const { t } = useLanguage();
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const [activeProductIndex, setActiveProductIndex] = useState(0);
 
@@ -28,10 +30,8 @@ export default function RecommendedProducts() {
     <section className="ind-recommen">
       <div className="ind-recommenTitle main">
         <SlideIn direction="left" distance={40} className="title1">
-          <h3 className="text-4xl">Recommended Products</h3>
-          <h6 className="text-base">
-            Safe, reliable, efficient, one-stop energy solution
-          </h6>
+          <h3 className="text-4xl">{t("home.recommendedProducts")}</h3>
+          <h6 className="text-base">{t("home.recommendedSubtitle")}</h6>
         </SlideIn>
 
         <StaggerContainer staggerChildren={0.1} className="ind-recommenTitleUl">
@@ -52,7 +52,12 @@ export default function RecommendedProducts() {
                 width={60}
                 height={60}
               />
-              <p className="text-base nameCleanup">{group.title}</p>
+              <p className="text-base nameCleanup">
+                {group.title === "Photovoltaic System" ? t("products.pvInverters") :
+                 group.title === "Industrial and Commercial Energy Storage" ? t("products.energyStorage") :
+                 group.title === "Household Energy Storage" ? t("products.hybridInverters") :
+                 group.title}
+              </p>
             </li>
           ))}
         </StaggerContainer>
@@ -69,7 +74,7 @@ export default function RecommendedProducts() {
                   <span className="ind-reLine" />
                   <p className="text-base">{activeProduct.description}</p>
                   <Link href={`/products/${activeProduct.id}`} className="btn1 text-base">
-                    MORE
+                    {t("common.more")}
                   </Link>
                 </div>
 

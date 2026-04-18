@@ -20,6 +20,7 @@ function hasCloneImages(products: Product[]) {
 }
 
 function ProductsContent() {
+  const { t } = useLanguage();
   const [products, setProducts] = useState<Product[]>(cloneProducts);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState<ProductCategory | null>(null);
@@ -58,8 +59,8 @@ function ProductsContent() {
   return (
     <>
       <InnerHero
-        title="Product Center"
-        subtitle="Safe, reliable, efficient, one-stop energy solution"
+        title={t("nav.productsCenter")}
+        subtitle={t("home.recommendedSubtitle")}
         image={innerBanners.products}
       />
       <InnerNav
@@ -71,7 +72,7 @@ function ProductsContent() {
 
       <section className="clone-product-list">
         {loading ? (
-          <div className="clone-loading">Loading products...</div>
+          <div className="clone-loading">{t("products.loading")}</div>
         ) : (
           <div className="clone-product-grid">
             {visibleProducts.map((product) => (

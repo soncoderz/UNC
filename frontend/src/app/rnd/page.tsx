@@ -1,23 +1,11 @@
+"use client";
+
 import InnerHero from "@/components/uniconvtor/InnerHero";
 import InnerNav from "@/components/uniconvtor/InnerNav";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import SectionTitle from "@/components/uniconvtor/SectionTitle";
+import { useLanguage } from "@/context/LanguageContext";
 import { innerBanners, rndNav } from "@/data/uniconvtor";
-
-const researchStats = [
-  ["2", "Doctoral degree"],
-  ["17+", "Master's degree"],
-  ["100+", "Patent"],
-  ["10+", "Power electronics industry experience"],
-  ["5+", "Standard"],
-];
-
-const produceStats = [
-  ["400+", "The laboratory area is over 400 square meters"],
-  ["30KW", "Development of hybrid inverter products of 30kW and below"],
-  ["630KW", "Development of PCS products of 630kW and below"],
-  ["110KW", "Development of products with specifications of 110kW and below"],
-];
 
 const workshopImages = [
   "/static/upload/image/20240723/1721723513538560.jpg",
@@ -28,46 +16,46 @@ const workshopImages = [
   "/static/upload/image/20240723/1721723196249863.png",
 ];
 
-const qualityItems = [
-  {
-    title: "R&D guarantee",
-    text: "Senior electronics engineers with over 10 years of field experience lead the R&D team and ensure high-quality standards in development, production, and testing.",
-  },
-  {
-    title: "After-sale services",
-    text: "A comprehensive after-sales service system covers technical support, repair services, and spare parts supply.",
-  },
-  {
-    title: "Quality Inspection",
-    text: "Strict quality management monitors raw material procurement, production process control, and final product inspection.",
-  },
-  {
-    title: "Production Quality control",
-    text: "The intelligent workshop uses advanced production facilities and processes to ensure stable quality.",
-  },
-];
-
 export default function RndPage() {
+  const { t } = useLanguage();
+
+  const researchStats: [string, string][] = [
+    ["2", t("rnd.doctoralDegree")],
+    ["17+", t("rnd.masterDegree")],
+    ["100+", t("rnd.patent")],
+    ["10+", t("rnd.industryExperience")],
+    ["5+", t("rnd.standard")],
+  ];
+
+  const produceStats: [string, string][] = [
+    ["400+", t("rnd.labArea")],
+    ["30KW", t("rnd.hybridDev")],
+    ["630KW", t("rnd.pcsDev")],
+    ["110KW", t("rnd.pvDev")],
+  ];
+
+  const qualityItems = [
+    { title: t("rnd.qualityRD"), text: t("rnd.qualityRDText") },
+    { title: t("rnd.qualityAfterSale"), text: t("rnd.qualityAfterSaleText") },
+    { title: t("rnd.qualityInspection"), text: t("rnd.qualityInspectionText") },
+    { title: t("rnd.qualityProduction"), text: t("rnd.qualityProductionText") },
+  ];
+
   return (
     <>
       <InnerHero
-        title="R&D and Manufacturing"
-        subtitle="Always regard quality as the core of survival and development."
+        title={t("rnd.pageTitle")}
+        subtitle={t("rnd.pageSubtitle")}
         image={innerBanners.rnd}
       />
       <InnerNav items={rndNav} activeHref="/rnd#research" />
 
       <section id="research" className="clone-rnd-research">
         <SectionTitle
-          title="R&D Capabilities"
-          subtitle="The R&D team of UNC consists of more than 30 senior experts"
+          title={t("nav.rndCapabilities")}
+          subtitle={t("rnd.researchSubtitle")}
         />
-        <p>
-          The UNC R&D team covers software, hardware, algorithms, structure, and
-          electrical design. The team has successfully developed energy storage
-          converters and PV inverters while continuously investing in laboratory
-          equipment and product reliability verification.
-        </p>
+        <p>{t("rnd.researchText")}</p>
         <div className="clone-rnd-ring">
           <div className="clone-rnd-stats">
             {researchStats.map(([value, label]) => (
@@ -96,14 +84,10 @@ export default function RndPage() {
 
       <section id="produce" className="clone-rnd-produce">
         <SectionTitle
-          title="Batch Production Capabilities"
-          subtitle="Advanced production facilities efficiently support and guarantee manufacturing capability."
+          title={t("nav.batchProduction")}
+          subtitle={t("rnd.produceSubtitle")}
         />
-        <p>
-          UNC has independent integrated assembly production lines for energy
-          storage products, residential hybrid inverters, and self-developed 3S
-          systems: PCS, BMS, and EMS.
-        </p>
+        <p>{t("rnd.produceText")}</p>
         <div className="clone-rnd-produce-grid">
           {produceStats.map(([value, label]) => (
             <div key={label}>
@@ -117,7 +101,7 @@ export default function RndPage() {
             <RemoteImage
               key={image}
               src={image}
-              alt="UNC production workshop"
+              alt={t("rnd.workshopAlt")}
               width={360}
               height={230}
               sizes="(max-width: 900px) 90vw, 360px"
@@ -128,14 +112,10 @@ export default function RndPage() {
 
       <section id="quality" className="clone-rnd-quality">
         <SectionTitle
-          title="Quality Assurance"
-          subtitle="UNC has obtained ISO9001 and ISO14001 certifications."
+          title={t("nav.qualityAssurance")}
+          subtitle={t("rnd.qualitySubtitle")}
         />
-        <p>
-          Quality is the core of the company&apos;s survival and sustainable
-          development. UNC has established a rigorous and efficient quality
-          management system and product certification portfolio.
-        </p>
+        <p>{t("rnd.qualityText")}</p>
         <RemoteImage
           src="/template/default/esimg/img/research-renzheng.png"
           alt="UNC certifications"

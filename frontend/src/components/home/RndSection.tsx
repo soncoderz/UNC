@@ -5,28 +5,25 @@ import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { companyStats } from "@/data/uniconvtor";
 import SlideIn from "@/components/animations/SlideIn";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function RndSection() {
+  const { t } = useLanguage();
   return (
     <section className="main ind-manufacture overflow-hidden" id="rnd">
       <div className="ind-manuContent">
         <SlideIn direction="right" distance={50} className="ind-manuTitle">
           <div className="title1">
-            <h3 className="text-4xl">R&amp;D and Manufacturing</h3>
-            <h6 className="text-base">
-              Research and innovation, forging the future of electricity
-            </h6>
+            <h3 className="text-4xl">{t("home.rndTitle")}</h3>
+            <h6 className="text-base">{t("home.rndSubtitle")}</h6>
           </div>
           <div className="ind-manuText text-base">
-            Always regard quality as the core of survival and development.
-            <br />
-            Has passed the ISO900 international quality management system certification.
-            <br />
-            Multiple international certifications such as ISO 14001 environmental
-            management system certification.
+            {t("home.rndParagraph1")}<br />
+            {t("home.rndParagraph2")}<br />
+            {t("home.rndParagraph3")}
           </div>
           <Link href="/rnd" className="btn1 text-base">
-            MORE
+            {t("common.more")}
           </Link>
         </SlideIn>
 

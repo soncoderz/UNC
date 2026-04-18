@@ -1,21 +1,16 @@
+"use client";
+
 import InnerHero from "@/components/uniconvtor/InnerHero";
 import InnerNav from "@/components/uniconvtor/InnerNav";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import SectionTitle from "@/components/uniconvtor/SectionTitle";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   aboutNav,
   companyStats,
   cultureItems,
   innerBanners,
 } from "@/data/uniconvtor";
-
-const milestones = [
-  ["2021", "Qingdao Uni-Convtor Technology Co., Ltd was established."],
-  ["2022", "Core R&D and manufacturing team expanded across power conversion fields."],
-  ["2023", "Household hybrid inverter and energy storage products entered batch production."],
-  ["2024", "Global product portfolio expanded across household, C&I, and photovoltaic systems."],
-  ["2025", "UNC continued international certification and global market development."],
-];
 
 const certifications = [
   "ISO9001",
@@ -29,41 +24,33 @@ const certifications = [
 ];
 
 export default function CompanyPage() {
+  const { t } = useLanguage();
+
+  const milestones: [string, string][] = [
+    ["2021", t("company.milestone2021")],
+    ["2022", t("company.milestone2022")],
+    ["2023", t("company.milestone2023")],
+    ["2024", t("company.milestone2024")],
+    ["2025", t("company.milestone2025")],
+  ];
+
   return (
     <>
       <InnerHero
-        title="About Us"
-        subtitle="UNC a new driving force for green energy"
+        title={t("company.title")}
+        subtitle={t("company.heroSubtitle")}
         image={innerBanners.about}
       />
       <InnerNav items={aboutNav} activeHref="/company#intro" />
 
       <section id="intro" className="clone-about-intro">
-        <SectionTitle title="Company Introduction" />
+        <SectionTitle title={t("company.storyTitle")} />
         <div className="clone-about-main">
           <div className="clone-about-copy">
-            <p>
-              Qingdao Uni-Convtor Technology Co., Ltd (UNC), established in 2021,
-              has been deeply engaged in the renewable energy industry, focusing
-              on R&D and application of power-supply conversion technology.
-            </p>
-            <p>
-              Our product range covers household hybrid inverters, PV inverters,
-              and energy storage PCS. These products are trusted in domestic and
-              international markets and supported by experienced teams in design,
-              R&D, manufacturing, quality control, marketing, and service.
-            </p>
-            <p>
-              UNC has built an intelligent factory covering more than 10,000
-              square meters. With intelligent production equipment and advanced
-              production concepts, annual production capacity reaches up to
-              400,000 sets.
-            </p>
-            <p>
-              UNC upholds the principle of people-oriented and technology driven
-              development, committed to becoming a leader in global power
-              electronic converters.
-            </p>
+            <p>{t("company.introP1")}</p>
+            <p>{t("company.introP2")}</p>
+            <p>{t("company.introP3")}</p>
+            <p>{t("company.introP4")}</p>
           </div>
           <div className="clone-about-image">
             <RemoteImage
@@ -93,7 +80,7 @@ export default function CompanyPage() {
       </section>
 
       <section className="clone-culture">
-        <SectionTitle title="Corporate Culture" />
+        <SectionTitle title={t("company.cultureTitle")} />
         <div className="clone-culture-grid">
           {cultureItems.map((item) => (
             <article key={item.title}>
@@ -106,7 +93,7 @@ export default function CompanyPage() {
       </section>
 
       <section id="milestone" className="clone-milestone">
-        <SectionTitle title="Milestone" />
+        <SectionTitle title={t("company.journeyTitle")} />
         <div className="clone-milestone-line">
           {milestones.map(([year, text]) => (
             <div key={year}>
@@ -119,8 +106,8 @@ export default function CompanyPage() {
 
       <section id="honor" className="clone-honor">
         <SectionTitle
-          title="Honor"
-          subtitle="International quality and product certifications"
+          title={t("company.certificationsTitle")}
+          subtitle={t("company.certificationsSubtitle")}
         />
         <div className="clone-honor-grid">
           {certifications.map((certification) => (

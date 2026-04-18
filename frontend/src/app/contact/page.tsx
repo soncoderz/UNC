@@ -6,6 +6,7 @@ import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { COMPANY_INFO } from "@/constants/navigation";
 import { innerBanners } from "@/data/uniconvtor";
 import { submitContact } from "@/services/api";
+import { useLanguage } from "@/context/LanguageContext";
 
 type FormState = {
   product: string;
@@ -28,6 +29,7 @@ const initialFormState: FormState = {
 };
 
 export default function ContactPage() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<FormState>(initialFormState);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
@@ -63,7 +65,7 @@ export default function ContactPage() {
   return (
     <>
       <InnerHero
-        title="Contact Us"
+        title={t("contact.title")}
         subtitle="UNC a new driving force for green energy"
         image={innerBanners.contact}
       />
@@ -80,7 +82,7 @@ export default function ContactPage() {
                 height={38}
               />
               <span>
-                <strong>Address</strong>
+                <strong>{t("contact.address")}</strong>
                 <em>{COMPANY_INFO.address}</em>
               </span>
             </div>
@@ -92,7 +94,7 @@ export default function ContactPage() {
                 height={38}
               />
               <span>
-                <strong>Hotline</strong>
+                <strong>{t("footer.hotline")}</strong>
                 <em>{COMPANY_INFO.phone}</em>
               </span>
             </div>
@@ -104,7 +106,7 @@ export default function ContactPage() {
                 height={38}
               />
               <span>
-                <strong>Email</strong>
+                <strong>{t("contact.email")}</strong>
                 <em>{COMPANY_INFO.email}</em>
               </span>
             </div>
@@ -157,38 +159,38 @@ export default function ContactPage() {
 
       <section className="clone-big-message">
         <div className="clone-title clone-title-left">
-          <h2>Contact Us Now</h2>
+          <h2>{t("footer.contactNow")}</h2>
           <p>UNC a new driving force for green energy</p>
         </div>
 
         <form onSubmit={handleSubmit} className="clone-big-form">
           {status === "success" ? (
             <div className="clone-form-status is-success">
-              Message submitted successfully.
+              {t("contact.success")}
             </div>
           ) : null}
           {status === "error" ? (
             <div className="clone-form-status is-error">
-              Could not send the message. Please make sure the backend is running.
+              {t("contact.error")}
             </div>
           ) : null}
 
           <label>
-            <span>Interesting</span>
+            <span>{t("contact.interesting")}</span>
             <input
               value={formData.product}
               onChange={(event) => updateField("product", event.target.value)}
             />
           </label>
           <label>
-            <span>Company</span>
+            <span>{t("contact.company")}</span>
             <input
               value={formData.company}
               onChange={(event) => updateField("company", event.target.value)}
             />
           </label>
           <label>
-            <span>*Phone</span>
+            <span>*{t("contact.phone")}</span>
             <input
               value={formData.phone}
               onChange={(event) => updateField("phone", event.target.value)}
@@ -196,21 +198,21 @@ export default function ContactPage() {
             />
           </label>
           <label>
-            <span>Address</span>
+            <span>{t("contact.address")}</span>
             <input
               value={formData.address}
               onChange={(event) => updateField("address", event.target.value)}
             />
           </label>
           <label>
-            <span>Name</span>
+            <span>{t("contact.name")}</span>
             <input
               value={formData.name}
               onChange={(event) => updateField("name", event.target.value)}
             />
           </label>
           <label>
-            <span>*Email</span>
+            <span>*{t("contact.email")}</span>
             <input
               type="email"
               value={formData.email}
@@ -219,7 +221,7 @@ export default function ContactPage() {
             />
           </label>
           <label className="clone-message-field">
-            <span>*Description</span>
+            <span>*{t("contact.message")}</span>
             <textarea
               value={formData.content}
               onChange={(event) => updateField("content", event.target.value)}
@@ -227,11 +229,11 @@ export default function ContactPage() {
             />
           </label>
           <div className="clone-verify-row">
-            <span className="clone-verify-name">*verify</span>
+            <span className="clone-verify-name">*{t("contact.verify")}</span>
             <div className="clone-verify-box">
-              <span>Click to verify</span>
+              <span>{t("contact.clickVerify")}</span>
               <button type="submit" disabled={status === "sending"}>
-                {status === "sending" ? "Sending..." : "Submit"}
+                {status === "sending" ? t("contact.sending") : t("contact.send")}
               </button>
             </div>
           </div>

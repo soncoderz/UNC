@@ -1,7 +1,10 @@
+"use client";
+
 import InnerHero from "@/components/uniconvtor/InnerHero";
 import InnerNav from "@/components/uniconvtor/InnerNav";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import SectionTitle from "@/components/uniconvtor/SectionTitle";
+import { useLanguage } from "@/context/LanguageContext";
 import {
   afterSaleImages,
   innerBanners,
@@ -19,17 +22,19 @@ const serviceSystemPositions = [
 ] as const;
 
 export default function SupportPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <InnerHero
-        title="Technical Support"
-        subtitle="With multiple working modes, Younengchuang Energy Storage can fiexibly respond to various sceoariosl"
+        title={t("support.pageTitle")}
+        subtitle={t("support.pageSubtitle")}
         image={innerBanners.support}
       />
       <InnerNav items={supportNav} activeHref="/support#technical" />
 
       <section id="technical" className="clone-support-tech">
-        <SectionTitle title="Technical Support" />
+        <SectionTitle title={t("nav.technicalSupport")} />
         <div className="clone-support-shape">
           <RemoteImage
             src="/template/default/esimg/img/service-shape-bgs.png"
@@ -39,18 +44,8 @@ export default function SupportPage() {
             sizes="90vw"
           />
         </div>
-        <p>
-          UNC&apos;s technical support process follows the principles of
-          &quot;rapid response, professional handling, and full tracking.&quot;
-          When customers encounter technical issues, we promptly initiate the
-          support process, quickly organizing an expert team for analysis and
-          resolution.
-          <br />
-          With our deep industry background, extensive technical experience, and
-          professional team, UNC is committed to offering efficient and precise
-          technical support services to our customers.
-        </p>
-        <h3>Technical support services</h3>
+        <p>{t("support.techText1")}</p>
+        <h3>{t("support.techServicesTitle")}</h3>
         <div className="clone-support-service-grid">
           {supportServices.map((service) => (
             <article key={service.title}>
@@ -63,20 +58,14 @@ export default function SupportPage() {
       </section>
 
       <section id="afterSales" className="clone-support-after">
-        <SectionTitle title="After sale services" />
-        <p>
-          The after-sales service team at UNC is composed of a group of
-          experienced and highly skilled engineers who are very professional in
-          the features and functionalities of UNC&apos;s products. They can respond
-          swiftly to customer needs, providing timely and effective after-sales
-          support guarantee.
-        </p>
+        <SectionTitle title={t("nav.postSale")} />
+        <p>{t("support.afterSalesText")}</p>
         <div className="clone-after-images">
           {afterSaleImages.map((image) => (
             <RemoteImage
               key={image}
               src={image}
-              alt="After sale service"
+              alt={t("nav.postSale")}
               width={360}
               height={230}
               sizes="(max-width: 900px) 90vw, 360px"
