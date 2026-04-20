@@ -40,6 +40,46 @@ export const metadata: Metadata = {
   ],
 };
 
+const browserExtensionAttributeCleanup = `
+(() => {
+  const attributeName = "bis_skin_checked";
+
+  const cleanNode = (node) => {
+    if (!node || node.nodeType !== Node.ELEMENT_NODE) {
+      return;
+    }
+
+    if (node.hasAttribute(attributeName)) {
+      node.removeAttribute(attributeName);
+    }
+
+    node.querySelectorAll?.("[" + attributeName + "]").forEach((child) => {
+      child.removeAttribute(attributeName);
+    });
+  };
+
+  cleanNode(document.documentElement);
+
+  if (window.MutationObserver) {
+    new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes") {
+          cleanNode(mutation.target);
+          return;
+        }
+
+        mutation.addedNodes.forEach(cleanNode);
+      });
+    }).observe(document.documentElement, {
+      attributeFilter: [attributeName],
+      attributes: true,
+      childList: true,
+      subtree: true,
+    });
+  }
+})();
+`;
+
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -49,6 +89,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
+        <Script
+          id="browser-extension-attribute-cleanup"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: browserExtensionAttributeCleanup }}
+        />
         <AuthProvider>
           <LanguageProvider>
             <Navbar />
