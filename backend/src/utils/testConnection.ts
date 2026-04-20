@@ -3,6 +3,7 @@
  * Chạy: npx tsx src/utils/testConnection.ts
  */
 
+import "dotenv/config";
 import { isMongoConfigured, getDb } from "@/lib/mongodb";
 import { isCloudinaryConfigured } from "@/lib/cloudinary";
 
