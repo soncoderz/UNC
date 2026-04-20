@@ -1,7 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { connectDatabase } from "@/lib/dbConnection";
 import { createContactSubmission } from "@/services/contactService";
 import { formatError, formatResponse, isValidEmail } from "@/utils/helpers";
 import type { ContactInput } from "@/types";
+
+// Kết nối database khi khởi động
+connectDatabase();
 
 /**
  * POST /api/contact

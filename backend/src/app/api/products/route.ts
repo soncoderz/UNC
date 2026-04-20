@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { connectDatabase } from "@/lib/dbConnection";
 import {
   getAllProducts,
   getFeaturedProducts,
@@ -11,6 +12,9 @@ import {
 import { verifyToken } from "@/services/authService";
 import { formatError, formatResponse } from "@/utils/helpers";
 import type { Product } from "@/types";
+
+// Kết nối database khi khởi động
+connectDatabase();
 
 /**
  * Admin auth helper
@@ -130,4 +134,3 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json(formatError("Failed to delete product"), { status: 500 });
   }
 }
-

@@ -1,7 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { connectDatabase } from "@/lib/dbConnection";
 import { getAllNews, getFeaturedNews } from "@/services/newsService";
 import { formatError, formatResponse } from "@/utils/helpers";
 import type { NewsArticle } from "@/types";
+
+// Kết nối database khi khởi động
+connectDatabase();
 
 /**
  * GET /api/news

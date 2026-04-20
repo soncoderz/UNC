@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
+import { connectDatabase } from "@/lib/dbConnection";
 import { getCompanyInfo } from "@/services/companyService";
 import { formatError, formatResponse } from "@/utils/helpers";
+
+// Kết nối database khi khởi động
+connectDatabase();
 
 /**
  * GET /api/company
