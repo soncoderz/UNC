@@ -16,7 +16,7 @@ import type {
 type QueryValue = string | number | boolean | null | undefined;
 type QueryParams = Record<string, QueryValue>;
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 function buildQuery(params: QueryParams = {}): string {
   const searchParams = new URLSearchParams();
@@ -54,7 +54,7 @@ async function fetcher<T>(
     response = await fetch(url, config);
   } catch {
     throw new Error(
-      `Cannot connect to API server at ${API_BASE_URL}. Make sure the backend is running on port 3001.`
+      `Cannot connect to API server at ${API_BASE_URL}. Make sure the backend is running on port 5000.`
     );
   }
 

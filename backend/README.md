@@ -45,7 +45,7 @@ JWT_SECRET=your-secret-key
 npm run dev
 ```
 
-Backend sẽ chạy tại: **http://localhost:3001**
+Backend sẽ chạy tại: **http://localhost:5000**
 
 ## Cách hoạt động
 
