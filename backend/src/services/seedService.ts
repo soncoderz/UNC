@@ -2,10 +2,12 @@ import { collections, getDb, isMongoConfigured } from "@/lib/mongodb";
 import { companySeed } from "@/data/company";
 import newsSeedJson from "@/data/news.json";
 import productsSeedJson from "@/data/products.json";
-import type { CompanyInfo, NewsArticle, Product } from "@/types";
+import usersSeedJson from "@/data/users.json";
+import type { CompanyInfo, NewsArticle, Product, User } from "@/types";
 
 const productsSeed = productsSeedJson as unknown as Product[];
 const newsSeed = newsSeedJson as NewsArticle[];
+const usersSeed = usersSeedJson as User[];
 
 let seedPromise: Promise<void> | null = null;
 
@@ -15,6 +17,7 @@ async function seedMongoCollections(): Promise<void> {
   const products = db.collection<Product>(collections.products);
   const news = db.collection<NewsArticle>(collections.news);
   const company = db.collection<CompanyInfo>(collections.company);
+  const users = db.collection<User>(collections.users);
 
   await Promise.all([
     products.createIndex({ id: 1 }, { unique: true }),
@@ -22,6 +25,8 @@ async function seedMongoCollections(): Promise<void> {
     news.createIndex({ id: 1 }, { unique: true }),
     news.createIndex({ slug: 1 }, { unique: true }),
     company.createIndex({ id: 1 }, { unique: true }),
+    users.createIndex({ id: 1 }, { unique: true }),
+    users.createIndex({ email: 1 }, { unique: true }),
   ]);
 
   if ((await products.estimatedDocumentCount()) === 0) {
@@ -36,6 +41,16 @@ async function seedMongoCollections(): Promise<void> {
     { id: companySeed.id },
     { $setOnInsert: companySeed },
     { upsert: true }
+  );
+
+  await Promise.all(
+    usersSeed.map((user) =>
+      users.updateOne(
+        { email: user.email },
+        { $setOnInsert: user },
+        { upsert: true }
+      )
+    )
   );
 }
 

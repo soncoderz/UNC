@@ -88,6 +88,14 @@ export interface AuthResponse {
   token: string;
 }
 
+export interface UploadResult {
+  url: string;
+  publicId: string;
+  width: number;
+  height: number;
+  format: string;
+}
+
 export interface LoginInput {
   email: string;
   password: string;

@@ -47,6 +47,26 @@ npm run dev
 
 Backend sẽ chạy tại: **http://localhost:5000**
 
+### 4. Seed admin + product catalog:
+```bash
+npm run seed
+```
+
+Seed script tao 1 tai khoan admin va dong bo product catalog hien tai cua FE vao MongoDB. Mac dinh script upload anh san pham tu `frontend/public/uniconvtor` len Cloudinary va luu URL Cloudinary vao collection `products`.
+
+Default admin credentials:
+```env
+SEED_ADMIN_EMAIL=admin@unc.com
+SEED_ADMIN_PASSWORD=admin123
+```
+
+Useful options:
+```env
+SEED_PRODUCTS_MODE=replace # replace or upsert
+SEED_UPLOAD_IMAGES=true    # set false de giu local image paths
+SEED_CLOUDINARY_FOLDER=unc/products
+```
+
 ## Cách hoạt động
 
 ### Dữ liệu tự động fallback:

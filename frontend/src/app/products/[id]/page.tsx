@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import BigMessageForm from "@/components/uniconvtor/BigMessageForm";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { cloneProducts } from "@/data/uniconvtor";
-import { getProductById } from "@/services/api";
+import { getProductById, getProducts } from "@/services/api";
 import type { Product, ProductCategory } from "@/types/api";
 import { useLanguage } from "@/context/LanguageContext";
 import { formatSpecLabel } from "@/utils/formatters";
@@ -233,10 +233,6 @@ const productDetailAssets: Record<string, ProductDetailAsset> = {
   },
 };
 
-function isCloneImage(product: Product | null) {
-  return Boolean(product?.image.startsWith("/static/upload/"));
-}
-
 function featureTitle(feature: string) {
   const highlight = feature.match(/IP\d+|<?\d+(?:\.\d+)?\s?ms|>?\d+(?:\.\d+)?%|\d+(?:\.\d+)?\s?A|\d+\s?V/i);
 
@@ -248,7 +244,7 @@ function featureTitle(feature: string) {
 }
 
 function buildAdvantages(product: Product): ProductAdvantage[] {
-  return product.features.map((feature, index) => ({
+  return (product.features || []).map((feature, index) => ({
     title: featureTitle(feature),
     text: feature,
     icon: advantageIcons[index % advantageIcons.length],
@@ -260,7 +256,7 @@ function buildDefaultSpecTable(product: Product): ProductSpecTable {
     headers: ["Product Model", product.power],
     rows: [
       { label: "Specifications Data", isSection: true },
-      ...Object.entries(product.specs).map(([key, value]) => ({
+      ...Object.entries(product.specs || {}).map(([key, value]) => ({
         label: formatSpecLabel(key),
         values: [value],
       })),
@@ -272,7 +268,10 @@ function getProductDetail(product: Product) {
   const detail = productDetailAssets[product.id] || {};
 
   return {
-    gallery: detail.gallery?.length ? detail.gallery : [product.image],
+    gallery: [
+      product.image,
+      ...(detail.gallery || []).filter((image) => image !== product.image),
+    ],
     parameterUrl: detail.parameterUrl || DEFAULT_PARAMETER_URL,
     manualUrl: detail.manualUrl || DEFAULT_MANUAL_URL,
     advantages: detail.advantages?.length ? detail.advantages : buildAdvantages(product),
@@ -315,6 +314,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(
     cloneProducts.find((item) => item.id === params.id) || null
   );
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState("");
   const { t } = useLanguage();
@@ -322,16 +322,38 @@ export default function ProductDetailPage() {
   useEffect(() => {
     async function fetchProduct() {
       const fallback = cloneProducts.find((item) => item.id === params.id) || null;
+      let nextProduct: Product | null = fallback;
 
       try {
         setLoading(true);
         const response = await getProductById(params.id);
-        const apiProduct = response.data || null;
-        setProduct(isCloneImage(apiProduct) ? apiProduct : fallback);
+        nextProduct = response.data || fallback;
+        setProduct(nextProduct);
       } catch {
         setProduct(fallback);
+        nextProduct = fallback;
       } finally {
         setLoading(false);
+      }
+
+      if (!nextProduct) {
+        setRelatedProducts([]);
+        return;
+      }
+
+      try {
+        const response = await getProducts({ category: nextProduct.category });
+        setRelatedProducts(
+          (response.data || [])
+            .filter((item) => item.id !== nextProduct.id)
+            .slice(0, 6)
+        );
+      } catch {
+        setRelatedProducts(
+          cloneProducts
+            .filter((item) => item.category === nextProduct.category && item.id !== nextProduct.id)
+            .slice(0, 6)
+        );
       }
     }
 
@@ -374,10 +396,6 @@ export default function ProductDetailPage() {
     .split("|")
     .map((item) => item.trim())
     .filter(Boolean);
-  const relatedProducts = cloneProducts
-    .filter((item) => item.category === product.category && item.id !== product.id)
-    .slice(0, 6);
-
   function cycleImage(direction: 1 | -1) {
     if (!detail || detail.gallery.length < 2) return;
 

@@ -23,7 +23,7 @@ export async function submitContact(request: NextRequest) {
       return NextResponse.json(response, { status: 400 });
     }
 
-    const submission = await contactService.submitContact(body);
+    const submission = await contactService.createContactSubmission(body);
 
     const response: ApiResponse<ContactSubmission> = {
       status: 201,

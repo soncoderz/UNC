@@ -6,7 +6,8 @@
     "dev": "next dev -p 5000",
     "build": "next build",
     "start": "next start -p 5000",
-    "test:connection": "npx tsx src/utils/testConnection.ts"
+    "test:connection": "npx tsx src/utils/testConnection.ts",
+    "seed": "npx tsx src/scripts/seedAdminAndProducts.ts"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

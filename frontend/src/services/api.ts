@@ -7,6 +7,7 @@ import type {
   NewsArticle,
   Product,
   SafeUser,
+  UploadResult,
 } from "@/types/api";
 
 /**
@@ -151,6 +152,18 @@ export async function deleteProductAdmin(token: string, id: string) {
   });
 }
 
+export async function uploadImageAdmin(
+  token: string,
+  file: string,
+  folder = "unc/products"
+) {
+  return fetcher<UploadResult>("/api/upload", {
+    method: "POST",
+    body: JSON.stringify({ file, folder }),
+    headers: authHeaders(token),
+  });
+}
+
 const api = {
   getProducts,
   getProductById,
@@ -165,6 +178,7 @@ const api = {
   createProductAdmin,
   updateProductAdmin,
   deleteProductAdmin,
+  uploadImageAdmin,
 };
 
 export default api;

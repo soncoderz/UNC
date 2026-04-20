@@ -16,6 +16,7 @@ export const collections = {
   news: "news",
   company: "company",
   contacts: "contacts",
+  users: "users",
 } as const;
 
 export function isMongoConfigured(): boolean {

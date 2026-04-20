@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { uploadImage, uploadMultipleImages } from "@/services/uploadService";
 import { isCloudinaryConfigured } from "@/lib/cloudinary";
+import { verifyToken } from "@/services/authService";
 import type { ApiResponse } from "@/types";
 
 /**
@@ -24,8 +25,30 @@ export async function checkCloudinaryStatus(request: NextRequest) {
 }
 
 // POST /api/upload - Upload ảnh lên Cloudinary
+function isAdminRequest(request: NextRequest): boolean {
+  const authHeader = request.headers.get("Authorization");
+
+  if (!authHeader?.startsWith("Bearer ")) {
+    return false;
+  }
+
+  const decoded = verifyToken(authHeader.slice(7));
+  return decoded?.role === "admin";
+}
+
 export async function uploadImages(request: NextRequest) {
   try {
+    if (!isAdminRequest(request)) {
+      const response: ApiResponse<null> = {
+        status: 403,
+        message: "Unauthorized - Admin access required",
+        data: null,
+        timestamp: new Date().toISOString(),
+      };
+
+      return NextResponse.json(response, { status: 403 });
+    }
+
     if (!isCloudinaryConfigured()) {
       const response: ApiResponse<null> = {
         status: 500,

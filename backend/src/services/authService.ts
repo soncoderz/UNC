@@ -1,6 +1,8 @@
 import { createHash, randomBytes } from "crypto";
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { join } from "path";
+import { collections, getDb, isMongoConfigured } from "@/lib/mongodb";
+import { ensureSeedData } from "@/services/seedService";
 import type { User, SafeUser, AuthResponse } from "@/types";
 
 /**
@@ -20,6 +22,16 @@ function loadUsers(): User[] {
 
 function saveUsers(users: User[]): void {
   writeFileSync(USERS_FILE, JSON.stringify(users, null, 2), "utf-8");
+}
+
+async function getUsersCollection() {
+  const db = await getDb();
+  return db.collection<User>(collections.users);
+}
+
+function stripMongoId<T extends { _id?: unknown }>(document: T): Omit<T, "_id"> {
+  const { _id, ...rest } = document;
+  return rest;
 }
 
 export function hashPassword(password: string): string {
@@ -71,9 +83,18 @@ export function verifyToken(token: string): { id: string; email: string; role: s
 // ========== Auth Operations ==========
 
 export async function login(email: string, password: string): Promise<AuthResponse | null> {
-  const users = loadUsers();
   const hashedPassword = hashPassword(password);
-  const user = users.find((u) => u.email === email && u.password === hashedPassword);
+  let user: User | null | undefined;
+
+  if (isMongoConfigured()) {
+    await ensureSeedData();
+    const collection = await getUsersCollection();
+    const document = await collection.findOne({ email, password: hashedPassword });
+    user = document ? (stripMongoId(document) as User) : null;
+  } else {
+    const users = loadUsers();
+    user = users.find((u) => u.email === email && u.password === hashedPassword);
+  }
 
   if (!user) return null;
 
@@ -88,13 +109,6 @@ export async function register(
   password: string,
   name: string
 ): Promise<AuthResponse | null> {
-  const users = loadUsers();
-
-  // Check if email already exists
-  if (users.some((u) => u.email === email)) {
-    return null;
-  }
-
   const newUser: User = {
     id: `user-${randomBytes(8).toString("hex")}`,
     email,
@@ -104,8 +118,26 @@ export async function register(
     createdAt: new Date().toISOString(),
   };
 
-  users.push(newUser);
-  saveUsers(users);
+  if (isMongoConfigured()) {
+    await ensureSeedData();
+    const collection = await getUsersCollection();
+
+    if (await collection.findOne({ email })) {
+      return null;
+    }
+
+    await collection.insertOne(newUser);
+  } else {
+    const users = loadUsers();
+
+    // Check if email already exists
+    if (users.some((u) => u.email === email)) {
+      return null;
+    }
+
+    users.push(newUser);
+    saveUsers(users);
+  }
 
   const safeUser = toSafeUser(newUser);
   const token = generateToken(safeUser);
@@ -117,8 +149,18 @@ export async function getUserFromToken(token: string): Promise<SafeUser | null> 
   const decoded = verifyToken(token);
   if (!decoded) return null;
 
-  const users = loadUsers();
-  const user = users.find((u) => u.id === decoded.id);
+  let user: User | null | undefined;
+
+  if (isMongoConfigured()) {
+    await ensureSeedData();
+    const collection = await getUsersCollection();
+    const document = await collection.findOne({ id: decoded.id });
+    user = document ? (stripMongoId(document) as User) : null;
+  } else {
+    const users = loadUsers();
+    user = users.find((u) => u.id === decoded.id);
+  }
+
   if (!user) return null;
 
   return toSafeUser(user);

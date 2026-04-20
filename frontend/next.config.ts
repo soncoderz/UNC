@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: "www.uniconvtor.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
     ],
     unoptimized: false,
   },

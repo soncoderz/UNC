@@ -73,7 +73,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(formatResponse(product, "Product created"), { status: 201 });
   } catch (error) {
     console.error("Error creating product:", error);
-    return NextResponse.json(formatError("Failed to create product"), { status: 500 });
+    return NextResponse.json(
+      formatError(error instanceof Error ? error.message : "Failed to create product"),
+      { status: 500 }
+    );
   }
 }
 
@@ -103,7 +106,10 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json(formatResponse(product, "Product updated"), { status: 200 });
   } catch (error) {
     console.error("Error updating product:", error);
-    return NextResponse.json(formatError("Failed to update product"), { status: 500 });
+    return NextResponse.json(
+      formatError(error instanceof Error ? error.message : "Failed to update product"),
+      { status: 500 }
+    );
   }
 }
 

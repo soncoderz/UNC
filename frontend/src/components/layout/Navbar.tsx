@@ -18,6 +18,7 @@ import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import useScrollPosition from "@/hooks/useScrollPosition";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { getProducts } from "@/services/api";
 
 const PRODUCT_MENU_LABEL = "Product Center";
 const DEFAULT_PRODUCT_CATEGORY = "hybrid-inverters";
@@ -138,6 +139,7 @@ export default function Navbar() {
     useState<ProductCategoryId>(DEFAULT_PRODUCT_CATEGORY);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(PRODUCT_MENU_LABEL);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [menuProducts, setMenuProducts] = useState(cloneProducts);
   const languageSelectorRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { isScrolled } = useScrollPosition();
@@ -157,8 +159,8 @@ export default function Navbar() {
     activeDropdown !== null;
 
   const currentProducts = useMemo(
-    () => cloneProducts.filter((product) => product.category === activeProductCategory),
-    [activeProductCategory]
+    () => menuProducts.filter((product) => product.category === activeProductCategory),
+    [activeProductCategory, menuProducts]
   );
 
   const isActive = (href: string) => {
@@ -170,6 +172,28 @@ export default function Navbar() {
     setActiveDropdown(null);
     setIsLanguageOpen(false);
   };
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchMenuProducts() {
+      try {
+        const response = await getProducts();
+
+        if (!cancelled && response.data?.length) {
+          setMenuProducts(response.data);
+        }
+      } catch {
+        setMenuProducts(cloneProducts);
+      }
+    }
+
+    void fetchMenuProducts();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!isLanguageOpen) return;
@@ -626,7 +650,7 @@ export default function Navbar() {
                                   </Link>
                                 ))}
                                 <div className="grid grid-cols-2 gap-3 py-3">
-                                  {cloneProducts.slice(0, 4).map((product) => (
+                                  {menuProducts.slice(0, 4).map((product) => (
                                     <Link
                                       key={product.id}
                                       href={`/products/${product.id}`}

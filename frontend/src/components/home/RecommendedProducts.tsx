@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { recommendedProductGroups } from "@/data/uniconvtor";
+import { getProducts } from "@/services/api";
 import SlideIn from "@/components/animations/SlideIn";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
@@ -11,11 +12,54 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function RecommendedProducts() {
   const { t } = useLanguage();
+  const [groups, setGroups] = useState(recommendedProductGroups);
   const [activeGroupIndex, setActiveGroupIndex] = useState(0);
   const [activeProductIndex, setActiveProductIndex] = useState(0);
 
-  const activeGroup = recommendedProductGroups[activeGroupIndex];
-  const activeProduct = activeGroup.products[activeProductIndex] || activeGroup.products[0];
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchProducts() {
+      try {
+        const response = await getProducts({ featured: true });
+        const apiProducts = response.data || [];
+
+        if (cancelled || apiProducts.length === 0) {
+          return;
+        }
+
+        const nextGroups = recommendedProductGroups
+          .map((group) => {
+            const category = group.products[0]?.category;
+
+            return {
+              ...group,
+              products: category
+                ? apiProducts.filter((product) => product.category === category)
+                : group.products,
+            };
+          })
+          .filter((group) => group.products.length > 0);
+
+        if (nextGroups.length > 0) {
+          setGroups(nextGroups);
+          setActiveGroupIndex(0);
+          setActiveProductIndex(0);
+        }
+      } catch {
+        setGroups(recommendedProductGroups);
+      }
+    }
+
+    void fetchProducts();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const activeGroup = groups[activeGroupIndex] || groups[0];
+  const activeProduct = activeGroup?.products[activeProductIndex] || activeGroup?.products[0];
 
   function selectGroup(index: number) {
     setActiveGroupIndex(index);
@@ -35,7 +79,7 @@ export default function RecommendedProducts() {
         </SlideIn>
 
         <StaggerContainer staggerChildren={0.1} className="ind-recommenTitleUl">
-          {recommendedProductGroups.map((group, index) => (
+          {groups.map((group, index) => (
             <li
               key={group.title}
               className={`ind-reTitleLi ${

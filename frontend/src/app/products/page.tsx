@@ -19,10 +19,6 @@ function isProductCategory(value: string | null): value is ProductCategory {
   return PRODUCT_CATEGORIES.some((category) => category.id === value);
 }
 
-function hasCloneImages(products: Product[]) {
-  return products.every((product) => product.image.startsWith("/static/upload/"));
-}
-
 function ProductsContent() {
   const { t } = useLanguage();
   const [products, setProducts] = useState<Product[]>(cloneProducts);
@@ -41,7 +37,7 @@ function ProductsContent() {
         setLoading(true);
         const response = await getProducts(activeCategory ? { category: activeCategory } : {});
         const apiProducts = response.data || [];
-        setProducts(apiProducts.length > 0 && hasCloneImages(apiProducts) ? apiProducts : cloneProducts);
+        setProducts(apiProducts);
       } catch {
         setProducts(cloneProducts);
       } finally {

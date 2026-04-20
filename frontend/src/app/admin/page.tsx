@@ -62,6 +62,13 @@ export default function AdminDashboard() {
     handleCloseForm();
   };
 
+  const handleImageUpload = async (fileDataUrl: string) => {
+    if (!token) throw new Error("No token found");
+
+    const response = await api.uploadImageAdmin(token, fileDataUrl);
+    return response.data.url;
+  };
+
   const handleDelete = async (id: string) => {
     if (!token) return;
     try {
@@ -96,6 +103,7 @@ export default function AdminDashboard() {
             initialData={editingProduct} 
             onSubmit={handleFormSubmit}
             onCancel={handleCloseForm}
+            onUploadImage={handleImageUpload}
           />
         </div>
       ) : isLoading ? (
