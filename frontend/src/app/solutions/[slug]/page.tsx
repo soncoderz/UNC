@@ -8,6 +8,7 @@ import {
   asset,
   cloneProducts,
   innerBanners,
+  innerMobileBanners,
   solutionNav,
   solutions,
 } from "@/data/uniconvtor";
@@ -44,6 +45,7 @@ export default async function SolutionDetailPage({ params }: SolutionDetailPageP
         title={solution.title}
         subtitle={solution.description}
         image={innerBanners.solutions}
+        mobileImage={innerMobileBanners.solutions}
         current={solution.title}
       />
       <InnerNav items={solutionNav} activeHref={currentHref} />

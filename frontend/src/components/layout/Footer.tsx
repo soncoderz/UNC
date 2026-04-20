@@ -36,12 +36,42 @@ const footerLinkKeys: Record<string, string> = {
   "/support#download": "nav.dataDownload",
 };
 
+const mobileNavItems = [
+  {
+    href: "/",
+    labelKey: "nav.home",
+    icon: "/template/default/esimg/icon/wap_lis1.png",
+    match: (pathname: string | null) => pathname === "/",
+  },
+  {
+    href: "/products",
+    labelKey: "nav.products",
+    icon: "/template/default/esimg/icon/wap_lis2.png",
+    match: (pathname: string | null) => Boolean(pathname?.startsWith("/products")),
+  },
+  {
+    href: "/company",
+    labelKey: "nav.aboutUs",
+    icon: "/template/default/esimg/icon/wap_lis3.png",
+    match: (pathname: string | null) => Boolean(pathname?.startsWith("/company")),
+  },
+  {
+    href: "/contact",
+    labelKey: "nav.contact",
+    icon: "/template/default/esimg/icon/wap_lis4.png",
+    match: (pathname: string | null) => Boolean(pathname?.startsWith("/contact")),
+  },
+];
+
 export default function Footer() {
   const { t } = useLanguage();
   const pathname = usePathname();
   const showContactPanel = pathname !== "/contact";
+  const showMobileNav =
+    !pathname?.startsWith("/admin") && !pathname?.startsWith("/login");
 
   return (
+    <>
     <footer className="clone-footer overflow-hidden">
       {showContactPanel ? (
         <SlideIn direction="up" distance={40} className="contact-section py-16" once={false}>
@@ -144,5 +174,34 @@ export default function Footer() {
         <span>Developers: Eshine</span>
       </FadeIn>
     </footer>
+    {showMobileNav ? (
+      <nav className="clone-mobile-bottom-nav" aria-label="Mobile quick navigation">
+        <div className="clone-mobile-bottom-list">
+          {mobileNavItems.map((item) => {
+            const active = item.match(pathname);
+
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`clone-mobile-bottom-item ${active ? "is-active" : ""}`}
+              >
+                <RemoteImage src={item.icon} alt="" width={18} height={18} />
+                <span>{t(item.labelKey)}</span>
+              </Link>
+            );
+          })}
+        </div>
+        <a href={`tel:${COMPANY_INFO.phone}`} className="clone-mobile-phone" aria-label={COMPANY_INFO.phone}>
+          <RemoteImage
+            src="/template/default/esimg/icon/wap_phone1.png"
+            alt=""
+            width={48}
+            height={48}
+          />
+        </a>
+      </nav>
+    ) : null}
+    </>
   );
 }

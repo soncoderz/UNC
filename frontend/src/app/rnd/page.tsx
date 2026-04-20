@@ -5,7 +5,7 @@ import InnerNav from "@/components/uniconvtor/InnerNav";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import SectionTitle from "@/components/uniconvtor/SectionTitle";
 import { useLanguage } from "@/context/LanguageContext";
-import { innerBanners, rndNav } from "@/data/uniconvtor";
+import { innerBanners, innerMobileBanners, rndNav } from "@/data/uniconvtor";
 
 const workshopImages = [
   "/static/upload/image/20240723/1721723513538560.jpg",
@@ -47,6 +47,7 @@ export default function RndPage() {
         title={t("rnd.pageTitle")}
         subtitle={t("rnd.pageSubtitle")}
         image={innerBanners.rnd}
+        mobileImage={innerMobileBanners.rnd}
       />
       <InnerNav items={rndNav} activeHref="/rnd#research" />
 

@@ -10,6 +10,7 @@ import {
   companyStats,
   cultureItems,
   innerBanners,
+  innerMobileBanners,
 } from "@/data/uniconvtor";
 
 const certifications = [
@@ -40,6 +41,7 @@ export default function CompanyPage() {
         title={t("company.title")}
         subtitle={t("company.heroSubtitle")}
         image={innerBanners.about}
+        mobileImage={innerMobileBanners.about}
       />
       <InnerNav items={aboutNav} activeHref="/company#intro" />
 

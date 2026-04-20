@@ -5,7 +5,7 @@ import InnerHero from "@/components/uniconvtor/InnerHero";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import SectionTitle from "@/components/uniconvtor/SectionTitle";
 import { useLanguage } from "@/context/LanguageContext";
-import { cloneNews, innerBanners } from "@/data/uniconvtor";
+import { cloneNews, innerBanners, innerMobileBanners } from "@/data/uniconvtor";
 
 export default function NewsPage() {
   const { t } = useLanguage();
@@ -16,6 +16,7 @@ export default function NewsPage() {
         title={t("home.corporateNews")}
         subtitle="UNC a new driving force for green energy"
         image={innerBanners.news}
+        mobileImage={innerMobileBanners.news}
         current={t("home.corporateNews")}
       />
 

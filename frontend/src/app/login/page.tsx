@@ -4,7 +4,7 @@ import { useState, SyntheticEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import InnerHero from "@/components/uniconvtor/InnerHero";
-import { innerBanners } from "@/data/uniconvtor";
+import { innerBanners, innerMobileBanners } from "@/data/uniconvtor";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -39,6 +39,7 @@ export default function LoginPage() {
         title="Admin Portal"
         subtitle="Sign in to manage the website"
         image={innerBanners.contact}
+        mobileImage={innerMobileBanners.contact}
       />
 
       <section className="py-20 bg-light">

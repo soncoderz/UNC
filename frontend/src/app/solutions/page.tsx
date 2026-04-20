@@ -4,7 +4,7 @@ import Link from "next/link";
 import InnerHero from "@/components/uniconvtor/InnerHero";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { useLanguage } from "@/context/LanguageContext";
-import { innerBanners, solutions } from "@/data/uniconvtor";
+import { innerBanners, innerMobileBanners, solutions } from "@/data/uniconvtor";
 
 export default function SolutionsPage() {
   const { t } = useLanguage();
@@ -15,6 +15,7 @@ export default function SolutionsPage() {
         title={t("nav.solutions")}
         subtitle={t("home.solutionsSubtitle")}
         image={innerBanners.solutions}
+        mobileImage={innerMobileBanners.solutions}
       />
 
       <section className="clone-case-list" style={{ marginTop: '0', paddingTop: '60px', paddingBottom: '120px' }}>

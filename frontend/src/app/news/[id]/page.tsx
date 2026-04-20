@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import InnerHero from "@/components/uniconvtor/InnerHero";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
-import { cloneNews, innerBanners } from "@/data/uniconvtor";
+import { cloneNews, innerBanners, innerMobileBanners } from "@/data/uniconvtor";
 
 interface NewsDetailPageProps {
   params: Promise<{
@@ -24,6 +24,7 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
         title="Corporate News"
         subtitle={article.title}
         image={innerBanners.news}
+        mobileImage={innerMobileBanners.news}
         current={article.title}
       />
 

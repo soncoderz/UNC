@@ -8,7 +8,7 @@ import InnerNav from "@/components/uniconvtor/InnerNav";
 import ProductCard from "@/components/products/ProductCard";
 import BigMessageForm from "@/components/uniconvtor/BigMessageForm";
 import { PRODUCT_CATEGORIES } from "@/constants/navigation";
-import { cloneProducts, innerBanners, productNav } from "@/data/uniconvtor";
+import { cloneProducts, innerBanners, innerMobileBanners, productNav } from "@/data/uniconvtor";
 import { getProducts } from "@/services/api";
 import type { Product, ProductCategory } from "@/types/api";
 import { useLanguage } from "@/context/LanguageContext";
@@ -92,6 +92,7 @@ function ProductsContent() {
         title={t("nav.productsCenter")}
         subtitle={t("home.recommendedSubtitle")}
         image={innerBanners.products}
+        mobileImage={innerMobileBanners.products}
       />
       <InnerNav
         items={productNav}

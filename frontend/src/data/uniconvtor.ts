@@ -26,7 +26,18 @@ export const innerBanners = {
   support: "/static/upload/image/20240718/1721266040843391.jpg",
   download: "/static/upload/image/20240718/1721279542202026.jpg",
   contact: "/static/upload/image/20240718/1721289158220263.jpg",
-  news: "/static/upload/image/20240718/1721281513711263.jpg",
+  news: "/static/upload/image/20240724/1721786128570934.jpg",
+};
+
+export const innerMobileBanners = {
+  about: "/static/upload/image/20240718/1721281509403027.jpg",
+  solutions: "/static/upload/image/20240716/1721096134226488.jpg",
+  products: "/static/upload/image/20240723/1721724625530306.jpg",
+  rnd: "/static/upload/image/20240717/1721207874937644.jpg",
+  support: "/static/upload/image/20240718/1721266037354750.jpg",
+  download: "/static/upload/image/20240718/1721279542202026.jpg",
+  contact: "/static/upload/image/20240718/1721289154730733.jpg",
+  news: "/static/upload/image/20240712/1720776250982571.png",
 };
 
 export const companyStats = [

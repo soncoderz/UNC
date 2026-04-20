@@ -8,6 +8,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import {
   afterSaleImages,
   innerBanners,
+  innerMobileBanners,
   serviceSystem,
   supportNav,
   supportServices,
@@ -30,6 +31,7 @@ export default function SupportPage() {
         title={t("support.pageTitle")}
         subtitle={t("support.pageSubtitle")}
         image={innerBanners.support}
+        mobileImage={innerMobileBanners.support}
       />
       <InnerNav items={supportNav} activeHref="/support#technical" />
 

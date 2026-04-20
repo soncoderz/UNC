@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import InnerHero from "@/components/uniconvtor/InnerHero";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { COMPANY_INFO } from "@/constants/navigation";
-import { innerBanners } from "@/data/uniconvtor";
+import { innerBanners, innerMobileBanners } from "@/data/uniconvtor";
 import { submitContact } from "@/services/api";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -68,6 +68,7 @@ export default function ContactPage() {
         title={t("contact.title")}
         subtitle="UNC a new driving force for green energy"
         image={innerBanners.contact}
+        mobileImage={innerMobileBanners.contact}
       />
 
       <section className="clone-contact-main">

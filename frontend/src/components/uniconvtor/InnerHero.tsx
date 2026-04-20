@@ -6,6 +6,7 @@ interface InnerHeroProps {
   title: string;
   subtitle: string;
   image: string;
+  mobileImage?: string;
   current?: string;
 }
 
@@ -13,6 +14,7 @@ export default function InnerHero({
   title,
   subtitle,
   image,
+  mobileImage,
   current = title,
 }: InnerHeroProps) {
   return (
@@ -23,8 +25,18 @@ export default function InnerHero({
         fill
         priority
         sizes="100vw"
-        className="clone-inner-hero-image"
+        className="clone-inner-hero-image clone-inner-hero-image-pc"
       />
+      {mobileImage ? (
+        <RemoteImage
+          src={mobileImage}
+          alt={title}
+          fill
+          priority
+          sizes="100vw"
+          className="clone-inner-hero-image clone-inner-hero-image-mobile"
+        />
+      ) : null}
       <SlideIn direction="down" distance={20} className="clone-inner-hero-text">
         <h1>{title}</h1>
         <p>{subtitle}</p>
