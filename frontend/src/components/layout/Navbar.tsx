@@ -447,7 +447,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isProductMegaOpen ? (
           <motion.div
-            className="absolute left-0 top-full hidden w-full overflow-y-auto bg-white shadow-[rgba(0,0,0,0.2)_0_20px_30px_-20px] lg:block"
+            className="navbar-scrollbar-hidden absolute left-0 top-full hidden w-full overflow-y-auto bg-white shadow-[rgba(0,0,0,0.2)_0_20px_30px_-20px] lg:block"
             variants={dropdownVariants}
             initial="hidden"
             animate="visible"
@@ -456,7 +456,7 @@ export default function Navbar() {
           >
             <div className="grid h-[clamp(430px,28.958vw,556px)] grid-cols-[minmax(390px,31.145vw)_1fr]">
               <div
-                className="overflow-y-auto bg-left bg-no-repeat py-[clamp(28px,2.604vw,50px)] pl-[clamp(165px,17.396vw,334px)] pr-5"
+                className="navbar-scrollbar-hidden overflow-y-auto bg-left bg-no-repeat py-[clamp(28px,2.604vw,50px)] pl-[clamp(165px,17.396vw,334px)] pr-5"
                 style={{
                   backgroundImage: `url(${asset("/template/default/esimg/img/nav_bg1.png")})`,
                   backgroundSize: "min(31.145vw, 598px) 100%",
@@ -505,7 +505,7 @@ export default function Navbar() {
 
               <motion.div
                 key={activeProductCategory}
-                className="grid auto-rows-max grid-cols-4 content-start gap-x-[8%] gap-y-[clamp(24px,1.562vw,30px)] overflow-y-auto bg-white px-[clamp(44px,3.438vw,66px)] py-[clamp(28px,1.562vw,30px)] pr-[8%]"
+                className="navbar-scrollbar-hidden grid auto-rows-max grid-cols-4 content-start gap-x-[8%] gap-y-[clamp(24px,1.562vw,30px)] overflow-y-auto bg-white px-[clamp(44px,3.438vw,66px)] py-[clamp(28px,1.562vw,30px)] pr-[8%]"
                 variants={{
                   visible: {
                     transition: { staggerChildren: 0.08 },
@@ -556,7 +556,7 @@ export default function Navbar() {
             animate="visible"
             exit="exit"
           >
-            <div className="max-h-[calc(100vh-64px)] overflow-y-auto px-5 py-4">
+            <div className="navbar-scrollbar-hidden max-h-[calc(100vh-64px)] overflow-y-auto px-5 py-4">
               <div className="mb-4 flex flex-wrap gap-2 border-b border-slate-100 pb-4">
                 {availableLocales.map((lang) => (
                   <button

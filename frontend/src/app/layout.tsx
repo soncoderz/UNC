@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import GlobalScrollReveal from "@/components/animations/GlobalScrollReveal";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { AuthProvider } from "@/context/AuthContext";
 
@@ -97,7 +98,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <AuthProvider>
           <LanguageProvider>
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1">
+              <GlobalScrollReveal>{children}</GlobalScrollReveal>
+            </main>
             <Footer />
           </LanguageProvider>
         </AuthProvider>
