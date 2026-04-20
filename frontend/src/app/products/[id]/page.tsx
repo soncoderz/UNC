@@ -57,6 +57,13 @@ const advantageIcons = [
 ];
 
 const productDetailAssets: Record<string, ProductDetailAsset> = {
+  "single-phase-hybrid-3-6kw": {
+    gallery: [
+      "/static/upload/image/20240722/1721618011773443.png",
+      "/static/upload/image/20240722/1721618014955956.png",
+      "/static/upload/image/20240722/1721618016331088.png",
+    ],
+  },
   "three-phase-hybrid-8-12kw": {
     gallery: [
       "/static/upload/image/20240722/1721630499957128.png",
@@ -147,6 +154,82 @@ const productDetailAssets: Record<string, ProductDetailAsset> = {
         { label: "Communications", values: ["RS485/WIFI/GPRS/LAN"] },
       ],
     },
+  },
+  "three-phase-hybrid-15-20kw": {
+    gallery: [
+      "/static/upload/image/20240722/1721632850345517.png",
+      "/static/upload/image/20240722/1721632853943364.png",
+      "/static/upload/image/20240722/1721632857966124.png",
+    ],
+  },
+  "single-phase-hybrid-off-grid-4-10kw": {
+    gallery: [
+      "/static/upload/image/20250219/1739945044275583.png",
+      "/static/upload/image/20250219/1739945178523119.png",
+      "/static/upload/image/20250219/1739945037984895.png",
+    ],
+  },
+  "single-phase-hybrid-low-voltage-10-12kw": {
+    gallery: [
+      "/static/upload/image/20260330/1774859137668030.png",
+      "/static/upload/image/20260330/1774859132153475.png",
+    ],
+  },
+  "single-phase-hybrid-low-voltage-4-8-6-6kw": {
+    gallery: [
+      "/static/upload/image/20260401/1775023285865256.png",
+      "/static/upload/image/20260401/1775023282222564.png",
+    ],
+  },
+  "pv-battery-all-in-one": {
+    gallery: [
+      "/static/upload/image/20240722/1721611371858486.png",
+      "/static/upload/image/20240722/1721611373579271.png",
+      "/static/upload/image/20240722/1721611376185525.png",
+      "/static/upload/image/20240722/1721611379733337.png",
+    ],
+  },
+  "ci-energy-storage-module": {
+    gallery: [
+      "/static/upload/image/20240724/1721784669297108.png",
+      "/static/upload/image/20240724/1721784673324212.png",
+      "/static/upload/image/20240724/1721784660784196.png",
+    ],
+  },
+  "ci-energy-storage-converter": {
+    gallery: [
+      "/static/upload/image/20240723/1721698116778077.png",
+      "/static/upload/image/20240723/1721698117207740.png",
+      "/static/upload/image/20240723/1721698117928906.png",
+    ],
+  },
+  "three-phase-pv-10-25kw": {
+    gallery: [
+      "/static/upload/image/20240717/1721203074232946.png",
+      "/static/upload/image/20240717/1721203076194935.png",
+      "/static/upload/image/20240717/1721203079152578.png",
+    ],
+  },
+  "three-phase-pv-25-50kw": {
+    gallery: [
+      "/static/upload/image/20240719/1721350885644048.png",
+      "/static/upload/image/20240719/1721350888343425.png",
+      "/static/upload/image/20240719/1721350891274874.png",
+    ],
+  },
+  "three-phase-pv-80-110kw": {
+    gallery: [
+      "/static/upload/image/20241008/1728370816676072.png",
+      "/static/upload/image/20241008/1728370817568964.png",
+      "/static/upload/image/20241008/1728370817363471.png",
+    ],
+  },
+  "wall-mounted-battery-pack": {
+    gallery: [
+      "/static/upload/image/20250219/1739945438127895.png",
+      "/static/upload/image/20250219/1739945438358958.png",
+      "/static/upload/image/20250219/1739945430740650.png",
+    ],
   },
 };
 

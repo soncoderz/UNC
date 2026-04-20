@@ -4256,12 +4256,20 @@ img {
 .clone-product-thumbs {
   min-height: 0;
   flex: 1;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.clone-product-thumbs::-webkit-scrollbar {
+  display: none;
 }
 
 .clone-product-thumb {
+  flex: 0 0 clamp(74px, 5.2vw, 96px);
+  min-height: clamp(74px, 5.2vw, 96px);
   border: 0;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.4);
