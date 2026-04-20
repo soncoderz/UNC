@@ -32,6 +32,8 @@ const SKIP_SELECTOR = [
   "[data-scroll-reveal='off']",
   ".scroll-reveal-skip",
   ".home-banner",
+  ".clone-inner-hero",
+  ".clone-product-detail-main-hero",
 ].join(",");
 
 const MAX_STAGGER_DELAY_MS = 560;
@@ -125,19 +127,46 @@ export default function GlobalScrollReveal({ children }: { children: ReactNode }
       });
     };
 
-    prepareElements();
+    let mutationObserver: MutationObserver | null = null;
+    let mutationFrame = 0;
+    let hydrationFrame = 0;
+    let hydrationTimer = 0;
 
-    const mutationObserver = new MutationObserver(() => {
-      window.requestAnimationFrame(prepareElements);
-    });
+    const startReveal = () => {
+      prepareElements();
 
-    mutationObserver.observe(scope, {
-      childList: true,
-      subtree: true,
-    });
+      mutationObserver = new MutationObserver(() => {
+        if (mutationFrame) {
+          return;
+        }
+
+        mutationFrame = window.requestAnimationFrame(() => {
+          mutationFrame = 0;
+          prepareElements();
+        });
+      });
+
+      mutationObserver.observe(scope, {
+        childList: true,
+        subtree: true,
+      });
+    };
+
+    hydrationTimer = window.setTimeout(() => {
+      hydrationFrame = window.requestAnimationFrame(() => {
+        hydrationFrame = window.requestAnimationFrame(startReveal);
+      });
+    }, 120);
 
     return () => {
-      mutationObserver.disconnect();
+      window.clearTimeout(hydrationTimer);
+      if (hydrationFrame) {
+        window.cancelAnimationFrame(hydrationFrame);
+      }
+      if (mutationFrame) {
+        window.cancelAnimationFrame(mutationFrame);
+      }
+      mutationObserver?.disconnect();
       observer?.disconnect();
       preparedElements.forEach((element) => {
         element.classList.remove("scroll-reveal-item", "is-scroll-visible");

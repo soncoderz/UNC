@@ -32,7 +32,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           sizes="(max-width: 768px) 80vw, 320px"
         />
       </span>
-      <span className="clone-product-more">{t("common.more")}</span>
+      <span className="clone-product-more">{t("products.more")}</span>
     </Link>
   );
 }
