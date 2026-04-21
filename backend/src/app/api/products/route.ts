@@ -13,9 +13,6 @@ import { verifyToken } from "@/services/authService";
 import { formatError, formatResponse } from "@/utils/helpers";
 import type { Product } from "@/types";
 
-// Kết nối database khi khởi động
-connectDatabase();
-
 /**
  * Admin auth helper
  */
@@ -34,6 +31,7 @@ function getAdminFromRequest(request: NextRequest) {
  */
 export async function GET(request: NextRequest) {
   try {
+    await connectDatabase();
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
     const featured = searchParams.get("featured");

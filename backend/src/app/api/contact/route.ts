@@ -4,8 +4,7 @@ import { createContactSubmission } from "@/services/contactService";
 import { formatError, formatResponse, isValidEmail } from "@/utils/helpers";
 import type { ContactInput } from "@/types";
 
-// Kết nối database khi khởi động
-connectDatabase();
+// Kết nối database được thực hiện trong mỗi handler
 
 /**
  * POST /api/contact

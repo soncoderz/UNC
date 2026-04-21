@@ -3,8 +3,7 @@ import { connectDatabase } from "@/lib/dbConnection";
 import { getCompanyInfo } from "@/services/companyService";
 import { formatError, formatResponse } from "@/utils/helpers";
 
-// Kết nối database khi khởi động
-connectDatabase();
+// Kết nối database được thực hiện trong mỗi handler
 
 /**
  * GET /api/company
@@ -12,6 +11,7 @@ connectDatabase();
  */
 export async function GET() {
   try {
+    await connectDatabase();
     const companyInfo = await getCompanyInfo();
     return NextResponse.json(formatResponse(companyInfo), { status: 200 });
   } catch (error) {

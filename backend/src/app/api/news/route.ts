@@ -4,8 +4,7 @@ import { getAllNews, getFeaturedNews } from "@/services/newsService";
 import { formatError, formatResponse } from "@/utils/helpers";
 import type { NewsArticle } from "@/types";
 
-// Kết nối database khi khởi động
-connectDatabase();
+// Kết nối database khi khởi động được thực hiện trong mỗi handler
 
 /**
  * GET /api/news
@@ -13,6 +12,7 @@ connectDatabase();
  */
 export async function GET(request: NextRequest) {
   try {
+    await connectDatabase();
     const { searchParams } = new URL(request.url);
     const featured = searchParams.get("featured");
 
