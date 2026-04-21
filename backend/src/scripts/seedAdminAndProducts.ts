@@ -66,13 +66,15 @@ function resolveLocalProductImage(image: string): string | null {
 
 async function uploadProductImage(
   product: Product,
+  image: string,
   cloudinary: CloudinaryClient,
-  folder: string
+  folder: string,
+  publicId: string
 ): Promise<string> {
-  const imagePath = resolveLocalProductImage(product.image);
+  const imagePath = resolveLocalProductImage(image);
 
   if (!imagePath) {
-    return product.image;
+    return image;
   }
 
   if (!existsSync(imagePath)) {
@@ -81,7 +83,7 @@ async function uploadProductImage(
 
   const result = await cloudinary.uploader.upload(imagePath, {
     folder,
-    public_id: product.id,
+    public_id: publicId,
     overwrite: true,
     resource_type: "image",
     transformation: [
@@ -114,9 +116,30 @@ async function buildProductsForDatabase(): Promise<Product[]> {
 
   for (const product of productsSeed) {
     console.log(`Uploading product image: ${product.id}`);
+    const uploadedGallery = product.gallery
+      ? await Promise.all(
+          product.gallery.map((image, index) =>
+            uploadProductImage(
+              product,
+              image,
+              cloudinaryModule.default,
+              folder,
+              `${product.id}-gallery-${index + 1}`
+            )
+          )
+        )
+      : undefined;
+
     products.push({
       ...product,
-      image: await uploadProductImage(product, cloudinaryModule.default, folder),
+      image: await uploadProductImage(
+        product,
+        product.image,
+        cloudinaryModule.default,
+        folder,
+        product.id
+      ),
+      ...(uploadedGallery ? { gallery: uploadedGallery } : {}),
     });
   }
 

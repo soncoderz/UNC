@@ -36,6 +36,9 @@ export default function ProductTable({ products, onEdit, onDelete }: ProductTabl
                 <td className="px-6 py-4">
                   <div className="font-medium text-dark">{product.name}</div>
                   <div className="text-xs text-gray-500 mt-1 truncate max-w-[200px]">{product.id}</div>
+                  <div className="text-xs text-gray-400 mt-1">
+                    {(product.gallery?.length || 0) + 1} image{product.gallery?.length ? "s" : ""}
+                  </div>
                 </td>
                 <td className="px-6 py-4">
                   <span className="inline-flex px-2 py-1 text-xs font-medium rounded-md bg-blue-50 text-blue-700">

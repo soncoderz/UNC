@@ -10,6 +10,7 @@ export interface Product {
   features: string[];
   specs: Record<string, string>;
   image: string;
+  gallery?: string[];
   price: number | null;
   isNew: boolean;
   isFeatured: boolean;

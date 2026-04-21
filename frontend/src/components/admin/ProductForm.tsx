@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { asset } from "@/data/uniconvtor";
+import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import type { Product } from "@/types/api";
 
 interface ProductFormProps {
@@ -9,7 +9,10 @@ interface ProductFormProps {
   onSubmit: (data: Partial<Product>) => Promise<void>;
   onCancel: () => void;
   onUploadImage?: (fileDataUrl: string) => Promise<string>;
+  onUploadImages?: (fileDataUrls: string[]) => Promise<string[]>;
 }
+
+const DEFAULT_PRODUCT_IMAGE = "/products/default.jpg";
 
 const defaultProduct: Partial<Product> = {
   name: "",
@@ -19,7 +22,8 @@ const defaultProduct: Partial<Product> = {
   description: "",
   features: [],
   specs: {},
-  image: "/products/default.jpg",
+  image: DEFAULT_PRODUCT_IMAGE,
+  gallery: [],
   price: null,
   isNew: false,
   isFeatured: false,
@@ -33,6 +37,10 @@ function specsToText(product?: Product) {
   return Object.entries(product?.specs || {})
     .map(([key, value]) => `${key}: ${value}`)
     .join("\n");
+}
+
+function imagesToText(images?: string[]) {
+  return (images || []).join("\n");
 }
 
 function parseFeatures(text: string) {
@@ -64,6 +72,17 @@ function parseSpecs(text: string) {
   );
 }
 
+function parseImages(text: string) {
+  return Array.from(
+    new Set(
+      text
+        .split(/\r?\n/)
+        .map((item) => item.trim())
+        .filter(Boolean)
+    )
+  );
+}
+
 function readFileAsDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -79,15 +98,19 @@ export default function ProductForm({
   onSubmit,
   onCancel,
   onUploadImage,
+  onUploadImages,
 }: ProductFormProps) {
   const [formData, setFormData] = useState<Partial<Product>>(
-    initialData || defaultProduct
+    { ...defaultProduct, ...initialData }
   );
   const [featuresText, setFeaturesText] = useState(featuresToText(initialData));
   const [specsText, setSpecsText] = useState(specsToText(initialData));
+  const [galleryText, setGalleryText] = useState(imagesToText(initialData?.gallery));
   const [isLoading, setIsLoading] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
+  const [uploadingTarget, setUploadingTarget] = useState<"main" | "gallery" | null>(null);
   const [error, setError] = useState("");
+  const isUploading = uploadingTarget !== null;
+  const galleryImages = parseImages(galleryText);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -97,6 +120,35 @@ export default function ProductForm({
     setFormData((prev) => ({ ...prev, [name]: finalValue }));
   };
 
+  const uploadFiles = async (files: File[]) => {
+    if (!files.length) {
+      return [];
+    }
+
+    if (!onUploadImage && !onUploadImages) {
+      setError("Image upload is not available.");
+      return [];
+    }
+
+    if (files.some((file) => !file.type.startsWith("image/"))) {
+      setError("Please select an image file.");
+      return [];
+    }
+
+    const fileDataUrls = await Promise.all(files.map(readFileAsDataUrl));
+
+    if (onUploadImages && fileDataUrls.length > 1) {
+      return onUploadImages(fileDataUrls);
+    }
+
+    if (onUploadImage) {
+      return Promise.all(fileDataUrls.map((fileDataUrl) => onUploadImage(fileDataUrl)));
+    }
+
+    const imageUrls = await onUploadImages?.(fileDataUrls);
+    return imageUrls || [];
+  };
+
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -104,29 +156,55 @@ export default function ProductForm({
       return;
     }
 
-    if (!onUploadImage) {
-      setError("Image upload is not available.");
-      return;
-    }
+    setError("");
+    setUploadingTarget("main");
 
-    if (!file.type.startsWith("image/")) {
-      setError("Please select an image file.");
+    try {
+      const [imageUrl] = await uploadFiles([file]);
+
+      if (imageUrl) {
+        setFormData((prev) => ({ ...prev, image: imageUrl }));
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to upload image");
+    } finally {
+      setUploadingTarget(null);
+      e.target.value = "";
+    }
+  };
+
+  const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+
+    if (!files.length) {
       return;
     }
 
     setError("");
-    setIsUploading(true);
+    setUploadingTarget("gallery");
 
     try {
-      const fileDataUrl = await readFileAsDataUrl(file);
-      const imageUrl = await onUploadImage(fileDataUrl);
-      setFormData((prev) => ({ ...prev, image: imageUrl }));
+      const imageUrls = await uploadFiles(files);
+
+      if (imageUrls.length) {
+        const nextImages = Array.from(new Set([...galleryImages, ...imageUrls]));
+        setGalleryText(imagesToText(nextImages));
+      }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to upload image");
+      setError(err instanceof Error ? err.message : "Failed to upload images");
     } finally {
-      setIsUploading(false);
+      setUploadingTarget(null);
       e.target.value = "";
     }
+  };
+
+  const removeGalleryImage = (imageUrl: string) => {
+    setGalleryText(imagesToText(galleryImages.filter((image) => image !== imageUrl)));
+  };
+
+  const setGalleryImageAsMain = (imageUrl: string) => {
+    setFormData((prev) => ({ ...prev, image: imageUrl }));
+    removeGalleryImage(imageUrl);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -139,6 +217,8 @@ export default function ProductForm({
         ...formData,
         features: parseFeatures(featuresText),
         specs: parseSpecs(specsText),
+        image: formData.image || DEFAULT_PRODUCT_IMAGE,
+        gallery: parseImages(galleryText).filter((image) => image !== formData.image),
         price: formData.price ?? null,
       });
     } catch (err) {
@@ -211,9 +291,9 @@ export default function ProductForm({
           />
         </div>
 
-        <div className="md:col-span-2 grid grid-cols-1 lg:grid-cols-[1fr_160px] gap-4">
+        <div className="md:col-span-2 grid grid-cols-1 lg:grid-cols-[1fr_180px] gap-4">
           <div>
-            <label className="block text-sm font-medium text-dark mb-1">Image URL</label>
+            <label className="block text-sm font-medium text-dark mb-1">Main image URL</label>
             <input
               type="text"
               required
@@ -231,19 +311,87 @@ export default function ProductForm({
                   disabled={isUploading}
                   className="sr-only"
                 />
-                {isUploading ? "Uploading..." : "Upload to Cloudinary"}
+                {uploadingTarget === "main" ? "Uploading..." : "Upload main image"}
               </label>
             </div>
           </div>
 
-          <div className="h-32 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
+          <div className="relative h-36 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden">
             {formData.image ? (
-              <img
-                src={asset(formData.image)}
+              <RemoteImage
+                src={formData.image}
                 alt=""
-                className="h-full w-full object-contain p-2"
+                fill
+                sizes="180px"
+                className="object-contain p-2"
               />
             ) : null}
+          </div>
+        </div>
+
+        <div className="md:col-span-2">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
+            <label className="block text-sm font-medium text-dark">
+              Additional detail images
+            </label>
+            <label className="inline-flex w-fit items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-dark text-sm font-medium rounded-lg cursor-pointer transition-colors">
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleGalleryUpload}
+                disabled={isUploading}
+                className="sr-only"
+              />
+              {uploadingTarget === "gallery" ? "Uploading..." : "Upload additional images"}
+            </label>
+          </div>
+
+          <textarea
+            value={galleryText}
+            onChange={(e) => setGalleryText(e.target.value)}
+            rows={4}
+            placeholder="One image URL per line"
+            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none resize-y"
+          />
+
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            {galleryImages.length > 0 ? (
+              galleryImages.map((image, index) => (
+                <div
+                  key={`${image}-${index}`}
+                  className="relative h-28 rounded-lg border border-gray-200 bg-gray-50 overflow-hidden group"
+                >
+                  <RemoteImage
+                    src={image}
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 50vw, 180px"
+                    className="object-contain p-2"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 flex bg-white/90 text-[11px] font-medium opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                    <button
+                      type="button"
+                      onClick={() => setGalleryImageAsMain(image)}
+                      className="flex-1 px-2 py-1 text-primary hover:bg-blue-50"
+                    >
+                      Main
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeGalleryImage(image)}
+                      className="flex-1 px-2 py-1 text-red-500 hover:bg-red-50"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-6 text-center text-sm text-gray-500">
+                No additional images.
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -266,11 +266,12 @@ function buildDefaultSpecTable(product: Product): ProductSpecTable {
 
 function getProductDetail(product: Product) {
   const detail = productDetailAssets[product.id] || {};
+  const galleryImages = product.gallery?.length ? product.gallery : detail.gallery || [];
 
   return {
     gallery: [
       product.image,
-      ...(detail.gallery || []).filter((image) => image !== product.image),
+      ...galleryImages.filter((image) => image !== product.image),
     ],
     parameterUrl: detail.parameterUrl || DEFAULT_PARAMETER_URL,
     manualUrl: detail.manualUrl || DEFAULT_MANUAL_URL,

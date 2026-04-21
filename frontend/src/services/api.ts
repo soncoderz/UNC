@@ -164,6 +164,18 @@ export async function uploadImageAdmin(
   });
 }
 
+export async function uploadImagesAdmin(
+  token: string,
+  files: string[],
+  folder = "unc/products"
+) {
+  return fetcher<UploadResult[]>("/api/upload", {
+    method: "POST",
+    body: JSON.stringify({ files, folder }),
+    headers: authHeaders(token),
+  });
+}
+
 const api = {
   getProducts,
   getProductById,
@@ -179,6 +191,7 @@ const api = {
   updateProductAdmin,
   deleteProductAdmin,
   uploadImageAdmin,
+  uploadImagesAdmin,
 };
 
 export default api;

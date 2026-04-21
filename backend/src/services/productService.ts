@@ -31,6 +31,7 @@ const PRODUCT_CATEGORIES: Product["category"][] = [
   "energy-storage",
   "hybrid-inverters",
 ];
+const DEFAULT_PRODUCT_IMAGE = "/products/default.jpg";
 
 function toText(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
@@ -46,6 +47,27 @@ function parseFeatures(value: unknown): string[] {
       .split(/\r?\n|,/)
       .map((item) => item.trim())
       .filter(Boolean);
+  }
+
+  return [];
+}
+
+function uniqueTexts(values: string[]): string[] {
+  return Array.from(new Set(values));
+}
+
+function parseImages(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return uniqueTexts(value.map((item) => toText(item)).filter(Boolean));
+  }
+
+  if (typeof value === "string") {
+    return uniqueTexts(
+      value
+        .split(/\r?\n/)
+        .map((item) => item.trim())
+        .filter(Boolean)
+    );
   }
 
   return [];
@@ -79,6 +101,7 @@ function parseCategory(value: unknown): Product["category"] {
 }
 
 function normalizeProductInput(input: Partial<Product>): Omit<Product, "id"> {
+  const image = toText(input.image) || DEFAULT_PRODUCT_IMAGE;
   const product = {
     name: toText(input.name),
     category: parseCategory(input.category),
@@ -87,7 +110,8 @@ function normalizeProductInput(input: Partial<Product>): Omit<Product, "id"> {
     description: toText(input.description),
     features: parseFeatures(input.features),
     specs: parseSpecs(input.specs),
-    image: toText(input.image) || "/products/default.jpg",
+    image,
+    gallery: parseImages(input.gallery).filter((galleryImage) => galleryImage !== image),
     price: parsePrice(input.price),
     isNew: Boolean(input.isNew),
     isFeatured: Boolean(input.isFeatured),
@@ -152,7 +176,13 @@ function normalizeProductUpdates(input: Partial<Product>): Partial<Product> {
   }
 
   if ("image" in input) {
-    updates.image = toText(input.image) || "/products/default.jpg";
+    updates.image = toText(input.image) || DEFAULT_PRODUCT_IMAGE;
+  }
+
+  if ("gallery" in input) {
+    updates.gallery = parseImages(input.gallery).filter(
+      (galleryImage) => galleryImage !== updates.image
+    );
   }
 
   if ("price" in input) {
