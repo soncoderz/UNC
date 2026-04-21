@@ -17,6 +17,14 @@ type CloudinaryClient = {
 
 const productsSeed = productsSeedJson as unknown as Product[];
 
+function isRemoteUrl(value: string): boolean {
+  return value.startsWith("http://") || value.startsWith("https://");
+}
+
+function isCloudinaryUrl(value: string): boolean {
+  return /^https?:\/\/res\.cloudinary\.com\//.test(value);
+}
+
 function loadEnvFiles() {
   [".env.local", ".env", "../.env.local", "../.env"].forEach((fileName) => {
     const envPath = resolve(process.cwd(), fileName);
@@ -52,7 +60,7 @@ function getSeedMode(): ProductSeedMode {
 }
 
 function resolveLocalProductImage(image: string): string | null {
-  if (image.startsWith("http://") || image.startsWith("https://")) {
+  if (isRemoteUrl(image)) {
     return null;
   }
 
@@ -71,14 +79,18 @@ async function uploadProductImage(
   folder: string,
   publicId: string
 ): Promise<string> {
-  const imagePath = resolveLocalProductImage(image);
+  const imagePath = isRemoteUrl(image) ? image : resolveLocalProductImage(image);
 
   if (!imagePath) {
     return image;
   }
 
-  if (!existsSync(imagePath)) {
+  if (!isRemoteUrl(imagePath) && !existsSync(imagePath)) {
     throw new Error(`Missing product image for ${product.id}: ${imagePath}`);
+  }
+
+  if (isCloudinaryUrl(imagePath)) {
+    return imagePath;
   }
 
   const result = await cloudinary.uploader.upload(imagePath, {

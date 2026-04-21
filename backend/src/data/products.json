@@ -174,26 +174,28 @@
     "name": "PV and Battery All-In-One",
     "category": "energy-storage",
     "subcategory": "Household Energy Storage | Optical Storage Integrated Machine",
-    "power": "All-in-one",
-    "description": "Integrated photovoltaic and battery system for residential energy storage with compact deployment and simplified operation.",
+    "power": "4.6-6kW",
+    "description": "PV and battery all-in-one system with up to 120A charging and discharging current, diesel generator communication, UPS level switching, grid-connected operation, flexible scheduling, and plug-and-play expansion.",
     "features": [
-      "PV and battery integrated design",
-      "Compact installation",
-      "Residential energy storage",
-      "Simplified operation"
+      "Up to 120A max charging/discharging current",
+      "Support communication with diesel generator",
+      "UPS level automatic switching under 10ms",
+      "Support grid connected operation",
+      "Flexible schedule the inverter charging and discharging time",
+      "Support plug and play expansion"
     ],
     "specs": {
-      "Type": "Optical storage integrated machine",
-      "Application": "Household energy storage",
-      "Installation": "All-in-one",
-      "Mode": "PV + battery"
+      "ProductModel": "ESS1-4.6K1P-02-LV-F-AIO / ESS1-5K1P-02-LV-F-AIO / ESS1-6K1P-02-LV-F-AIO",
+      "PVInput": "Max 580V, MPPT 120-520V, 2/2 MPPT strings",
+      "Battery": "Lithium Iron Phosphate 5.12kWh module, 51.2V rated voltage",
+      "ACOutput": "4.6kW / 5kW / 6kW",
+      "Protection": "IP65"
     },
-    "image": "/static/upload/image/20240722/1721611367331588.png",
+    "image": "/static/upload/image/20240722/1721614522517823.png",
     "gallery": [
-      "/static/upload/image/20240722/1721611371858486.png",
-      "/static/upload/image/20240722/1721611373579271.png",
-      "/static/upload/image/20240722/1721611376185525.png",
-      "/static/upload/image/20240722/1721611379733337.png"
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614524553597.png",
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614526386643.png",
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614528767944.png"
     ],
     "price": null,
     "isNew": false,

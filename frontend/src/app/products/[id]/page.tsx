@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import BigMessageForm from "@/components/uniconvtor/BigMessageForm";
@@ -183,11 +183,104 @@ const productDetailAssets: Record<string, ProductDetailAsset> = {
   },
   "pv-battery-all-in-one": {
     gallery: [
-      "/static/upload/image/20240722/1721611371858486.png",
-      "/static/upload/image/20240722/1721611373579271.png",
-      "/static/upload/image/20240722/1721611376185525.png",
-      "/static/upload/image/20240722/1721611379733337.png",
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614524553597.png",
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614526386643.png",
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614528767944.png",
     ],
+    parameterUrl: "http://www.uniconvtor.com/static/upload/file/20240822/1724318372250466.pdf",
+    manualUrl: DEFAULT_MANUAL_URL,
+    advantages: [
+      {
+        title: "120A",
+        text: "Up to 120A max charging /discharging current",
+        icon: "http://www.uniconvtor.com/static/upload/image/20240723/1721716549105512.png",
+      },
+      {
+        title: "Diesel Generator",
+        text: "Support communication with diesel generator",
+        icon: "http://www.uniconvtor.com/static/upload/image/20240716/1721114731162998.png",
+      },
+      {
+        title: "10ms",
+        text: "UPS level automatic switching (< 10ms)",
+        icon: "/static/upload/image/20240716/1721114843103789.png",
+      },
+      {
+        title: "Grid connected",
+        text: "Support grid connected operation",
+        icon: "http://www.uniconvtor.com/static/upload/image/20240716/1721114769195608.png",
+      },
+      {
+        title: "Flexible",
+        text: "Flexible schedule the inverter charging and discharging time",
+        icon: "http://www.uniconvtor.com/static/upload/image/20240723/1721713631145785.png",
+      },
+      {
+        title: "Expandability",
+        text: "Support plug and play expansion",
+        icon: "http://www.uniconvtor.com/static/upload/image/20240715/1721015433711413.png",
+      },
+    ],
+    specsTable: {
+      headers: [
+        "Product Model",
+        "ESS1-4.6K1P-02-LV-F-AIO",
+        "ESS1-5K1P-02-LV-F-AIO",
+        "ESS1-6K1P-02-LV-F-AIO",
+      ],
+      rows: [
+        { label: "PV String Input Data", isSection: true },
+        { label: "Recommended Max. PV Power", values: ["8kW"] },
+        { label: "Max. Input Voltage", values: ["580V"] },
+        { label: "Rated Input Voltage", values: ["350V"] },
+        { label: "Start-up Voltage", values: ["120V"] },
+        { label: "MPPT Voltage Range", values: ["120-520V"] },
+        { label: "Max. Input Current", values: ["15A/15A"] },
+        { label: "Max. Short Circuit Current", values: ["22.5A/22.5A"] },
+        { label: "MPPT Number / String Number per MPPT", values: ["2/2"] },
+        { label: "Input/output DC(Battery)", isSection: true },
+        { label: "Battery Input Data", values: ["42-58V"] },
+        { label: "Battery Voltage Range", values: ["5kW"] },
+        { label: "Max. Charging/Discharging Power", values: ["100A", "100A", "120A"] },
+        { label: "Communications", values: ["RS485/CAN"] },
+        { label: "AC Output Data", isSection: true },
+        { label: "Rated Output Power", values: ["4.6kW", "5kW", "6kW"] },
+        { label: "Max. Apparent Output Power", values: ["4.6kW", "5.5kW", "6.6kW"] },
+        { label: "Rated Output Current", values: ["20.9A", "22.7A", "27.3A"] },
+        { label: "Max. Output Current", values: ["23.2A", "25.2A", "30A"] },
+        { label: "Switching Time", values: ["<10ms"] },
+        { label: "Rated Output Voltage/Frequency", values: ["L/NPE 220V/230V 50Hz/60Hz"] },
+        { label: "Power Factor", values: ["0.8 leading...0.8 lagging"] },
+        { label: "THDv", values: ["<2%"] },
+        { label: "THDi", values: ["<2%"] },
+        { label: "AC Input Data", isSection: true },
+        { label: "Max. Input Power", values: ["10kW"] },
+        { label: "Max. Apparent Input Power", values: ["10kVA"] },
+        { label: "Max. Input Current", values: ["50A"] },
+        { label: "Rated Input Voltage /Frequency", values: ["L/N/PE 220V/230V 50Hz/60Hz"] },
+        { label: "General Data", isSection: true },
+        { label: "Dimension D*W*H", values: ["610*436*257mm"] },
+        { label: "Cooling Concept", values: ["Forced-air"] },
+        { label: "Ingress Protection", values: ["IP65"] },
+        { label: "Operating Ambient Temperature", values: ["-25C-+60C (>45 derating)"] },
+        { label: "Max. Operation Altitude", values: ["3000m"] },
+        { label: "Communications", values: ["RS485/WIFI/GPRS"] },
+        { label: "Battery Data", isSection: true },
+        { label: "Battery Type", values: ["Lithium Iron Phosphate"] },
+        { label: "Battery Module Capacity", values: ["5.12kWh"] },
+        { label: "Max. Number of Parallel Modules", values: ["4"] },
+        { label: "Rated voltage", values: ["51.2V"] },
+        { label: "Working voltage range", values: ["10.40-58.4V"] },
+        { label: "Single module cycle life", values: [">=6000"] },
+        { label: "Maximum charging/discharging current per module", values: ["100A/100A"] },
+        { label: "Dimension D*W*H", values: ["610*436*257mm"] },
+        { label: "Cooling Concept", values: ["Natural"] },
+        { label: "Ingress Protection", values: ["IP65"] },
+        { label: "Operating Ambient Temperature", values: ["-25C-+60C (>45 derating)"] },
+        { label: "Max. Operation Altitude", values: ["3000m"] },
+        { label: "Communications", values: ["RS485/WIFI/GPRS"] },
+      ],
+    },
   },
   "ci-energy-storage-module": {
     gallery: [
@@ -318,6 +411,11 @@ export default function ProductDetailPage() {
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState("");
+  const [isRelatedDragging, setIsRelatedDragging] = useState(false);
+  const relatedTrackRef = useRef<HTMLDivElement | null>(null);
+  const relatedDragStartXRef = useRef(0);
+  const relatedDragStartScrollRef = useRef(0);
+  const relatedDragMovedRef = useRef(false);
   const { t } = useLanguage();
 
   useEffect(() => {
@@ -343,17 +441,17 @@ export default function ProductDetailPage() {
       }
 
       try {
-        const response = await getProducts({ category: nextProduct.category });
+        const response = await getProducts();
         setRelatedProducts(
           (response.data || [])
             .filter((item) => item.id !== nextProduct.id)
-            .slice(0, 6)
+            .slice(0, 10)
         );
       } catch {
         setRelatedProducts(
           cloneProducts
-            .filter((item) => item.category === nextProduct.category && item.id !== nextProduct.id)
-            .slice(0, 6)
+            .filter((item) => item.id !== nextProduct.id)
+            .slice(0, 10)
         );
       }
     }
@@ -368,6 +466,22 @@ export default function ProductDetailPage() {
       setSelectedImage(detail.gallery[0]);
     }
   }, [detail]);
+
+  useEffect(() => {
+    if (relatedProducts.length < 2) return;
+
+    const track = relatedTrackRef.current;
+    const firstCard = track?.querySelector<HTMLElement>(".clone-related-card");
+
+    if (!track || !firstCard) return;
+
+    const trackStyles = window.getComputedStyle(track);
+    const gap = Number.parseFloat(trackStyles.columnGap || trackStyles.gap || "0");
+
+    requestAnimationFrame(() => {
+      track.scrollLeft = firstCard.offsetWidth + (Number.isFinite(gap) ? gap : 0);
+    });
+  }, [relatedProducts]);
 
   if (loading) {
     return (
@@ -404,6 +518,49 @@ export default function ProductDetailPage() {
     const nextIndex =
       (currentIndex + direction + detail.gallery.length) % detail.gallery.length;
     setSelectedImage(detail.gallery[nextIndex]);
+  }
+
+  function handleRelatedPointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+
+    const track = relatedTrackRef.current;
+    if (!track) return;
+
+    relatedDragMovedRef.current = false;
+    relatedDragStartXRef.current = event.clientX;
+    relatedDragStartScrollRef.current = track.scrollLeft;
+    setIsRelatedDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function handleRelatedPointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    if (!isRelatedDragging || !relatedTrackRef.current) return;
+
+    const deltaX = event.clientX - relatedDragStartXRef.current;
+
+    if (Math.abs(deltaX) > 5) {
+      relatedDragMovedRef.current = true;
+    }
+
+    relatedTrackRef.current.scrollLeft = relatedDragStartScrollRef.current - deltaX;
+  }
+
+  function stopRelatedDrag(event: React.PointerEvent<HTMLDivElement>) {
+    if (!isRelatedDragging) return;
+
+    setIsRelatedDragging(false);
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+  }
+
+  function handleRelatedClickCapture(event: React.MouseEvent<HTMLDivElement>) {
+    if (!relatedDragMovedRef.current) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    relatedDragMovedRef.current = false;
   }
 
   return (
@@ -577,7 +734,16 @@ export default function ProductDetailPage() {
       {relatedProducts.length > 0 ? (
         <section className="clone-case-product-box">
           <h2 className="clone-info-title">{t("products.recommendedProducts")}</h2>
-          <div className="clone-related-track">
+          <div
+            ref={relatedTrackRef}
+            className={`clone-related-track ${isRelatedDragging ? "is-dragging" : ""}`}
+            onPointerDown={handleRelatedPointerDown}
+            onPointerMove={handleRelatedPointerMove}
+            onPointerUp={stopRelatedDrag}
+            onPointerCancel={stopRelatedDrag}
+            onPointerLeave={stopRelatedDrag}
+            onClickCapture={handleRelatedClickCapture}
+          >
             {relatedProducts.map((related) => (
               <article key={related.id} className="clone-related-card">
                 <div className="clone-related-copy">
