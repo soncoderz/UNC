@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import type { Product } from "@/types/api";
 
@@ -111,6 +111,14 @@ export default function ProductForm({
   const [error, setError] = useState("");
   const isUploading = uploadingTarget !== null;
   const galleryImages = parseImages(galleryText);
+
+  useEffect(() => {
+    setFormData({ ...defaultProduct, ...initialData });
+    setFeaturesText(featuresToText(initialData));
+    setSpecsText(specsToText(initialData));
+    setGalleryText(imagesToText(initialData?.gallery));
+    setError("");
+  }, [initialData]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -332,7 +340,7 @@ export default function ProductForm({
         <div className="md:col-span-2">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
             <label className="block text-sm font-medium text-dark">
-              Additional detail images
+              Hình ảnh chi tiết bổ sung
             </label>
             <label className="inline-flex w-fit items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-dark text-sm font-medium rounded-lg cursor-pointer transition-colors">
               <input
@@ -343,7 +351,7 @@ export default function ProductForm({
                 disabled={isUploading}
                 className="sr-only"
               />
-              {uploadingTarget === "gallery" ? "Uploading..." : "Upload additional images"}
+              {uploadingTarget === "gallery" ? "Đang tải ảnh..." : "Chọn nhiều ảnh từ máy"}
             </label>
           </div>
 

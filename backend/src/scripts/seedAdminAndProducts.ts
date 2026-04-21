@@ -153,6 +153,7 @@ async function main() {
   const dbName = process.env.MONGODB_DB || "solartech_energy";
   const seedMode = getSeedMode();
   const products = await buildProductsForDatabase();
+  const shouldSeedAdmin = process.env.SEED_ADMIN !== "false";
 
   const adminEmail = process.env.SEED_ADMIN_EMAIL || "admin@unc.com";
   const adminPassword = process.env.SEED_ADMIN_PASSWORD || "admin123";
@@ -174,32 +175,38 @@ async function main() {
       userCollection.createIndex({ email: 1 }, { unique: true }),
     ]);
 
-    const existingAdmin = await userCollection.findOne({ email: adminEmail });
-    const admin: User = {
-      id: existingAdmin?.id || adminId,
-      email: adminEmail,
-      password: hashPassword(adminPassword),
-      name: adminName,
-      role: "admin",
-      createdAt: existingAdmin?.createdAt || new Date().toISOString(),
-    };
+    let seededAdminEmail: string | null = null;
 
-    await userCollection.updateOne(
-      { email: admin.email },
-      {
-        $set: {
-          password: admin.password,
-          name: admin.name,
-          role: admin.role,
+    if (shouldSeedAdmin) {
+      const existingAdmin = await userCollection.findOne({ email: adminEmail });
+      const admin: User = {
+        id: existingAdmin?.id || adminId,
+        email: adminEmail,
+        password: hashPassword(adminPassword),
+        name: adminName,
+        role: "admin",
+        createdAt: existingAdmin?.createdAt || new Date().toISOString(),
+      };
+
+      await userCollection.updateOne(
+        { email: admin.email },
+        {
+          $set: {
+            password: admin.password,
+            name: admin.name,
+            role: admin.role,
+          },
+          $setOnInsert: {
+            id: admin.id,
+            email: admin.email,
+            createdAt: admin.createdAt,
+          },
         },
-        $setOnInsert: {
-          id: admin.id,
-          email: admin.email,
-          createdAt: admin.createdAt,
-        },
-      },
-      { upsert: true }
-    );
+        { upsert: true }
+      );
+
+      seededAdminEmail = admin.email;
+    }
 
     if (seedMode === "replace") {
       await productCollection.deleteMany({
@@ -219,7 +226,11 @@ async function main() {
       );
     }
 
-    console.log(`Seeded admin: ${admin.email}`);
+    console.log(
+      seededAdminEmail
+        ? `Seeded admin: ${seededAdminEmail}`
+        : "Skipped admin seed because SEED_ADMIN=false."
+    );
     console.log(`Seeded products: ${products.length} (${seedMode} mode)`);
   } finally {
     await client.close();
