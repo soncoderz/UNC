@@ -113,10 +113,10 @@ export default function RecommendedProducts() {
             <div className="swiper-wrapper">
               <div className="swiper-slide">
                 <div className="ind-reLeft">
-                  <h4 className="text-2xl">{activeProduct.name}</h4>
-                  <h6 className="text-base">{activeProduct.subcategory}</h6>
+                  <h4 className="text-2xl">{t(`productsData.${activeProduct.id}.name`) !== `productsData.${activeProduct.id}.name` ? t(`productsData.${activeProduct.id}.name`) : activeProduct.name}</h4>
+                  <h6 className="text-base">{t(`productsData.${activeProduct.id}.subcategory`) !== `productsData.${activeProduct.id}.subcategory` ? t(`productsData.${activeProduct.id}.subcategory`) : activeProduct.subcategory}</h6>
                   <span className="ind-reLine" />
-                  <p className="text-base">{activeProduct.description}</p>
+                  <p className="text-base">{t(`productsData.${activeProduct.id}.description`) !== `productsData.${activeProduct.id}.description` ? t(`productsData.${activeProduct.id}.description`) : activeProduct.description}</p>
                   <Link href={`/products/${activeProduct.id}`} className="btn1 text-base">
                     {t("common.more")}
                   </Link>

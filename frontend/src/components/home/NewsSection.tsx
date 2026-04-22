@@ -35,7 +35,7 @@ export default function NewsSection() {
               <Link className="ind-newImg" href={`/news/${item.id}`}>
                 <RemoteImage
                   src={item.image}
-                  alt={item.title}
+                  alt={t(`newsData.${item.id}.title`) !== `newsData.${item.id}.title` ? t(`newsData.${item.id}.title`) : item.title}
                   width={420}
                   height={240}
                   sizes="(max-width: 900px) 100vw, 22vw"
@@ -51,9 +51,9 @@ export default function NewsSection() {
                 <i className="text-sm">{item.date}</i>
               </div>
               <Link href={`/news/${item.id}`} className="text-xl ind-newText">
-                {item.title}
+                {t(`newsData.${item.id}.title`) !== `newsData.${item.id}.title` ? t(`newsData.${item.id}.title`) : item.title}
               </Link>
-              <span className="text-base ind-newLabel">{item.category}</span>
+              <span className="text-base ind-newLabel">{t("home.corporateNews")}</span>
             </SlideIn>
           ))}
         </div>

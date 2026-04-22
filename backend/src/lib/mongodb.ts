@@ -1,7 +1,6 @@
 import { MongoClient, type Db } from "mongodb";
 
 const uri = process.env.MONGODB_URI;
-const dbName = process.env.MONGODB_DB || "solartech_energy";
 
 type GlobalWithMongo = typeof globalThis & {
   __solarTechMongoClientPromise?: Promise<MongoClient>;
@@ -39,5 +38,5 @@ export async function getMongoClient(): Promise<MongoClient> {
 
 export async function getDb(): Promise<Db> {
   const client = await getMongoClient();
-  return client.db(dbName);
+  return client.db();
 }

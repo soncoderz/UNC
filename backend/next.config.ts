@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000" || "https://nonsubmissively-kinematographic-lawanda.ngrok-free.dev";
 
 const nextConfig: NextConfig = {
   // Cho phép CORS từ frontend Next.js.

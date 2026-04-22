@@ -8,6 +8,7 @@ interface InnerHeroProps {
   image: string;
   mobileImage?: string;
   current?: string;
+  className?: string;
 }
 
 export default function InnerHero({
@@ -16,9 +17,10 @@ export default function InnerHero({
   image,
   mobileImage,
   current = title,
+  className = "",
 }: InnerHeroProps) {
   return (
-    <section className="clone-inner-hero">
+    <section className={`clone-inner-hero ${className}`.trim()}>
       <RemoteImage
         src={image}
         alt={title}

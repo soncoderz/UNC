@@ -137,10 +137,11 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeProductCategory, setActiveProductCategory] =
     useState<ProductCategoryId>(DEFAULT_PRODUCT_CATEGORY);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(PRODUCT_MENU_LABEL);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [menuProducts, setMenuProducts] = useState(cloneProducts);
   const languageSelectorRef = useRef<HTMLDivElement>(null);
+  const mobileLanguageSelectorRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const { isScrolled } = useScrollPosition();
   const { availableLocales, locale, switchLanguage, t } = useLanguage();
@@ -199,10 +200,11 @@ export default function Navbar() {
     if (!isLanguageOpen) return;
 
     function handlePointerDown(event: MouseEvent | TouchEvent) {
-      if (
-        languageSelectorRef.current &&
-        !languageSelectorRef.current.contains(event.target as Node)
-      ) {
+      const target = event.target as Node;
+      const clickedDesktopSelector = languageSelectorRef.current?.contains(target);
+      const clickedMobileSelector = mobileLanguageSelectorRef.current?.contains(target);
+
+      if (!clickedDesktopSelector && !clickedMobileSelector) {
         setIsLanguageOpen(false);
       }
     }
@@ -233,7 +235,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed left-0 top-0 z-[100] w-full border-b transition-all duration-500 ${
+      className={`fixed left-0 top-0 z-[100] w-full border-b transition-all duration-500 max-lg:!border-slate-200 max-lg:!bg-white max-lg:!shadow-sm ${
         headerSolid
           ? "border-slate-200 bg-white shadow-[0_0_40px_rgba(0,0,0,0.16)]"
           : "border-white/80 bg-white/10"
@@ -244,10 +246,10 @@ export default function Navbar() {
         setActiveDropdown(null);
       }}
     >
-      <div className="flex h-16 items-center justify-between px-[5%] transition-colors duration-500 lg:h-[clamp(76px,5.104vw,98px)]">
+      <div className="flex h-[52px] items-center justify-between px-[7%] transition-colors duration-500 lg:h-[clamp(76px,5.104vw,98px)] lg:px-[5%]">
         <Link
           href="/"
-          className="relative block h-[45px] w-[118px] shrink-0 lg:h-auto lg:w-[clamp(120px,8.125vw,156px)]"
+          className="relative block h-[30px] w-[96px] shrink-0 overflow-visible lg:h-auto lg:w-[clamp(120px,8.125vw,156px)]"
           aria-label="UNC Technology home"
           onClick={closeMenus}
         >
@@ -273,12 +275,12 @@ export default function Navbar() {
               priority
             />
           </span>
-          <span className="relative block aspect-[156/95] w-full lg:hidden">
+          <span className="relative block h-full w-full lg:hidden">
             <RemoteImage
               src="/template/default/esimg/img/logo2.png"
               alt="UNC Technology"
               fill
-              sizes="118px"
+              sizes="96px"
               className="object-contain"
               priority
             />
@@ -406,13 +408,68 @@ export default function Navbar() {
           </AnimatePresence>
         </div>
 
+        <div
+          className="relative ml-auto mr-3 flex items-center lg:hidden"
+          ref={mobileLanguageSelectorRef}
+        >
+          <button
+            type="button"
+            onClick={() => setIsLanguageOpen((open) => !open)}
+            className="flex h-8 items-center gap-1 text-[12px] font-medium text-[#333]"
+            aria-label={t("common.selectLanguage")}
+            aria-expanded={isLanguageOpen}
+          >
+            <span className="relative block h-[16px] w-[16px]">
+              <RemoteImage
+                src="/template/default/esimg/icon/yuyan_b.png"
+                alt=""
+                fill
+                sizes="16px"
+                className="object-contain"
+              />
+            </span>
+            <span>{languageLabels[locale]}</span>
+            <Chevron open={isLanguageOpen} />
+          </button>
+
+          <AnimatePresence>
+            {isLanguageOpen ? (
+              <motion.div
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.18, ease: EASE }}
+                className="absolute right-0 top-[calc(100%+6px)] z-[130] w-[42px] overflow-hidden bg-[#666] shadow-lg"
+              >
+                {availableLocales.map((lang) => (
+                  <button
+                    key={lang}
+                    type="button"
+                    onClick={() => {
+                      switchLanguage(lang);
+                      setIsLanguageOpen(false);
+                    }}
+                    className={`block h-[28px] w-full text-center text-[11px] font-medium ${
+                      locale === lang
+                        ? "bg-[#0674fc] text-white"
+                        : "text-white hover:bg-[#777]"
+                    }`}
+                  >
+                    {languageLabels[lang]}
+                  </button>
+                ))}
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </div>
+
         <button
           type="button"
           onClick={() => {
             setIsMobileMenuOpen((open) => !open);
             setActiveDropdown(null);
           }}
-          className="relative block h-8 w-8 lg:hidden"
+          className="relative block h-[27px] w-[27px] shrink-0 lg:hidden"
           aria-label={t("common.toggleMenu")}
           aria-expanded={isMobileMenuOpen}
         >
@@ -574,30 +631,13 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen ? (
           <motion.nav
-            className="overflow-hidden bg-white shadow-xl lg:hidden"
+            className="fixed left-0 right-0 top-[52px] overflow-hidden bg-white shadow-xl lg:hidden"
             variants={mobilePanelVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
           >
-            <div className="navbar-scrollbar-hidden max-h-[calc(100vh-64px)] overflow-y-auto px-5 py-4">
-              <div className="mb-4 flex flex-wrap gap-2 border-b border-slate-100 pb-4">
-                {availableLocales.map((lang) => (
-                  <button
-                    key={lang}
-                    type="button"
-                    onClick={() => switchLanguage(lang)}
-                    className={`rounded px-3 py-2 text-sm font-semibold ${
-                      locale === lang
-                        ? "bg-[#0674fc] text-white"
-                        : "bg-slate-50 text-[#373737]"
-                    }`}
-                  >
-                    {languageLabels[lang]}
-                  </button>
-                ))}
-              </div>
-
+            <div className="navbar-scrollbar-hidden max-h-[calc(100dvh-110px)] overflow-y-auto px-[7%] py-3">
               {NAV_ITEMS.map((item) => {
                 const hasChildren = Boolean(item.children?.length);
                 const expanded = mobileExpanded === item.label;
@@ -608,7 +648,7 @@ export default function Navbar() {
                       <Link
                         href={item.href}
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`block py-3 text-[4vw] font-bold ${
+                        className={`block py-[11px] text-[clamp(13px,3.7vw,15px)] font-bold ${
                           isActive(item.href) ? "text-[#ff7632]" : "text-[#373737]"
                         }`}
                       >
@@ -622,7 +662,13 @@ export default function Navbar() {
                           aria-expanded={expanded}
                           aria-label={`Toggle ${item.label}`}
                         >
-                          <Chevron open={expanded} />
+                          <span
+                            className={`text-lg leading-none transition-transform duration-300 ${
+                              expanded ? "rotate-45" : ""
+                            }`}
+                          >
+                            +
+                          </span>
                         </button>
                       ) : null}
                     </div>
@@ -644,7 +690,7 @@ export default function Navbar() {
                                     key={category.id}
                                     href={`/products?category=${category.id}`}
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="block py-2 text-[3.7vw] text-[#373737]"
+                                    className="block py-2 text-[clamp(12px,3.5vw,14px)] text-[#373737]"
                                   >
                                     {t(productCategoryLabelKeys[category.id])}
                                   </Link>
@@ -679,7 +725,7 @@ export default function Navbar() {
                                   key={child.href}
                                   href={child.href}
                                   onClick={() => setIsMobileMenuOpen(false)}
-                                  className="block py-2 text-[3.7vw] text-[#373737]"
+                                  className="block py-2 text-[clamp(12px,3.5vw,14px)] text-[#373737]"
                                 >
                                   {t(childLabelKeys[child.href] || child.label)}
                                 </Link>
