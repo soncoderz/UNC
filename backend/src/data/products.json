@@ -1,194 +1,376 @@
 [
   {
-    "id": "inv-001",
-    "name": "SolarMax 5000TL",
-    "category": "pv-inverters",
-    "subcategory": "string-inverters",
-    "power": "5 kW",
-    "description": "High-efficiency string inverter for residential solar systems with advanced MPPT tracking technology.",
-    "features": [
-      "Max. efficiency 98.3%",
-      "Dual MPPT tracking",
-      "IP65 protection rating",
-      "Integrated DC disconnect",
-      "Wi-Fi monitoring built-in"
-    ],
-    "specs": {
-      "maxInputVoltage": "600V DC",
-      "mppVoltageRange": "80-550V",
-      "maxInputCurrent": "12.5A per MPPT",
-      "ratedOutputPower": "5000W",
-      "maxOutputCurrent": "22A",
-      "frequency": "50/60Hz",
-      "thd": "<3%",
-      "operatingTemp": "-25°C to +60°C",
-      "weight": "16.5 kg",
-      "dimensions": "505 x 398 x 172 mm",
-      "warranty": "10 years"
-    },
-    "image": "/images/products/solarmax-5000tl.jpg",
-    "price": null,
-    "isNew": true,
-    "isFeatured": true
-  },
-  {
-    "id": "inv-002",
-    "name": "SolarMax 10000TL",
-    "category": "pv-inverters",
-    "subcategory": "string-inverters",
-    "power": "10 kW",
-    "description": "Powerful string inverter designed for commercial rooftop installations with superior grid support features.",
-    "features": [
-      "Max. efficiency 98.6%",
-      "Triple MPPT tracking",
-      "IP66 protection rating",
-      "Reactive power control",
-      "4G/Wi-Fi/Ethernet monitoring"
-    ],
-    "specs": {
-      "maxInputVoltage": "1000V DC",
-      "mppVoltageRange": "160-950V",
-      "maxInputCurrent": "15A per MPPT",
-      "ratedOutputPower": "10000W",
-      "maxOutputCurrent": "16A",
-      "frequency": "50/60Hz",
-      "thd": "<2%",
-      "operatingTemp": "-25°C to +60°C",
-      "weight": "28 kg",
-      "dimensions": "585 x 520 x 215 mm",
-      "warranty": "10 years"
-    },
-    "image": "/images/products/solarmax-10000tl.jpg",
-    "price": null,
-    "isNew": false,
-    "isFeatured": true
-  },
-  {
-    "id": "inv-003",
-    "name": "SolarMax 50KTL-HV",
-    "category": "pv-inverters",
-    "subcategory": "commercial-inverters",
-    "power": "50 kW",
-    "description": "Industrial-grade three-phase inverter for large-scale commercial and utility projects.",
-    "features": [
-      "Max. efficiency 99.0%",
-      "6 MPPT inputs",
-      "IP66 outdoor rating",
-      "Built-in PID recovery",
-      "Smart I-V curve diagnosis"
-    ],
-    "specs": {
-      "maxInputVoltage": "1100V DC",
-      "mppVoltageRange": "200-1000V",
-      "maxInputCurrent": "25A per MPPT",
-      "ratedOutputPower": "50000W",
-      "maxOutputCurrent": "80A",
-      "frequency": "50/60Hz",
-      "thd": "<1.5%",
-      "operatingTemp": "-30°C to +60°C",
-      "weight": "58 kg",
-      "dimensions": "715 x 605 x 285 mm",
-      "warranty": "15 years"
-    },
-    "image": "/images/products/solarmax-50ktl.jpg",
-    "price": null,
-    "isNew": true,
-    "isFeatured": false
-  },
-  {
-    "id": "bat-001",
-    "name": "PowerVault 10",
-    "category": "energy-storage",
-    "subcategory": "residential-battery",
-    "power": "10 kWh",
-    "description": "Compact residential battery storage system for maximizing solar self-consumption and backup power.",
-    "features": [
-      "10 kWh usable capacity",
-      "LFP battery chemistry",
-      "95% round-trip efficiency",
-      "Floor or wall mounted",
-      "10-year / 6000 cycle warranty"
-    ],
-    "specs": {
-      "capacity": "10.24 kWh",
-      "usableCapacity": "10 kWh",
-      "batteryType": "LiFePO4",
-      "ratedPower": "5 kW",
-      "peakPower": "7.5 kW (10s)",
-      "voltage": "51.2V",
-      "operatingTemp": "0°C to +50°C",
-      "weight": "102 kg",
-      "dimensions": "600 x 400 x 680 mm",
-      "certifications": "IEC 62619, UN 38.3",
-      "warranty": "10 years"
-    },
-    "image": "/images/products/powervault-10.jpg",
-    "price": null,
-    "isNew": true,
-    "isFeatured": true
-  },
-  {
-    "id": "bat-002",
-    "name": "PowerVault 20 Commercial",
-    "category": "energy-storage",
-    "subcategory": "commercial-battery",
-    "power": "20 kWh",
-    "description": "Scalable commercial battery system for peak shaving, demand response, and energy arbitrage applications.",
-    "features": [
-      "20 kWh per module, scalable to 200 kWh",
-      "Advanced BMS protection",
-      "96% round-trip efficiency",
-      "Rack-mounted design",
-      "Remote cloud monitoring"
-    ],
-    "specs": {
-      "capacity": "20.48 kWh",
-      "usableCapacity": "20 kWh",
-      "batteryType": "LiFePO4",
-      "ratedPower": "10 kW",
-      "peakPower": "15 kW (10s)",
-      "voltage": "614.4V",
-      "operatingTemp": "-10°C to +50°C",
-      "weight": "198 kg",
-      "dimensions": "600 x 600 x 1600 mm",
-      "certifications": "IEC 62619, UL 9540",
-      "warranty": "15 years"
-    },
-    "image": "/images/products/powervault-20.jpg",
-    "price": null,
-    "isNew": false,
-    "isFeatured": true
-  },
-  {
-    "id": "hyb-001",
-    "name": "HybridMax 8000ES",
+    "id": "single-phase-hybrid-3-6kw",
+    "name": "Single-phase Hybrid Inverter(grid-connected) 3-6kW",
     "category": "hybrid-inverters",
-    "subcategory": "residential-hybrid",
-    "power": "8 kW",
-    "description": "All-in-one hybrid inverter with integrated EMS for seamless solar, battery, and grid management.",
+    "subcategory": "Household Energy Storage | Hybrid Inverter",
+    "power": "3-6kW",
+    "description": "Up to 120A max charge/discharge current, high-power solar panel support, diesel generator off-grid application, UPS-level switching time, and flexible charge/discharge scheduling.",
     "features": [
-      "8 kW solar + 8 kW battery",
-      "Seamless backup switchover <10ms",
-      "Time-of-use optimization",
-      "Generator compatible",
-      "Touch LCD display"
+      "Up to 120A charge/discharge current",
+      "UPS level switching time under 10ms",
+      "Supports diesel generator off-grid application",
+      "Flexible charge and discharge schedule"
     ],
     "specs": {
-      "maxInputVoltage": "800V DC",
-      "mppVoltageRange": "120-750V",
-      "maxInputCurrent": "16A per MPPT",
-      "ratedOutputPower": "8000W",
-      "batteryVoltageRange": "44-58V",
-      "maxChargeCurrent": "120A",
-      "frequency": "50/60Hz",
-      "operatingTemp": "-25°C to +55°C",
-      "weight": "32 kg",
-      "dimensions": "550 x 450 x 200 mm",
-      "warranty": "10 years"
+      "Power": "3-6kW",
+      "Application": "Household energy storage",
+      "Type": "Single-phase hybrid inverter",
+      "Protection": "Grid-connected with critical load support"
     },
-    "image": "/images/products/hybridmax-8000es.jpg",
+    "image": "/static/upload/image/20240722/1721618009896094.png",
+    "gallery": [
+      "/static/upload/image/20240722/1721618011773443.png",
+      "/static/upload/image/20240722/1721618014955956.png",
+      "/static/upload/image/20240722/1721618016331088.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "three-phase-hybrid-8-12kw",
+    "name": "Three Phase Hybrid Inverter(on-grid) 8-12kW",
+    "category": "hybrid-inverters",
+    "subcategory": "Household Energy Storage | Hybrid Inverter",
+    "power": "8-12kW",
+    "description": "UPS-level switching, three-phase imbalance support on backup output, IP66 protection, 2 MPPT and 4 DC input with max 26A DC input current.",
+    "features": [
+      "UPS level switching time under 10ms",
+      "Three-phase imbalance support",
+      "IP66 protection",
+      "2 MPPT and 4 DC input"
+    ],
+    "specs": {
+      "Power": "8-12kW",
+      "MPPT": "2 MPPT",
+      "DCInput": "4 DC input, max 26A",
+      "Protection": "IP66"
+    },
+    "image": "/static/upload/image/20240722/1721630495375856.png",
+    "gallery": [
+      "/static/upload/image/20240722/1721630499957128.png",
+      "/static/upload/image/20240722/1721630502781303.png",
+      "/static/upload/image/20240722/1721630505702525.png",
+      "/static/upload/image/20240722/1721630507725059.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "three-phase-hybrid-15-20kw",
+    "name": "Three Phase Hybrid Inverter(on-grid) 15-20kW",
+    "category": "hybrid-inverters",
+    "subcategory": "Household Energy Storage | Hybrid Inverter",
+    "power": "15-20kW",
+    "description": "Up to 50A charge/discharge current, IP66 high ingress protection, backup output imbalance support, parallel operation, and pure off-grid application with generator.",
+    "features": [
+      "Up to 50A charge/discharge current",
+      "Supports up to 16 parallel machines",
+      "Pure off-grid generator application",
+      "IP66 ingress protection"
+    ],
+    "specs": {
+      "Power": "15-20kW",
+      "Parallel": "Up to 16 units",
+      "Protection": "IP66",
+      "Application": "On-grid and pure off-grid"
+    },
+    "image": "/static/upload/image/20240722/1721632843627327.png",
+    "gallery": [
+      "/static/upload/image/20240722/1721632850345517.png",
+      "/static/upload/image/20240722/1721632853943364.png",
+      "/static/upload/image/20240722/1721632857966124.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "single-phase-hybrid-off-grid-4-10kw",
+    "name": "Single Phase Hybrid Inverter (off grid) 4-10.2kW",
+    "category": "hybrid-inverters",
+    "subcategory": "Household Energy Storage | Hybrid Inverter",
+    "power": "4-10.2kW",
+    "description": "Pure sine wave solar inverter for off-grid usage with power factor 1.0, battery-free running capability, lithium battery activation, and high PV input voltage range.",
+    "features": [
+      "Pure sine wave solar inverter",
+      "Power factor 1.0",
+      "Runs without battery",
+      "High PV input voltage range"
+    ],
+    "specs": {
+      "Power": "4-10.2kW",
+      "Mode": "Off-grid",
+      "PowerFactor": "1.0",
+      "PVInput": "90-500VDC"
+    },
+    "image": "/static/upload/image/20250219/1739945037984895.png",
+    "gallery": [
+      "/static/upload/image/20250219/1739945044275583.png",
+      "/static/upload/image/20250219/1739945178523119.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "single-phase-hybrid-low-voltage-10-12kw",
+    "name": "Single-phase Hybrid Inverter Low Voltage / Forced Air Cooling 10-12kW",
+    "category": "hybrid-inverters",
+    "subcategory": "Household Energy Storage | Hybrid Inverter",
+    "power": "10-12kW",
+    "description": "IP66 high protection level, 60V low-voltage startup, 2x rated overload capacity, 10ms off-grid switching, and up to 12 units in parallel.",
+    "features": [
+      "IP66 high protection",
+      "60V low-voltage startup",
+      "2x rated overload capacity",
+      "Supports 12 units in parallel"
+    ],
+    "specs": {
+      "Power": "10-12kW",
+      "Startup": "60V low voltage",
+      "Switching": "10ms off-grid",
+      "Parallel": "Up to 12 units"
+    },
+    "image": "/static/upload/image/20260330/1774859132153475.png",
+    "gallery": [
+      "/static/upload/image/20260330/1774859137668030.png"
+    ],
     "price": null,
     "isNew": true,
+    "isFeatured": true
+  },
+  {
+    "id": "single-phase-hybrid-low-voltage-4-8-6-6kw",
+    "name": "Single-phase Hybrid Inverter Low Voltage / Forced Air Cooling 4.8-6.6kW",
+    "category": "hybrid-inverters",
+    "subcategory": "Household Energy Storage | Hybrid Inverter",
+    "power": "4.8-6.6kW",
+    "description": "IP66 high protection level, 60V low voltage startup, 2x rated overload capacity, 10ms off-grid switching, supports up to 12 units in parallel, and can start without battery.",
+    "features": [
+      "IP66 high protection",
+      "60V low voltage startup",
+      "2x rated overload capacity",
+      "Supports up to 12 units in parallel"
+    ],
+    "specs": {
+      "Power": "4.8-6.6kW",
+      "Startup": "60V low voltage",
+      "Switching": "10ms off-grid",
+      "Parallel": "Up to 12 units"
+    },
+    "image": "/static/upload/image/20260401/1775023282222564.png",
+    "gallery": [
+      "/static/upload/image/20260401/1775023285865256.png"
+    ],
+    "price": null,
+    "isNew": true,
+    "isFeatured": true
+  },
+  {
+    "id": "pv-battery-all-in-one",
+    "name": "PV and Battery All-In-One",
+    "category": "energy-storage",
+    "subcategory": "Household Energy Storage | Optical Storage Integrated Machine",
+    "power": "4.6-6kW",
+    "description": "PV and battery all-in-one system with up to 120A charging and discharging current, diesel generator communication, UPS level switching, grid-connected operation, flexible scheduling, and plug-and-play expansion.",
+    "features": [
+      "Up to 120A max charging/discharging current",
+      "Support communication with diesel generator",
+      "UPS level automatic switching under 10ms",
+      "Support grid connected operation",
+      "Flexible schedule the inverter charging and discharging time",
+      "Support plug and play expansion"
+    ],
+    "specs": {
+      "ProductModel": "ESS1-4.6K1P-02-LV-F-AIO / ESS1-5K1P-02-LV-F-AIO / ESS1-6K1P-02-LV-F-AIO",
+      "PVInput": "Max 580V, MPPT 120-520V, 2/2 MPPT strings",
+      "Battery": "Lithium Iron Phosphate 5.12kWh module, 51.2V rated voltage",
+      "ACOutput": "4.6kW / 5kW / 6kW",
+      "Protection": "IP65"
+    },
+    "image": "/static/upload/image/20240722/1721614522517823.png",
+    "gallery": [
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614524553597.png",
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614526386643.png",
+      "http://www.uniconvtor.com/static/upload/image/20240722/1721614528767944.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "ci-energy-storage-module",
+    "name": "C&I Energy Storage Converter Module",
+    "category": "energy-storage",
+    "subcategory": "Industrial and Commercial Energy Storage | Energy Storage Integrated Cabinet",
+    "power": "C&I",
+    "description": "Three-level modular design, bidirectional energy conversion, on-demand allocation, peak shaving, valley filling, and modular N+1 redundancy.",
+    "features": [
+      "Three-level modular design",
+      "Bidirectional energy conversion",
+      "N+1 redundancy",
+      "Peak shaving and valley filling"
+    ],
+    "specs": {
+      "Application": "Commercial and industrial",
+      "Design": "Modular converter module",
+      "Operation": "Bidirectional conversion",
+      "Redundancy": "N+1 modular"
+    },
+    "image": "/static/upload/image/20240724/1721784660784196.png",
+    "gallery": [
+      "/static/upload/image/20240724/1721784669297108.png",
+      "/static/upload/image/20240724/1721784673324212.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "ci-energy-storage-converter",
+    "name": "C&I Energy Storage Converter",
+    "category": "energy-storage",
+    "subcategory": "Industrial and Commercial Energy Storage | Energy Storage Inverter",
+    "power": "C&I",
+    "description": "On-grid/off-grid switching under 20ms, maximum efficiency above 99.1%, parallel operation, diesel-electric connection, and weak-grid support.",
+    "features": [
+      "On/off grid switching under 20ms",
+      "Maximum efficiency above 99.1%",
+      "Supports parallel operation",
+      "Weak-grid connection support"
+    ],
+    "specs": {
+      "Switching": "<20ms",
+      "Efficiency": ">99.1%",
+      "Mode": "On-grid and off-grid",
+      "Application": "C&I energy storage"
+    },
+    "image": "/static/upload/image/20240723/1721698113355814.png",
+    "gallery": [
+      "/static/upload/image/20240723/1721698116778077.png",
+      "/static/upload/image/20240723/1721698117207740.png",
+      "/static/upload/image/20240723/1721698117928906.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "three-phase-pv-10-25kw",
+    "name": "Three-phase Photovoltaic Inverter 10-25K",
+    "category": "pv-inverters",
+    "subcategory": "Photovoltaic System | Household Three-Phase Photovoltaic Inverter",
+    "power": "10-25K",
+    "description": "IP66 high protection level, 32A MPPT current for high-power modules, adaptive complex grid, intelligent remote monitoring, and anti-backflow control.",
+    "features": [
+      "IP66 high protection",
+      "32A MPPT current",
+      "Adaptive complex grid",
+      "Anti-backflow control"
+    ],
+    "specs": {
+      "Power": "10-25K",
+      "MPPTCurrent": "32A",
+      "Protection": "IP66",
+      "Monitoring": "Remote monitoring"
+    },
+    "image": "/static/upload/image/20240717/1721203071201008.png",
+    "gallery": [
+      "/static/upload/image/20240717/1721203074232946.png",
+      "/static/upload/image/20240717/1721203076194935.png",
+      "/static/upload/image/20240717/1721203079152578.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "three-phase-pv-25-50kw",
+    "name": "Three-phase Photovoltaic Inverter 25-50K",
+    "category": "pv-inverters",
+    "subcategory": "Photovoltaic System | Industrial And Commercial Three-Phase Photovoltaic Inverter",
+    "power": "25-50K",
+    "description": "Maximum MPPT current 40A, PID repair function, IP66 protection, quick-plug terminal design, and OTA online firmware remote upgrade.",
+    "features": [
+      "40A max MPPT current",
+      "Built-in PID repair",
+      "Quick-plug terminal design",
+      "OTA firmware upgrade"
+    ],
+    "specs": {
+      "Power": "25-50K",
+      "MPPTCurrent": "40A",
+      "Protection": "IP66",
+      "Upgrade": "OTA online firmware"
+    },
+    "image": "/static/upload/image/20240719/1721350881510199.png",
+    "gallery": [
+      "/static/upload/image/20240719/1721350885644048.png",
+      "/static/upload/image/20240719/1721350888343425.png",
+      "/static/upload/image/20240719/1721350891274874.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "three-phase-pv-80-110kw",
+    "name": "Three-phase Photovoltaic Inverter 80-110K",
+    "category": "pv-inverters",
+    "subcategory": "Photovoltaic System | Industrial And Commercial Three-Phase Photovoltaic Inverter",
+    "power": "80-110K",
+    "description": "Maximum efficiency 98.7%, ultra-low starting voltage, ultra-wide voltage range, 1.5x DC over-capacity, intelligent air cooling, and weak-grid adaptability.",
+    "features": [
+      "Maximum efficiency 98.7%",
+      "1.5x DC over-capacity",
+      "IP66 intelligent air cooling",
+      "Weak-grid adaptability"
+    ],
+    "specs": {
+      "Power": "80-110K",
+      "Efficiency": "98.7%",
+      "Protection": "IP66",
+      "Cooling": "Intelligent air cooling"
+    },
+    "image": "/static/upload/image/20241008/1728370802854039.png",
+    "gallery": [
+      "/static/upload/image/20241008/1728370816676072.png",
+      "/static/upload/image/20241008/1728370817568964.png",
+      "/static/upload/image/20241008/1728370817363471.png"
+    ],
+    "price": null,
+    "isNew": false,
+    "isFeatured": true
+  },
+  {
+    "id": "wall-mounted-battery-pack",
+    "name": "Battery Pack(Wall-Mounted)",
+    "category": "energy-storage",
+    "subcategory": "Household Energy Storage | Battery Pack",
+    "power": "Battery",
+    "description": "Wall-mounted installation saves space, supports parallel expansion, automatic addressing, LCD status display, communication protocol, and more than 5000 cycles.",
+    "features": [
+      "Wall-mounted installation",
+      "Parallel expansion",
+      "LCD status display",
+      "Cycle life exceeds 5000 times"
+    ],
+    "specs": {
+      "Type": "Battery pack",
+      "Installation": "Wall-mounted",
+      "CycleLife": ">5000 cycles",
+      "Expansion": "Multiple parallel machines"
+    },
+    "image": "/static/upload/image/20250219/1739945430740650.png",
+    "gallery": [
+      "/static/upload/image/20250219/1739945438127895.png",
+      "/static/upload/image/20250219/1739945438358958.png"
+    ],
+    "price": null,
+    "isNew": false,
     "isFeatured": true
   }
 ]
