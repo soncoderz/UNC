@@ -2098,23 +2098,26 @@ img {
 .clone-inner-nav {
   width: 100%;
   margin: 0 0 clamp(16px, 1.041vw, 20px);
-  padding: 0 12.5%;
+  padding: 0 clamp(24px, 8vw, 150px);
   position: relative;
   z-index: 3;
   display: flex;
-  align-items: flex-end;
+  align-items: stretch;
   justify-content: flex-start;
   flex-wrap: wrap;
+  column-gap: clamp(22px, 1.8vw, 34px);
+  row-gap: 0;
   background: #fff;
   border-bottom: 1px solid rgba(206, 206, 206, 0.49);
   box-shadow: none;
-  overflow-x: auto;
+  overflow: visible;
 }
 
 .clone-inner-nav-item {
-  width: 20%;
-  min-width: 220px;
-  padding: clamp(8px, 0.52vw, 10px) 0;
+  width: auto;
+  max-width: clamp(220px, 18vw, 320px);
+  min-width: 0;
+  padding: clamp(10px, 0.729vw, 14px) 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -2122,7 +2125,8 @@ img {
   color: #373737;
   border-right: 0;
   font-size: clamp(14px, 0.833vw, 16px);
-  white-space: nowrap;
+  line-height: 1.35;
+  white-space: normal;
   position: relative;
 }
 
@@ -2161,6 +2165,12 @@ img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.clone-inner-nav-title {
+  min-width: 0;
+  max-width: clamp(160px, 13vw, 240px);
+  overflow-wrap: normal;
 }
 
 .clone-case-list {
