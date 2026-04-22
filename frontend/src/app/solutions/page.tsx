@@ -1,0 +1,47 @@
+"use client";
+
+import Link from "next/link";
+import InnerHero from "@/components/uniconvtor/InnerHero";
+import RemoteImage from "@/components/uniconvtor/RemoteImage";
+import { useLanguage } from "@/context/LanguageContext";
+import { innerBanners, innerMobileBanners, solutions } from "@/data/uniconvtor";
+
+export default function SolutionsPage() {
+  const { t } = useLanguage();
+
+  return (
+    <>
+      <InnerHero
+        title={t("nav.solutions")}
+        subtitle={t("home.solutionsSubtitle")}
+        image={innerBanners.solutions}
+        mobileImage={innerMobileBanners.solutions}
+      />
+
+      <section className="clone-case-list" style={{ marginTop: '0', paddingTop: '60px', paddingBottom: '120px' }}>
+        {solutions.map((solution) => (
+          <Link href={`/solutions/${solution.slug}`} key={solution.slug} className="block outline-none" style={{ cursor: 'pointer' }}>
+            <article className="clone-case-item hover:shadow-lg transition-shadow duration-300">
+              <div className="clone-case-copy">
+                <h2>
+                  <RemoteImage src={solution.iconHover} alt="" width={42} height={42} />
+                  {t(`nav.solution${solution.slug.charAt(0).toUpperCase()}${solution.slug.slice(1)}`) || solution.title}
+                </h2>
+                <p>{t(`home.${solution.slug}SolutionDescription`) || solution.description}</p>
+              </div>
+              <div className="clone-case-image pr-8">
+                <RemoteImage
+                  src={solution.image}
+                  alt={solution.title}
+                  width={560}
+                  height={330}
+                  sizes="(max-width: 900px) 90vw, 560px"
+                />
+              </div>
+            </article>
+          </Link>
+        ))}
+      </section>
+    </>
+  );
+}
