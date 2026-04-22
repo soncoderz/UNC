@@ -39,12 +39,12 @@ export default function RndSection() {
       </div>
 
       <StaggerContainer staggerChildren={0.15} className="ind-manuUl">
-        {companyStats.map((stat) => (
+        {companyStats.map((stat, index) => (
           <div key={stat.label} className="ind-manuLi">
             <RemoteImage src={stat.icon} alt="" width={100} height={100} />
             <div>
               <span>{stat.value}</span>
-              <i className="text-sm">{stat.label}</i>
+              <i className="text-sm">{t(`rnd.stats${index + 1}`) !== `rnd.stats${index + 1}` ? t(`rnd.stats${index + 1}`) : stat.label}</i>
             </div>
           </div>
         ))}

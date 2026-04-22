@@ -42,8 +42,10 @@ const translations = {
         "Leading manufacturer of high-efficiency solar inverters and energy storage systems",
       cta: "Explore Products",
       ctaSecondary: "Contact Us",
-      globalDesign: "Global Design",
+      globalDesign: "Global layout",
       powerConverterLeader: "Become a leader in power electronic converters",
+      heroTitle2: "Innovation driven green empowerment",
+      heroSubtitle2: "Provide clean energy solutions for the world",
       solutionsTitle: "Solution",
       solutionsSubtitle: "Multiple working modes, can flexibly respond to various scenarios!",
       householdSolutionTitle: "Household energy storage solutions",
@@ -163,6 +165,53 @@ const translations = {
       partnership: "Partnership",
       events: "Events",
     },
+    newsData: {
+      "news-483": {
+        title: "Unleash Energy Independence with UNC Technology's All-in-One PV & Battery System!",
+        excerpt: "UNC Technology presents an integrated photovoltaic and battery system for residential clean energy independence.",
+        content: "UNC Technology's all-in-one photovoltaic and battery system is designed to simplify household clean-energy deployment. The system combines PV generation, storage, and intelligent control to help customers improve self-consumption and continuity of power supply."
+      },
+      "news-480": {
+        title: "UNC Unveils Energy Solutions at SNEC PV Power Expo 2025",
+        excerpt: "UNC showcased residential, commercial, and photovoltaic energy solutions at SNEC PV Power Expo 2025.",
+        content: "At SNEC PV Power Expo 2025, UNC demonstrated its hybrid inverter, energy storage, and photovoltaic inverter portfolio for global partners and customers."
+      },
+      "solar-inverter-74": {
+        title: "Technical Characteristics of Hybrid Solar Power Inverters",
+        excerpt: "Hybrid solar power inverters integrate PV generation, battery storage, and grid interaction in one system.",
+        content: "Hybrid solar power inverters support PV conversion, battery charge and discharge, backup output, and intelligent energy scheduling. These features make them suitable for household and commercial clean-energy scenarios."
+      },
+      "central-pv-inverter-73": {
+        title: "Advantages and Disadvantages of Central PV Inverters",
+        excerpt: "Central PV inverters support large power conversion with centralized operation and maintenance.",
+        content: "Central PV inverters are often used in large-scale power stations where centralized conversion can simplify operation. System design should also account for redundancy, maintenance, and site-level reliability."
+      },
+      "off-grid-hybrid-inverter-72": {
+        title: "What are the Application Scenarios for Off Grid Hybrid Inverters?",
+        excerpt: "Off-grid hybrid inverters are suitable for remote sites, backup power, and energy independence.",
+        content: "Off-grid hybrid inverters can combine PV generation, storage batteries, and generator support to provide stable power in remote islands, villas, and backup supply scenarios."
+      },
+      "energy-storage-system-71": {
+        title: "Functions and Roles of Residential Energy Storage Systems",
+        excerpt: "Residential energy storage systems improve self-consumption, backup capacity, and energy management.",
+        content: "Residential energy storage systems store surplus PV generation and dispatch electricity when needed. They can reduce grid dependency, support critical loads, and improve household energy resilience."
+      },
+      "solar-storage-companies-70": {
+        title: "Business Model and Technology Direction of Solar Storage Companies",
+        excerpt: "Solar storage companies combine energy storage products with system-level service capabilities.",
+        content: "Solar storage companies continue to expand integrated products, intelligent monitoring, and service-oriented energy solutions for residential and commercial applications."
+      },
+      "solar-charge-inverter-69": {
+        title: "What are the Different Types of Solar Charge Inverters?",
+        excerpt: "Solar charge inverters vary by topology, power range, and grid interaction modes.",
+        content: "Solar charge inverters can support off-grid, hybrid, and grid-connected scenarios, helping users adapt photovoltaic generation to different energy usage needs."
+      },
+      "pv-panel-inverter-68": {
+        title: "Types and Characteristics of PV Panel Inverters",
+        excerpt: "PV panel inverters provide efficient conversion and monitoring for photovoltaic power generation.",
+        content: "PV panel inverter selection depends on application size, MPPT range, protection level, and site operation requirements."
+      }
+    },
     rnd: {
       pageTitle: "R&D and Manufacturing",
       pageSubtitle: "Always regard quality as the core of survival and development.",
@@ -259,8 +308,10 @@ const translations = {
         "Nhà sản xuất hàng đầu biến tần năng lượng mặt trời và hệ thống lưu trữ năng lượng",
       cta: "Khám phá sản phẩm",
       ctaSecondary: "Liên hệ",
-      globalDesign: "Thiết kế toàn cầu",
-      powerConverterLeader: "Trở thành đơn vị dẫn đầu về bộ chuyển đổi điện tử công suất",
+      globalDesign: "Sơ đồ toàn cầu",
+      powerConverterLeader: "",
+
+      heroSubtitle2: "Cung cấp các giải pháp năng lượng sạch cho thế giới",
       solutionsTitle: "Giải pháp",
       solutionsSubtitle: "Nhiều chế độ vận hành giúp đáp ứng linh hoạt các kịch bản khác nhau.",
       householdSolutionTitle: "Giải pháp lưu trữ năng lượng gia đình",
@@ -377,6 +428,53 @@ const translations = {
       partnership: "Hợp tác",
       events: "Sự kiện",
     },
+    newsData: {
+      "news-483": {
+        title: "Khai Phóng Sự Độc Lập Năng Lượng Cùng Hệ Thống Lưu Trữ & Quang Điện Tích Hợp Của UNC Technology!",
+        excerpt: "UNC Technology giới thiệu hệ thống quang điện và lưu trữ tích hợp để đạt được độc lập năng lượng sạch cho dân cư.",
+        content: "Hệ thống điện năng lượng mặt trời và pin tích hợp tất cả trong một của UNC Technology được thiết kế để đơn giản hóa việc triển khai năng lượng sạch tại nhà. Hệ thống kết hợp phát điện PV, lưu trữ và điều khiển thông minh để giúp khách hàng tăng cường khả năng tự tiêu dùng và duy trì nguồn cung điện liên tục."
+      },
+      "news-480": {
+        title: "UNC Ra Mắt Các Giải Pháp Năng Lượng Tại Triển Lãm SNEC 2025",
+        excerpt: "UNC đã trưng bày các giải pháp năng lượng gia dụng, thương mại và quang điện tại SNEC Expo 2025.",
+        content: "Tại SNEC 2025, UNC đã giới thiệu danh mục biến tần hybrid, lưu trữ năng lượng và biến tần quang điện cho các đối tác toàn cầu."
+      },
+      "solar-inverter-74": {
+        title: "Đặc Điểm Kỹ Thuật Của Biến Tần Năng Lượng Mặt Trời Hybrid",
+        excerpt: "Biến tần năng lượng mặt trời hybrid tích hợp phát điện PV, lưu trữ pin và tương tác lưới điện trong một hệ thống.",
+        content: "Biến tần năng lượng mặt trời hybrid hỗ trợ chuyển đổi PV, sạc/xả pin, ngõ ra dự phòng và điều phối năng lượng thông minh. Các tính năng này giúp chúng phù hợp với ứng dụng năng lượng sạch gia đình và thương mại."
+      },
+      "central-pv-inverter-73": {
+        title: "Ưu Và Nhược Điểm Của Biến Tần PV Trung Tâm",
+        excerpt: "Biến tần PV trung tâm hỗ trợ chuyển đổi công suất lớn giúp tập trung vận hành và bảo trì.",
+        content: "Biến tần PV trung tâm thường được dùng trong quy mô nhà máy điện lớn giúp vận hành thuận tiện. Tuy nhiên cũng cần thiết kế dự phòng đảm bảo tính tin cậy cao."
+      },
+      "off-grid-hybrid-inverter-72": {
+        title: "Các Kịch Bản Ứng Dụng Biến Tần Hybrid Độc Lập Chạy Không Lưới Là Gì?",
+        excerpt: "Biến tần hybrid độc lập phù hợp khu vực xa xôi, nguồn dự phòng và độc lập điện năng.",
+        content: "Biến tần off-grid có thể kết hợp năng lượng mặt trời, pin và máy phát điện để cung cấp nguồn ổn định cho hải đảo, biệt thự và dự phòng."
+      },
+      "energy-storage-system-71": {
+        title: "Chức Năng và Vai Trò của Hệ Thống Lưu Trữ Năng Lượng Gia Đình",
+        excerpt: "Hệ thống lưu trữ giúp tăng khả năng tự tiêu dùng, lưu trữ dự phòng và quản lý năng lượng.",
+        content: "Hệ thống này tích trữ năng lượng PV dư thừa và tiêu thụ lúc cần thiết, giảm phụ thuộc vào lưới điện và bảo vệ các tải thiết yếu."
+      },
+      "solar-storage-companies-70": {
+        title: "Mô Hình Kinh Doanh Và Định Hướng Công Nghệ Của Doanh Nghiệp Lưu Trữ Năng Lượng",
+        excerpt: "Các công ty kết hợp giải pháp lưu trữ năng lượng cùng dịch vụ vận hành toàn diện.",
+        content: "Họ tạo ra sản phẩm tích hợp, giám sát thông minh và giải pháp tập trung vào dân dụng và thương mại."
+      },
+      "solar-charge-inverter-69": {
+        title: "Các Loại Biến Tần Sạc Năng Lượng Mặt Trời Khác Nhau Là Gì?",
+        excerpt: "Biến tần sạc khác nhau về ứng dụng, phạm vi công suất và chế độ lưới điện.",
+        content: "Biến tần hỗ trợ không nối lưới, nối lưới hoặc hybrid, giúp khách hàng đa dạng hoá nhu cầu tiêu thụ quang điện."
+      },
+      "pv-panel-inverter-68": {
+        title: "Phân Loại Và Đặc Điểm Của Biến Tần Quang Điện (PV Inverter)",
+        excerpt: "Biến tần cho bảng năng lượng cung cấp chuyển đổi PV và giám sát tiện lợi.",
+        content: "Lựa chọn biến tần PV phụ thuộc vào kích cỡ hệ thống, dải theo dõi vùng công suất MPPT và yêu cầu mức bảo vệ."
+      }
+    },
     rnd: {
       pageTitle: "R&D và Sản xuất",
       pageSubtitle: "Luôn xem chất lượng là nền tảng sống còn và phát triển.",
@@ -469,6 +567,8 @@ const translations = {
     },
     home: {
       heroTitle: "用清洁能源驱动未来",
+      heroTitle2: "创新驱动，绿色赋能",
+      heroSubtitle2: "为世界提供清洁能源解决方案",
       heroSubtitle: "高效太阳能逆变器和储能系统的领先制造商",
       cta: "探索产品",
       ctaSecondary: "联系我们",
@@ -590,6 +690,53 @@ const translations = {
       partnership: "合作伙伴",
       events: "活动",
     },
+    newsData: {
+      "news-483": {
+        title: "用UNC Technology的储能光伏一体机释放能源独立！",
+        excerpt: "UNC Technology推出了集成式光伏和电池系统，为您实现住宅清洁能源独立。",
+        content: "UNC Technology的光伏储能一体机旨在简化家庭清洁能源的部署。该系统集成了光伏发电、储能和智能控制，帮助客户提高自发自用率并保证连续供电。"
+      },
+      "news-480": {
+        title: "UNC在2025年SNEC光伏大会上发布能源解决方案",
+        excerpt: "UNC在2025年SNEC光伏展会上展示了家用、商用及光伏能源解决方案。",
+        content: "在2025年SNEC光伏大会上，UNC向全球合作伙伴和客户展示了其混合逆变器、储能系列和光伏逆变器产品组合。"
+      },
+      "solar-inverter-74": {
+        title: "混合太阳能逆变器的技术特点",
+        excerpt: "混合太阳能逆变器将光伏发电、电池储能和电网交互集成在一个系统中。",
+        content: "混合太阳能逆变器支持光伏转换、电池充放电、备份输出和智能能源调度。这些特性使其适用于家庭和商业清洁能源场景。"
+      },
+      "central-pv-inverter-73": {
+        title: "集中式光伏逆变器的优缺点",
+        excerpt: "集中式光伏逆变器支持大功率转换，具有集中运维的优势。",
+        content: "集中式光伏逆变器通常用于大型电站中进行集中转换以简化运维。系统设计还需考虑冗余、维护及系统级可靠性。"
+      },
+      "off-grid-hybrid-inverter-72": {
+        title: "离网全桥混合逆变器的应用场景是什么？",
+        excerpt: "离网混合逆变器适用于偏远地区、备用电源和实现能源独立的场景。",
+        content: "离网混合逆变器能够结合光伏发电、储能电池和发电机，为偏远岛屿、别墅以及缺乏市电的区域提供稳定的电力储备。"
+      },
+      "energy-storage-system-71": {
+        title: "户用储能系统的功能与作用",
+        excerpt: "户用储能系统可提高自用电率、备用能力及能源管理。",
+        content: "户用储能系统存储过剩的光伏电力并在需要时提供电能。它们可以减少对电网的依赖，支持关键负载，并提高家庭能源保障。"
+      },
+      "solar-storage-companies-70": {
+        title: "光储企业的商业模式与技术方向",
+        excerpt: "光储企业将储能产品与系统级服务能力相结合。",
+        content: "光储企业不断完善住宅和商业应用中的综合产品、智能监控以及面向服务的能源解决方案。"
+      },
+      "solar-charge-inverter-69": {
+        title: "太阳能逆变器有哪些不同类型？",
+        excerpt: "太阳能充电逆变器因拓扑结构、功率范围和电网交换模式而异。",
+        content: "它们可支持离网、混合甚至并网场景，帮助用户适应不同的使用需求。"
+      },
+      "pv-panel-inverter-68": {
+        title: "光伏逆变器的类型与特点",
+        excerpt: "光伏逆变器为光伏发电提供高效转换与监控功能。",
+        content: "光伏逆变器的选择需根据应用规模、MPPT范围、防护等级及电站运行需求综合判定。"
+      }
+    },
     rnd: {
       pageTitle: "\u7814\u53d1\u4e0e\u5236\u9020",
       pageSubtitle: "\u59cb\u7ec8\u5c06\u8d28\u91cf\u89c6\u4e3a\u751f\u5b58\u548c\u53d1\u5c55\u7684\u6838\u5fc3\u3002",
@@ -682,6 +829,8 @@ const translations = {
     },
     home: {
       heroTitle: "Die Zukunft mit sauberer Energie antreiben",
+      heroTitle2: "Innovationsgetriebenes grünes Empowerment",
+      heroSubtitle2: "Saubere Energielösungen für die Welt bereitstellen",
       heroSubtitle:
         "Fuehrender Hersteller von Solarwechselrichtern und Energiespeichersystemen",
       cta: "Produkte entdecken",
@@ -804,6 +953,53 @@ const translations = {
       partnership: "Partnerschaft",
       events: "Veranstaltungen",
     },
+    newsData: {
+      "news-483": {
+        title: "Entfesseln Sie Ihre Energieunabhängigkeit mit dem All-In-One PV- & Batteriesystem von UNC Technology!",
+        excerpt: "UNC Technology präsentiert ein integriertes Photovoltaik- und Batteriesystem für die Unabhängigkeit bei sauberer Wohnenergie.",
+        content: "Das All-in-One-Photovoltaik- und Batteriesystem von UNC Technology wurde entwickelt, um den Einsatz von sauberer Energie im Haushalt zu vereinfachen. Das System kombiniert PV-Erzeugung, Speicherung und intelligente Steuerung, um Kunden zu helfen, den Eigenverbrauch zu verbessern und die Kontinuität der Stromversorgung sicherzustellen."
+      },
+      "news-480": {
+        title: "UNC präsentiert Energielösungen auf der SNEC PV Power Expo 2025",
+        excerpt: "UNC präsentierte auf der SNEC PV Power Expo 2025 Energielösungen für Haushalte, Gewerbe und Photovoltaikanlagen.",
+        content: "Auf der SNEC PV Power Expo 2025 demonstrierte UNC sein Portfolio an Hybrid-Wechselrichtern, Energiespeichern und Photovoltaik-Wechselrichtern für globale Partner."
+      },
+      "solar-inverter-74": {
+        title: "Technische Eigenschaften von hybriden Solar-Wechselrichtern",
+        excerpt: "Hybride Solar-Wechselrichter integrieren PV-Erzeugung, Batteriespeicherung und Netzinteraktion in einem System.",
+        content: "Hybride Solar-Wechselrichter unterstützen PV-Umwandlung, Batterieladung/-entladung und intelligente Energieplanung. Sie eignen sich für private und gewerbliche Reinenergie-Szenarien."
+      },
+      "central-pv-inverter-73": {
+        title: "Vor- und Nachteile von Zentralen PV-Wechselrichtern",
+        excerpt: "Zentrale PV-Wechselrichter unterstützen große Leistungsumwandlung mit zentralem Betrieb und Wartung.",
+        content: "Zentrale PV-Wechselrichter werden häufig in großen Kraftwerken eingesetzt, in denen eine zentrale Umwandlung den Betrieb vereinfacht."
+      },
+      "off-grid-hybrid-inverter-72": {
+        title: "Was sind die Einsatzszenarien für Off-Grid-Hybrid-Wechselrichter?",
+        excerpt: "Off-Grid-Hybrid-Wechselrichter eignen sich für abgelegene Standorte, Notstrom und Energieautarkie.",
+        content: "Netzunabhängige Hybrid-Wechselrichter können PV-Erzeugung, Akkus und Generatoren kombinieren, um abgelegene Orte zu versorgen."
+      },
+      "energy-storage-system-71": {
+        title: "Funktionen und Rollen privater Energiespeichersysteme",
+        excerpt: "Private Energiespeichersysteme verbessern den Eigenverbrauch und die Energieverwaltung.",
+        content: "Sie speichern überschüssigen PV-Strom und geben ihn bei Bedarf ab, reduzieren Netzabhängigkeit und unterstützen kritische Lasten."
+      },
+      "solar-storage-companies-70": {
+        title: "Geschäftsmodell und technologische Richtung von Solar- und Speicherunternehmen",
+        excerpt: "Sie kombinieren Energiespeicherprodukte mit Servicefähigkeiten auf Systemebene.",
+        content: "Lösungsanbieter verfeinern integrierte Produkte, intelligentes Monitoring und dienstleistungsorientierte Energielösungen."
+      },
+      "solar-charge-inverter-69": {
+        title: "Welche verschiedenen Arten von Solar-Lade-Wechselrichtern gibt es?",
+        excerpt: "Sie variieren je nach Topologie, Leistungsbereich und Netzinteraktionsmodi.",
+        content: "Solar-Lade-Wechselrichter unterstützen netzferne, hybride und netzgekoppelte Szenarien für verschiedenste Nutzer."
+      },
+      "pv-panel-inverter-68": {
+        title: "Arten und Eigenschaften von PV-Panel-Wechselrichtern",
+        excerpt: "Sie bieten effiziente Umwandlung und Überwachung für Photovoltaik.",
+        content: "Die Wahl hängt von Anlagengröße, MPPT-Bereich, Schutzart und Anforderungsbedingungen ab."
+      }
+    },
     rnd: {
       pageTitle: "F&E und Fertigung",
       pageSubtitle: "Qualitaet ist fuer uns die Grundlage fuer Bestand und Wachstum.",
@@ -900,8 +1096,10 @@ const translations = {
         "Fabricante lider de inversores solares y sistemas de almacenamiento de energia",
       cta: "Explorar productos",
       ctaSecondary: "Contacto",
-      globalDesign: "Diseno global",
-      powerConverterLeader: "Conviertase en lider en convertidores electronicos de potencia",
+      globalDesign: "Disposición global",
+      powerConverterLeader: "Conviértase en líder en convertidores electrónicos de potencia",
+      heroTitle2: "Empoderamiento verde impulsado por la innovación",
+      heroSubtitle2: "Proporcionar soluciones de energía limpia para el mundo",
       solutionsTitle: "Soluciones",
       solutionsSubtitle: "Varios modos de trabajo responden con flexibilidad a diferentes escenarios.",
       householdSolutionTitle: "Soluciones de almacenamiento para el hogar",
@@ -1017,6 +1215,53 @@ const translations = {
       industryNews: "Noticias del sector",
       partnership: "Alianza",
       events: "Eventos",
+    },
+    newsData: {
+      "news-483": {
+        title: "¡Desate la Independencia Energética con el Sistema Integrado PV y Batería de UNC Technology!",
+        excerpt: "UNC Technology presenta un sistema integrado fotovoltaico y de batería para la independencia energética limpia residencial.",
+        content: "El sistema integrado fotovoltaico y de batería de UNC Technology está diseñado para simplificar el despliegue de energía limpia en el hogar. El sistema combina generación fotovoltaica, almacenamiento y control inteligente para ayudar a los clientes a mejorar el autoconsumo y la continuidad del suministro de energía."
+      },
+      "news-480": {
+        title: "UNC presenta soluciones energéticas en la SNEC PV Power Expo 2025",
+        excerpt: "UNC exhibió soluciones de energía residencial, comercial y fotovoltaica en la SNEC Expo 2025.",
+        content: "En la SNEC PV Power Expo 2025, UNC demostró su cartera de inversores híbridos, almacenamiento de energía e inversores fotovoltaicos para socios globales."
+      },
+      "solar-inverter-74": {
+        title: "Características técnicas de los inversores solares híbridos",
+        excerpt: "Los inversores solares híbridos integran generación fotovoltaica, almacenamiento en baterías e interacción con la red.",
+        content: "Los inversores solares híbridos admiten la conversión fotovoltaica, la carga y descarga de baterías y la programación inteligente de energía, ideales para el hogar y el comercio."
+      },
+      "central-pv-inverter-73": {
+        title: "Ventajas y desventajas de los inversores fotovoltaicos centrales",
+        excerpt: "Los inversores fotovoltaicos centrales admiten conversión de gran potencia con operación y mantenimiento centralizados.",
+        content: "Los inversores fotovoltaicos centrales se suelen utilizar en grandes centrales eléctricas para simplificar la operación."
+      },
+      "off-grid-hybrid-inverter-72": {
+        title: "¿Cuáles son los escenarios de aplicación de los inversores híbridos fuera de la red?",
+        excerpt: "Destinados a sitios remotos, energía de respaldo e independencia energética.",
+        content: "Combinan generación fotovoltaica, baterías de almacenamiento y soporte de generador para entregar energía estable."
+      },
+      "energy-storage-system-71": {
+        title: "Funciones y roles de los sistemas de almacenamiento residencial",
+        excerpt: "Mejoran el autoconsumo, la capacidad de respaldo y la gestión energética.",
+        content: "Almacenan excedentes de PV para usarlos más tarde, reduciendo dependencia y cubriendo cargas críticas."
+      },
+      "solar-storage-companies-70": {
+        title: "Modelo de negocio y tecnología de empresas de almacenamiento solar",
+        excerpt: "Combinan productos de almacenamiento de energía y servicios integrales.",
+        content: "Continúan expandiendo productos integrales, monitoreo inteligente y soluciones orientadas al servicio."
+      },
+      "solar-charge-inverter-69": {
+        title: "¿Cuáles son los diferentes tipos de inversores de carga solar?",
+        excerpt: "Varían según topología, rango de potencia e interacción con la red.",
+        content: "Admiten uso fuera de la red, híbrido y conectado a esta, para satisfacer a los clientes según el caso fotovoltaico."
+      },
+      "pv-panel-inverter-68": {
+        title: "Tipos y características de los inversores fotovoltaicos",
+        excerpt: "Ofrecen conversión eficiente y monitoreo para la generación renovable.",
+        content: "La elección del inversor de panel fotovoltaico depende del tamaño, rango MPPT, protección e instalaciones."
+      }
     },
     rnd: {
       pageTitle: "I+D y Fabricacion",

@@ -27,8 +27,7 @@ cp .env.example .env
 Cập nhật thông tin trong `.env`:
 ```env
 # MongoDB (tùy chọn - nếu không có sẽ dùng dữ liệu JSON)
-MONGODB_URI=mongodb://localhost:27017
-MONGODB_DB=solartech_energy
+MONGODB_URI=mongodb://localhost:27017/solartech_energy
 AUTO_SEED_MONGODB=true
 
 # Cloudinary (bắt buộc nếu muốn upload ảnh)

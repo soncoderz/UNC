@@ -28,7 +28,7 @@ export default function InnerNav({ items, activeHref }: InnerNavProps) {
           <span className="clone-inner-nav-icon">
             <RemoteImage src={item.icon} alt="" width={30} height={30} />
           </span>
-          <span>{item.title}</span>
+          <span className="clone-inner-nav-title">{item.title}</span>
         </Link>
       ))}
       </nav>

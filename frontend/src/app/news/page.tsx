@@ -23,21 +23,26 @@ export default function NewsPage() {
       <section className="clone-news-page">
         <SectionTitle title={t("home.corporateNews")} />
         <div className="clone-news-grid">
-          {cloneNews.map((article) => (
-            <Link key={article.id} href={`/news/${article.id}`} className="clone-news-card">
-              <span className="clone-news-image">
-                <RemoteImage
-                  src={article.image}
-                  alt={article.title}
-                  fill
-                  sizes="(max-width: 900px) 100vw, 31vw"
-                />
-              </span>
-              <span className="clone-news-time">{article.date}</span>
-              <strong>{article.title}</strong>
-              <em>{article.category}</em>
-            </Link>
-          ))}
+          {cloneNews.map((article) => {
+            const translatedTitle = t(`newsData.${article.id}.title`) !== `newsData.${article.id}.title` ? t(`newsData.${article.id}.title`) : article.title;
+            const translatedCategory = t("home.corporateNews");
+            
+            return (
+              <Link key={article.id} href={`/news/${article.id}`} className="clone-news-card">
+                <span className="clone-news-image">
+                  <RemoteImage
+                    src={article.image}
+                    alt={translatedTitle}
+                    fill
+                    sizes="(max-width: 900px) 100vw, 31vw"
+                  />
+                </span>
+                <span className="clone-news-time">{article.date}</span>
+                <strong>{translatedTitle}</strong>
+                <em>{translatedCategory}</em>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </>
