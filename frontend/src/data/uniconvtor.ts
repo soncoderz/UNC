@@ -17,18 +17,36 @@ export function asset(path: string) {
     return `/uniconvtor/static/upload/image/20240717/1721203071201008.png`;
   }
 
+  // Local public assets (e.g. /banners/) – served directly without proxy
+  if (path.startsWith("/banners/")) {
+    return path;
+  }
+
   // All other static paths are proxied through /uniconvtor in next.config
   return `/uniconvtor${path}`;
 }
 
 export const homeHeroSlides = [
-  "/static/upload/image/20240712/1720767465897307.jpg",
-  "/static/upload/image/20240712/1720767484276473.jpg",
+  "/banners/banner-1-forest.jpg",
+  "/banners/banner-2-energy.png",
 ];
 
 export const homeHeroMobileSlides = [
-  "/static/upload/image/20240712/1720767499927564.jpg",
-  "/static/upload/image/20240712/1720767511219332.jpg",
+  "/banners/banner-1-forest.jpg",
+  "/banners/banner-2-energy.png",
+];
+
+export const homeHeroContent = [
+  {
+    titleKey: "home.heroTitle2",
+    subtitleKey: "home.heroSubtitle2",
+    align: "center" as const,
+  },
+  {
+    titleKey: "home.globalDesign",
+    subtitleKey: "home.powerConverterLeader",
+    align: "left" as const,
+  },
 ];
 
 export const innerBanners = {
