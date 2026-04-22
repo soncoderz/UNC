@@ -1,7 +1,17 @@
 import type { NextConfig } from "next";
 
+const backendUrl = (process.env.BACKEND_URL || "http://localhost:5000").replace(/\/$/, "");
+
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ["26.4.212.222"],
+  allowedDevOrigins: ["26.4.212.222", "*.ngrok-free.dev"],
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${backendUrl}/api/:path*`,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {

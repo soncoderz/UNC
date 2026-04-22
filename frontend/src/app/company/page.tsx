@@ -43,7 +43,7 @@ export default function CompanyPage() {
         image={innerBanners.about}
         mobileImage={innerMobileBanners.about}
       />
-      <InnerNav items={aboutNav} activeHref="/company#intro" />
+      <InnerNav items={aboutNav} activeHref="/company#milestone" />
 
       <section id="intro" className="clone-about-intro">
         <SectionTitle title={t("company.storyTitle")} />

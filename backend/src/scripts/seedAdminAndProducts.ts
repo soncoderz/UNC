@@ -162,7 +162,6 @@ async function main() {
   loadEnvFiles();
 
   const uri = requireEnv("MONGODB_URI");
-  const dbName = process.env.MONGODB_DB || "solartech_energy";
   const seedMode = getSeedMode();
   const products = await buildProductsForDatabase();
   const shouldSeedAdmin = process.env.SEED_ADMIN !== "false";
@@ -176,7 +175,7 @@ async function main() {
 
   try {
     await client.connect();
-    const db = client.db(dbName);
+    const db = client.db();
     const productCollection = db.collection<Product>("products");
     const userCollection = db.collection<User>("users");
 
