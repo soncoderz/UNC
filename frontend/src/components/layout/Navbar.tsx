@@ -246,10 +246,10 @@ export default function Navbar() {
         setActiveDropdown(null);
       }}
     >
-      <div className="flex h-[52px] items-center justify-between px-[7%] transition-colors duration-500 lg:h-[clamp(76px,5.104vw,98px)] lg:px-[5%]">
+      <div className="unc-mobile-header-inner flex h-[52px] items-center justify-between px-[7%] transition-colors duration-500 lg:h-[clamp(76px,5.104vw,98px)] lg:px-[5%]">
         <Link
           href="/"
-          className="relative block h-[30px] w-[96px] shrink-0 overflow-visible lg:h-auto lg:w-[clamp(120px,8.125vw,156px)]"
+          className="unc-mobile-logo-link relative block h-[30px] w-[96px] shrink-0 overflow-visible lg:h-auto lg:w-[clamp(120px,8.125vw,156px)]"
           aria-label="UNC Technology home"
           onClick={closeMenus}
         >
@@ -409,7 +409,7 @@ export default function Navbar() {
         </div>
 
         <div
-          className="relative ml-auto mr-3 flex items-center lg:hidden"
+          className="unc-mobile-language relative ml-auto mr-3 flex items-center lg:hidden"
           ref={mobileLanguageSelectorRef}
         >
           <button
@@ -469,7 +469,7 @@ export default function Navbar() {
             setIsMobileMenuOpen((open) => !open);
             setActiveDropdown(null);
           }}
-          className="relative block h-[27px] w-[27px] shrink-0 lg:hidden"
+          className="unc-mobile-menu-trigger relative block h-[27px] w-[27px] shrink-0 lg:hidden"
           aria-label={t("common.toggleMenu")}
           aria-expanded={isMobileMenuOpen}
         >
@@ -631,7 +631,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen ? (
           <motion.nav
-            className="fixed left-0 right-0 top-[52px] overflow-hidden bg-white shadow-xl lg:hidden"
+            className="unc-mobile-menu-panel fixed left-0 right-0 top-[52px] overflow-hidden bg-white shadow-xl lg:hidden"
             variants={mobilePanelVariants}
             initial="hidden"
             animate="visible"

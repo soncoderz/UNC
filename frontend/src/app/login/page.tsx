@@ -43,7 +43,7 @@ export default function LoginPage() {
       />
 
       <section className="py-20 bg-light">
-        <div className="max-w-[500px] mx-auto px-4 lg:px-0">
+        <div className="max-w-125 mx-auto px-4 lg:px-0">
           <div className="bg-white p-8 xl:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-2xl border border-gray-100">
             <h2 className="text-2xl font-bold text-dark mb-6 text-center">
               Admin Access

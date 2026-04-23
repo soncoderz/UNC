@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { recommendedProductGroups } from "@/data/uniconvtor";
 import { getProducts } from "@/services/api";
@@ -9,6 +10,8 @@ import SlideIn from "@/components/animations/SlideIn";
 import { StaggerContainer } from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
 import { useLanguage } from "@/context/LanguageContext";
+
+const PRODUCT_ROTATION_INTERVAL = 7600;
 
 export default function RecommendedProducts() {
   const { t } = useLanguage();
@@ -60,6 +63,17 @@ export default function RecommendedProducts() {
 
   const activeGroup = groups[activeGroupIndex] || groups[0];
   const activeProduct = activeGroup?.products[activeProductIndex] || activeGroup?.products[0];
+  const activeProductCount = activeGroup?.products.length || 0;
+
+  useEffect(() => {
+    if (activeProductCount <= 1) return;
+
+    const timer = window.setInterval(() => {
+      setActiveProductIndex((current) => (current + 1) % activeProductCount);
+    }, PRODUCT_ROTATION_INTERVAL);
+
+    return () => window.clearInterval(timer);
+  }, [activeGroupIndex, activeProductCount]);
 
   function selectGroup(index: number) {
     setActiveGroupIndex(index);
@@ -80,13 +94,15 @@ export default function RecommendedProducts() {
 
         <StaggerContainer staggerChildren={0.1} className="ind-recommenTitleUl">
           {groups.map((group, index) => (
-            <li
+            <button
+              type="button"
               key={group.title}
               className={`ind-reTitleLi ${
                 activeGroupIndex === index ? "ind-reTitleLiActive" : ""
               }`}
               onMouseEnter={() => selectGroup(index)}
               onClick={() => selectGroup(index)}
+              aria-pressed={activeGroupIndex === index}
             >
               <RemoteImage className="ind-reImgA" src={group.icon} alt="" width={60} height={60} />
               <RemoteImage
@@ -102,7 +118,7 @@ export default function RecommendedProducts() {
                  group.title === "Household Energy Storage" ? t("products.hybridInverters") :
                  group.title}
               </p>
-            </li>
+            </button>
           ))}
         </StaggerContainer>
       </div>
@@ -111,26 +127,35 @@ export default function RecommendedProducts() {
         <div className="ind-reContentLi ind-reContentLiActive">
           <div className="swiper-recommen">
             <div className="swiper-wrapper">
-              <div className="swiper-slide">
-                <div className="ind-reLeft">
-                  <h4 className="text-2xl">{t(`productsData.${activeProduct.id}.name`) !== `productsData.${activeProduct.id}.name` ? t(`productsData.${activeProduct.id}.name`) : activeProduct.name}</h4>
-                  <h6 className="text-base">{t(`productsData.${activeProduct.id}.subcategory`) !== `productsData.${activeProduct.id}.subcategory` ? t(`productsData.${activeProduct.id}.subcategory`) : activeProduct.subcategory}</h6>
-                  <span className="ind-reLine" />
-                  <p className="text-base">{t(`productsData.${activeProduct.id}.description`) !== `productsData.${activeProduct.id}.description` ? t(`productsData.${activeProduct.id}.description`) : activeProduct.description}</p>
-                  <Link href={`/products/${activeProduct.id}`} className="btn1 text-base">
-                    {t("common.more")}
-                  </Link>
-                </div>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={activeProduct.id}
+                  className="swiper-slide"
+                  initial={{ opacity: 0, x: 36 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -28 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                >
+                  <div className="ind-reLeft">
+                    <h4 className="text-2xl">{t(`productsData.${activeProduct.id}.name`) !== `productsData.${activeProduct.id}.name` ? t(`productsData.${activeProduct.id}.name`) : activeProduct.name}</h4>
+                    <h6 className="text-base">{t(`productsData.${activeProduct.id}.subcategory`) !== `productsData.${activeProduct.id}.subcategory` ? t(`productsData.${activeProduct.id}.subcategory`) : activeProduct.subcategory}</h6>
+                    <span className="ind-reLine" />
+                    <p className="text-base">{t(`productsData.${activeProduct.id}.description`) !== `productsData.${activeProduct.id}.description` ? t(`productsData.${activeProduct.id}.description`) : activeProduct.description}</p>
+                    <Link href={`/products/${activeProduct.id}`} className="btn1 text-base">
+                      {t("common.more")}
+                    </Link>
+                  </div>
 
-                <RemoteImage
-                  src={activeProduct.image}
-                  alt={activeProduct.name}
-                  width={500}
-                  height={500}
-                  sizes="(max-width: 900px) 80vw, 26vw"
-                  className="xpz"
-                />
-              </div>
+                  <RemoteImage
+                    src={activeProduct.image}
+                    alt={activeProduct.name}
+                    width={500}
+                    height={500}
+                    sizes="(max-width: 900px) 80vw, 26vw"
+                    className="xpz"
+                  />
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             <div className="swiper-pagination pagination-recommen">
@@ -139,6 +164,7 @@ export default function RecommendedProducts() {
                   key={product.id}
                   type="button"
                   aria-label={product.name}
+                  aria-pressed={activeProductIndex === index}
                   onClick={() => setActiveProductIndex(index)}
                   className={`swiper-pagination-bullet ${
                     activeProductIndex === index ? "swiper-pagination-bullet-active" : ""
