@@ -40,9 +40,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="admin-layout min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 hidden md:block sticky top-[106px] h-[calc(100vh-106px)] overflow-y-auto z-40">
+      <aside className="admin-sidebar w-64 bg-white border-r border-gray-200 hidden md:block sticky overflow-y-auto z-40">
         <div className="p-6 border-b border-gray-100">
           <h2 className="text-xl font-bold text-dark">Admin Panel</h2>
           <p className="text-sm text-gray mt-1">Welcome, {user?.name}</p>
@@ -69,7 +69,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 lg:p-8">
+      <main className="admin-main flex-1 p-6 lg:p-8">
         {children}
       </main>
     </div>

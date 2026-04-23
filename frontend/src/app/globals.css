@@ -62,6 +62,29 @@ img {
   height: auto;
 }
 
+.admin-layout {
+  --admin-header-height: 52px;
+}
+
+.admin-main {
+  padding-top: calc(var(--admin-header-height) + 1.5rem);
+}
+
+.admin-sidebar {
+  top: var(--admin-header-height);
+  height: calc(100vh - var(--admin-header-height));
+}
+
+@media (min-width: 1024px) {
+  .admin-layout {
+    --admin-header-height: clamp(76px, 5.104vw, 98px);
+  }
+
+  .admin-main {
+    padding-top: calc(var(--admin-header-height) + 2rem);
+  }
+}
+
 /* ============================================
    GLOBAL SCROLL REVEAL
    ============================================ */
