@@ -75,7 +75,7 @@ export default function Footer() {
     <footer className="clone-footer overflow-hidden">
       {showContactPanel ? (
         <SlideIn direction="up" distance={40} className="contact-section py-16" once={false}>
-          <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative max-w-350 mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
               <div>
                 <h2 className="text-3xl font-bold text-white mb-2">
@@ -83,7 +83,7 @@ export default function Footer() {
                 </h2>
                 <p className="text-white/70 text-sm">{COMPANY_INFO.slogan}</p>
               </div>
-              <form className="flex flex-col sm:flex-row items-stretch gap-0 bg-white overflow-hidden shadow-lg w-full lg:w-auto">
+              <form className="contact-form-desktop flex flex-col sm:flex-row items-stretch gap-0 bg-white overflow-hidden shadow-lg w-full lg:w-auto">
                 <input
                   type="text"
                   placeholder={t("footer.name")}
@@ -103,10 +103,85 @@ export default function Footer() {
                   {t("footer.sending")}
                 </button>
               </form>
+              <form className="contact-form-mobile" aria-label="Mobile contact form">
+                <label className="footer-mobile-form-row">
+                  <span>Company</span>
+                  <input type="text" />
+                </label>
+                <label className="footer-mobile-form-row">
+                  <span>*Phone</span>
+                  <input type="tel" />
+                </label>
+                <label className="footer-mobile-form-row">
+                  <span>Address</span>
+                  <input type="text" />
+                </label>
+                <label className="footer-mobile-form-row">
+                  <span>Name</span>
+                  <input type="text" />
+                </label>
+                <label className="footer-mobile-form-row">
+                  <span>*Email</span>
+                  <input type="email" />
+                </label>
+                <label className="footer-mobile-form-row is-textarea">
+                  <span>*Description</span>
+                  <textarea rows={2} />
+                </label>
+                <div className="footer-mobile-form-row is-verify">
+                  <span>*verify</span>
+                  <div className="footer-mobile-verify-control">
+                    <button type="button" className="footer-mobile-verify-button">
+                      <span aria-hidden="true">✓</span>
+                      Click to verify
+                    </button>
+                    <button type="button" className="footer-mobile-submit">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </SlideIn>
       ) : null}
+
+      <div className="clone-footer-mobile-info">
+        <div className="clone-footer-mobile-contact">
+          <div className="clone-footer-mobile-row">
+            <RemoteImage src="/template/default/esimg/icon/foot1.png" alt="" width={24} height={24} />
+            <span>
+              <em>{t("contact.address")}</em>
+              <strong>{COMPANY_INFO.address}</strong>
+            </span>
+          </div>
+          <div className="clone-footer-mobile-row">
+            <RemoteImage src="/template/default/esimg/icon/foot2.png" alt="" width={24} height={24} />
+            <span>
+              <em>{t("footer.hotline")}</em>
+              <strong>{COMPANY_INFO.phone}</strong>
+            </span>
+          </div>
+          <div className="clone-footer-mobile-row">
+            <RemoteImage src="/template/default/esimg/icon/foot3.png" alt="" width={24} height={24} />
+            <span>
+              <em>{t("contact.email")}</em>
+              <strong>{COMPANY_INFO.email}</strong>
+            </span>
+          </div>
+        </div>
+        <div className="clone-footer-mobile-side">
+          <RemoteImage
+            src="/static/upload/image/20240827/1724725433746661.jpg"
+            alt="UNC QR code"
+            width={82}
+            height={82}
+          />
+          <Link href="/" className="clone-footer-mobile-arrow" aria-label="Back to home">
+            <RemoteImage src="/template/default/esimg/icon/foot4.png" alt="" width={34} height={34} />
+          </Link>
+        </div>
+      </div>
 
       <StaggerContainer staggerChildren={0.15} className="clone-footer-top" once={false}>
         <div>
@@ -171,7 +246,7 @@ export default function Footer() {
 
       <FadeIn delay={0.2} duration={0.8} className="clone-footer-bottom" once={false}>
         <span>PV Inverter | Solar Inverter | Off Grid Inverter | Solar Energy Company</span>
-        <span>Developers: Eshine</span>
+        <span>Developers: Dev.Tu_Dev.Son</span>
       </FadeIn>
     </footer>
     {showMobileNav ? (

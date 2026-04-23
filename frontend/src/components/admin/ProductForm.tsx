@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
+import { useLanguage } from "@/context/LanguageContext";
 import type { Product } from "@/types/api";
 
 interface ProductFormProps {
@@ -100,6 +101,7 @@ export default function ProductForm({
   onUploadImage,
   onUploadImages,
 }: ProductFormProps) {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<Partial<Product>>(
     { ...defaultProduct, ...initialData }
   );
@@ -134,12 +136,12 @@ export default function ProductForm({
     }
 
     if (!onUploadImage && !onUploadImages) {
-      setError("Image upload is not available.");
+      setError(t("admin.uploadNotAvailable"));
       return [];
     }
 
     if (files.some((file) => !file.type.startsWith("image/"))) {
-      setError("Please select an image file.");
+      setError(t("admin.selectImageFile"));
       return [];
     }
 
@@ -230,7 +232,7 @@ export default function ProductForm({
         price: formData.price ?? null,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to save product");
+      setError(err instanceof Error ? err.message : t("admin.saveFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -239,7 +241,7 @@ export default function ProductForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
       <h3 className="text-xl font-bold text-dark">
-        {initialData ? "Edit Product" : "Add New Product"}
+        {initialData ? t("admin.editProduct") : t("admin.addNewProduct")}
       </h3>
 
       {error && (
@@ -248,7 +250,7 @@ export default function ProductForm({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-dark mb-1">Name</label>
+          <label className="block text-sm font-medium text-dark mb-1">{t("admin.name")}</label>
           <input
             type="text"
             required
@@ -260,7 +262,7 @@ export default function ProductForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-dark mb-1">Category</label>
+          <label className="block text-sm font-medium text-dark mb-1">{t("admin.category")}</label>
           <select
             name="category"
             required
@@ -268,14 +270,14 @@ export default function ProductForm({
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none"
           >
-            <option value="pv-inverters">PV Inverters</option>
-            <option value="energy-storage">Energy Storage</option>
-            <option value="hybrid-inverters">Hybrid Inverters</option>
+            <option value="pv-inverters">{t("admin.pvInverters")}</option>
+            <option value="energy-storage">{t("admin.energyStorage")}</option>
+            <option value="hybrid-inverters">{t("admin.hybridInverters")}</option>
           </select>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-dark mb-1">Subcategory</label>
+          <label className="block text-sm font-medium text-dark mb-1">{t("admin.subcategory")}</label>
           <input
             type="text"
             required
@@ -287,21 +289,21 @@ export default function ProductForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-dark mb-1">Power Range</label>
+          <label className="block text-sm font-medium text-dark mb-1">{t("admin.powerRange")}</label>
           <input
             type="text"
             required
             name="power"
             value={formData.power || ""}
             onChange={handleChange}
-            placeholder="e.g. 5kW - 10kW"
+            placeholder={t("admin.powerPlaceholder")}
             className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none"
           />
         </div>
 
         <div className="md:col-span-2 grid grid-cols-1 lg:grid-cols-[1fr_180px] gap-4">
           <div>
-            <label className="block text-sm font-medium text-dark mb-1">Main image URL</label>
+            <label className="block text-sm font-medium text-dark mb-1">{t("admin.mainImageUrl")}</label>
             <input
               type="text"
               required
@@ -319,7 +321,7 @@ export default function ProductForm({
                   disabled={isUploading}
                   className="sr-only"
                 />
-                {uploadingTarget === "main" ? "Uploading..." : "Upload main image"}
+                {uploadingTarget === "main" ? t("admin.uploading") : t("admin.uploadMainImage")}
               </label>
             </div>
           </div>
@@ -340,7 +342,7 @@ export default function ProductForm({
         <div className="md:col-span-2">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-3">
             <label className="block text-sm font-medium text-dark">
-              Hình ảnh chi tiết bổ sung
+              {t("admin.galleryLabel")}
             </label>
             <label className="inline-flex w-fit items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 text-dark text-sm font-medium rounded-lg cursor-pointer transition-colors">
               <input
@@ -351,7 +353,7 @@ export default function ProductForm({
                 disabled={isUploading}
                 className="sr-only"
               />
-              {uploadingTarget === "gallery" ? "Đang tải ảnh..." : "Chọn nhiều ảnh từ máy"}
+              {uploadingTarget === "gallery" ? t("admin.uploadingImages") : t("admin.selectMultipleImages")}
             </label>
           </div>
 
@@ -359,7 +361,7 @@ export default function ProductForm({
             value={galleryText}
             onChange={(e) => setGalleryText(e.target.value)}
             rows={4}
-            placeholder="One image URL per line"
+            placeholder={t("admin.oneImagePerLine")}
             className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none resize-y"
           />
 
@@ -383,21 +385,21 @@ export default function ProductForm({
                       onClick={() => setGalleryImageAsMain(image)}
                       className="flex-1 px-2 py-1 text-primary hover:bg-blue-50"
                     >
-                      Main
+                      {t("admin.setAsMain")}
                     </button>
                     <button
                       type="button"
                       onClick={() => removeGalleryImage(image)}
                       className="flex-1 px-2 py-1 text-red-500 hover:bg-red-50"
                     >
-                      Remove
+                      {t("admin.remove")}
                     </button>
                   </div>
                 </div>
               ))
             ) : (
               <div className="col-span-full rounded-lg border border-dashed border-gray-200 bg-gray-50 px-4 py-6 text-center text-sm text-gray-500">
-                No additional images.
+                {t("admin.noAdditionalImages")}
               </div>
             )}
           </div>
@@ -405,7 +407,7 @@ export default function ProductForm({
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-dark mb-1">Description</label>
+        <label className="block text-sm font-medium text-dark mb-1">{t("admin.description")}</label>
         <textarea
           required
           name="description"
@@ -419,26 +421,26 @@ export default function ProductForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label className="block text-sm font-medium text-dark mb-1">
-            Features
+            {t("admin.features")}
           </label>
           <textarea
             value={featuresText}
             onChange={(e) => setFeaturesText(e.target.value)}
             rows={5}
-            placeholder="One feature per line"
+            placeholder={t("admin.oneFeaturePerLine")}
             className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none resize-y"
           />
         </div>
 
         <div>
           <label className="block text-sm font-medium text-dark mb-1">
-            Specifications
+            {t("admin.specifications")}
           </label>
           <textarea
             value={specsText}
             onChange={(e) => setSpecsText(e.target.value)}
             rows={5}
-            placeholder="Power: 10kW"
+            placeholder={t("admin.specsPlaceholder")}
             className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-primary focus:border-primary outline-none resize-y"
           />
         </div>
@@ -453,7 +455,7 @@ export default function ProductForm({
             onChange={handleChange}
             className="w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary"
           />
-          <span className="text-sm font-medium text-dark">Mark as New Product</span>
+          <span className="text-sm font-medium text-dark">{t("admin.markAsNew")}</span>
         </label>
 
         <label className="flex items-center gap-2 cursor-pointer">
@@ -464,7 +466,7 @@ export default function ProductForm({
             onChange={handleChange}
             className="w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary"
           />
-          <span className="text-sm font-medium text-dark">Feature on Homepage</span>
+          <span className="text-sm font-medium text-dark">{t("admin.featureOnHomepage")}</span>
         </label>
       </div>
 
@@ -475,14 +477,14 @@ export default function ProductForm({
           disabled={isLoading || isUploading}
           className="px-5 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors"
         >
-          Cancel
+          {t("admin.cancel")}
         </button>
         <button
           type="submit"
           disabled={isLoading || isUploading}
           className="px-5 py-2 bg-primary text-white font-medium rounded-lg hover:bg-[#e06612] transition-colors disabled:opacity-50"
         >
-          {isLoading ? "Saving..." : "Save Product"}
+          {isLoading ? t("admin.saving") : t("admin.saveProduct")}
         </button>
       </div>
     </form>

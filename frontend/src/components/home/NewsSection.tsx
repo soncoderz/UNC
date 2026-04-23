@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import { cloneNews } from "@/data/uniconvtor";
@@ -9,11 +8,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 export default function NewsSection() {
   const { t } = useLanguage();
-  const [activePage, setActivePage] = useState(0);
-  const newsPages = Array.from({ length: Math.ceil(cloneNews.length / 3) }, (_, index) =>
-    cloneNews.slice(index * 3, index * 3 + 3)
-  );
-  const activeNews = newsPages[activePage] || newsPages[0] || [];
+  const activeNews = cloneNews.slice(0, 3);
 
   return (
     <section className="main ind-new overflow-hidden" id="news">
@@ -55,20 +50,6 @@ export default function NewsSection() {
               </Link>
               <span className="text-base ind-newLabel">{t("home.corporateNews")}</span>
             </SlideIn>
-          ))}
-        </div>
-
-        <div className="swiper-pagination ind-new-pager">
-          {newsPages.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`Go to news page ${index + 1}`}
-              className={`ind-new-dot ${
-                activePage === index ? "ind-new-dot-active" : ""
-              }`}
-              onClick={() => setActivePage(index)}
-            />
           ))}
         </div>
       </div>

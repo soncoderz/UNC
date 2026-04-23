@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useLanguage } from "@/context/LanguageContext";
 import api from "@/services/api";
 import type { Product } from "@/types/api";
 import ProductTable from "@/components/admin/ProductTable";
@@ -9,6 +10,7 @@ import ProductForm from "@/components/admin/ProductForm";
 
 export default function AdminDashboard() {
   const { token } = useAuth();
+  const { t } = useLanguage();
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   
@@ -82,7 +84,7 @@ export default function AdminDashboard() {
       await api.deleteProductAdmin(token, id);
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } catch {
-      alert("Failed to delete product");
+      alert(t("admin.deleteFailed"));
     }
   };
 
@@ -90,8 +92,8 @@ export default function AdminDashboard() {
     <div className="max-w-6xl mx-auto">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-dark">Products Management</h1>
-          <p className="text-gray-500 mt-1">Manage your complete product catalog.</p>
+          <h1 className="text-2xl font-bold text-dark">{t("admin.productsManagement")}</h1>
+          <p className="text-gray-500 mt-1">{t("admin.manageCatalog")}</p>
         </div>
         
         {!isFormOpen && (
@@ -99,7 +101,7 @@ export default function AdminDashboard() {
             onClick={handleOpenCreateForm}
             className="px-5 py-2.5 bg-primary text-white font-medium rounded-lg hover:bg-[#e06612] transition-colors shadow-sm flex items-center gap-2"
           >
-            <span className="text-xl leading-none">+</span> Add Product
+            <span className="text-xl leading-none">+</span> {t("admin.addProduct")}
           </button>
         )}
       </div>
@@ -117,7 +119,7 @@ export default function AdminDashboard() {
       ) : isLoading ? (
         <div className="text-center py-20 bg-white rounded-xl border border-gray-100">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-500">Loading products...</p>
+          <p className="text-gray-500">{t("admin.loadingProducts")}</p>
         </div>
       ) : (
         <ProductTable 
