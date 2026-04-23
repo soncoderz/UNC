@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import RemoteImage from "@/components/uniconvtor/RemoteImage";
 import SlideIn from "@/components/animations/SlideIn";
 
@@ -19,6 +22,9 @@ export default function InnerHero({
   current = title,
   className = "",
 }: InnerHeroProps) {
+  const pathname = usePathname();
+  const currentHref = pathname || "/";
+
   return (
     <section className={`clone-inner-hero ${className}`.trim()}>
       <RemoteImage
@@ -53,7 +59,9 @@ export default function InnerHero({
         <span>Position:</span>
         <Link href="/">FrontPage</Link>
         <span>&gt;</span>
-        <Link href="#">{current}</Link>
+        <Link href={currentHref} aria-current="page">
+          {current}
+        </Link>
       </SlideIn>
     </section>
   );

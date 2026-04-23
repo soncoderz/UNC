@@ -2133,6 +2133,14 @@ img {
 
 .clone-breadcrumb a {
   color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.clone-breadcrumb a:hover,
+.clone-breadcrumb a:focus-visible {
+  color: #ffc400;
+  text-shadow: 0 0 12px rgba(255, 196, 0, 0.55);
+  outline: none;
 }
 
 .clone-breadcrumb img {
