@@ -3483,7 +3483,22 @@ img {
 
 .clone-footer-arrow {
   justify-content: center;
-  border: 1px solid #1a6fef;
+  justify-self: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.clone-footer-arrow:hover {
+  transform: translateX(3px);
+}
+
+.clone-footer-arrow img {
+  display: block;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
 }
 
 .clone-footer-main {
