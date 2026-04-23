@@ -3480,7 +3480,16 @@ img {
 
 .clone-footer-qr {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.clone-footer-qr img {
+  display: block;
+  width: 116px;
+  height: 116px;
+  flex: 0 0 auto;
+  object-fit: contain;
 }
 
 .clone-footer-bottom {
@@ -3555,7 +3564,7 @@ img {
   }
 
   .clone-footer-qr {
-    justify-content: flex-start;
+    justify-content: center;
   }
 }
 
