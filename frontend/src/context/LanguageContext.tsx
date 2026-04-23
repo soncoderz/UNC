@@ -309,8 +309,8 @@ const translations = {
       cta: "Khám phá sản phẩm",
       ctaSecondary: "Liên hệ",
       globalDesign: "Sơ đồ toàn cầu",
-      powerConverterLeader: "",
-
+      powerConverterLeader: "Trở thành người đi đầu trong thiết bị chuyển đổi điện tử công suất",
+      heroTitle2: "Đổi mới sáng tạo, kiến tạo sức mạnh xanh",
       heroSubtitle2: "Cung cấp các giải pháp năng lượng sạch cho thế giới",
       solutionsTitle: "Giải pháp",
       solutionsSubtitle: "Nhiều chế độ vận hành giúp đáp ứng linh hoạt các kịch bản khác nhau.",

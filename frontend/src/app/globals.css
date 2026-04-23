@@ -1543,7 +1543,8 @@ img {
 
 .unc-home .ind-programme {
   padding-left: 12.5%;
-  margin-top: clamp(70px, 5.208vw, 100px);
+  margin-top: 0;
+  padding-top: clamp(40px, 4vw, 80px);
   min-height: clamp(640px, 41.666vw, 800px);
   position: relative;
 }
