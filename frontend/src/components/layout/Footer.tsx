@@ -171,7 +171,7 @@ export default function Footer() {
 
       <FadeIn delay={0.2} duration={0.8} className="clone-footer-bottom" once={false}>
         <span>PV Inverter | Solar Inverter | Off Grid Inverter | Solar Energy Company</span>
-        <span>Developers: Eshine</span>
+        <span>Developers: Dev.Tu_Dev.Son</span>
       </FadeIn>
     </footer>
     {showMobileNav ? (
