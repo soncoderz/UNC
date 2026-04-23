@@ -75,7 +75,7 @@ export default function Footer() {
     <footer className="clone-footer overflow-hidden">
       {showContactPanel ? (
         <SlideIn direction="up" distance={40} className="contact-section py-16" once={false}>
-          <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative max-w-350 mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
               <div>
                 <h2 className="text-3xl font-bold text-white mb-2">

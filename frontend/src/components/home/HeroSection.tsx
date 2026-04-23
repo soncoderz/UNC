@@ -22,7 +22,7 @@ export default function HeroSection() {
   const isCenter = content.align === "center";
 
   return (
-    <section className="relative w-full h-[600px] md:h-[800px] overflow-hidden bg-[#0a64bf] group unc-home-hero" aria-label={t("home.solutionsTitle")}>
+    <section className="relative w-full h-150 md:h-200 overflow-hidden bg-[#0a64bf] group unc-home-hero" aria-label={t("home.solutionsTitle")}>
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.div
           key={activeSlide}

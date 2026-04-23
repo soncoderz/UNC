@@ -3,12 +3,14 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { useLanguage } from "@/context/LanguageContext";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import useHasMounted from "@/hooks/useHasMounted";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const { user, isAuthenticated, isAdmin, isLoading } = useAuth();
+  const { t } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
   const mounted = useHasMounted();
@@ -32,11 +34,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   const navItems = [
-    { name: "Products", href: "/admin", icon: "📦" },
-    // Future expansion:
-    // { name: "News", href: "/admin/news", icon: "📰" },
-    // { name: "Company", href: "/admin/company", icon: "🏢" },
-    // { name: "Settings", href: "/admin/settings", icon: "⚙️" },
+    { name: t("admin.products"), href: "/admin", icon: "📦" },
   ];
 
   return (
@@ -44,8 +42,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Sidebar */}
       <aside className="admin-sidebar w-64 bg-white border-r border-gray-200 hidden md:block sticky overflow-y-auto z-40">
         <div className="p-6 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-dark">Admin Panel</h2>
-          <p className="text-sm text-gray mt-1">Welcome, {user?.name}</p>
+          <h2 className="text-xl font-bold text-dark">{t("admin.panel")}</h2>
+          <p className="text-sm text-gray mt-1">{t("admin.welcome")} {user?.name}</p>
         </div>
         <nav className="p-4 space-y-1">
           {navItems.map((item) => {
